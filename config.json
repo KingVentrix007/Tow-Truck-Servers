@@ -1,0 +1,12 @@
+{
+    "servers": [
+        {
+            "displayName": "Test",
+            "path": "./servers/Test",
+            "gameVersion": "1.18.2",
+            "javaVersion": "17.0.6",
+            "javaPath": "C:\\Program Files\\Java\\jdk-17\\bin\\java.exe",
+            "ram": "4G"
+        }
+    ]
+}
