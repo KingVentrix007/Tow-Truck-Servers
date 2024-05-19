@@ -74,15 +74,17 @@ def validate_int_input(P):
         return True
     return False
 
-def mod_menu(path):
-    window = ctk.CTk()
-    window.title("Mod Menu")
-    window.geometry("800x600")
+def mod_menu(path,back_window=None):
+    clear_window()
+    # print("HERE",path)
+    # window = ctk.CTk()
+    # window.title("Mod Menu")
+    # window.geometry("800x600")
 
-    canvas = ctk.CTkCanvas(window)
+    canvas = ctk.CTkCanvas(app)
     canvas.pack(side=ctk.LEFT, fill=ctk.BOTH, expand=True)
 
-    scrollbar = ctk.CTkScrollbar(window, command=canvas.yview)
+    scrollbar = ctk.CTkScrollbar(app, command=canvas.yview)
     scrollbar.pack(side=ctk.RIGHT, fill=ctk.Y)
 
     canvas.configure(yscrollcommand=scrollbar.set,background="#2b2b2b",highlightthickness=0)
@@ -155,11 +157,16 @@ def mod_menu(path):
         canvas.configure(scrollregion=canvas.bbox('all'))
 
     frame.bind('<Configure>', on_configure)
-
+    def back():
+        clear_window()
+        if(back_window==None):
+            ManageServerFunction()
     # Position the frame on the left side of the window
     frame.pack(side=ctk.LEFT, fill=ctk.Y)
-
-    window.mainloop()
+    BackBtn = customtkinter.CTkButton(app,text="Back",command=back)
+    BackBtn.pack(side=ctk.BOTTOM)
+    
+    # window.mainloop()
 # Example usage:
 # mod_menu("F:/ServerWrapper/servers/Test")
 # 
@@ -173,7 +180,9 @@ def edit_properties_window(properties, file_path):
             else:
                 properties[key] = widget.get()
         save_properties(file_path, properties)
-        window.destroy()
+        # window.destroy()
+        clear_window()
+        ManageServerFunction()
         messagebox.showinfo("Save", "Properties saved successfully")
 
     def on_mousewheel(event):
@@ -416,20 +425,23 @@ def ManageServerFunction():
                 process.stdin.flush()
 
         def del_server_callback():
-            server_window.destroy()
+            # server_window.destroy()
             del_server(server_info.get('displayName', "Unnamed Server"))
-
-        server_window = ctk.CTk()
-        server_window.geometry("800x600")
-        server_window.title(server_info.get('displayName', "Server"))
+        def back():
+            clear_window()
+            ManageServerFunction()
+        clear_window()
+        # server_window = ctk.CTk()
+        # server_window.geometry("800x600")
+        # server_window.title(server_info.get('displayName', "Server"))
 
         # Create a frame for the top menu bar
-        menu_bar = ctk.CTkFrame(server_window)
+        menu_bar = ctk.CTkFrame(app)
         menu_bar.pack(side=tk.TOP, fill=tk.X)
 
         delete_button = ctk.CTkButton(menu_bar, text="Delete", command=del_server_callback)
         delete_button.pack(side=tk.LEFT, padx=5, pady=5)
-
+        back_button = ctk.CTkButton(menu_bar,text="Back", command=back)
         run_button = ctk.CTkButton(menu_bar, text="Run", command=run_server)
         run_button.pack(side=tk.LEFT, padx=5, pady=5)
 
@@ -438,17 +450,17 @@ def ManageServerFunction():
 
         mod_btn = ctk.CTkButton(menu_bar, text="Mod Menu",command=lambda: mod_menu(server_info.get('path','null')))
         mod_btn.pack(side=tk.LEFT, padx=5, pady=5)
-
-        text_widget = ScrolledText(server_window, wrap=tk.WORD)
+        back_button.pack(side=tk.LEFT,padx=5, pady=5)
+        text_widget = ScrolledText(app, wrap=tk.WORD)
         text_widget.pack(fill=tk.BOTH, expand=True)
 
-        command_entry = ctk.CTkEntry(server_window)
+        command_entry = ctk.CTkEntry(app)
         command_entry.pack(fill=tk.X, pady=5)
 
-        send_button = ctk.CTkButton(server_window, text="Send Command", command=send_command)
+        send_button = ctk.CTkButton(app, text="Send Command", command=send_command)
         send_button.pack(pady=5)
 
-        server_window.mainloop()
+        # server_window.mainloop()
     for idx, server in enumerate(servers):
         display_name = server.get('displayName', f"Server {idx+1}")
         server_button = customtkinter.CTkButton(app, text=display_name, command=lambda server_info=server: create_server_window(server_info))
