@@ -173,6 +173,7 @@ def mod_menu(path,back_window=None):
 
 
 def edit_properties_window(properties, file_path):
+    clear_window()
     def save_changes():
         for key, widget in widgets.items():
             if isinstance(widget, tk.BooleanVar):
@@ -188,13 +189,13 @@ def edit_properties_window(properties, file_path):
     def on_mousewheel(event):
         canvas.yview_scroll(-1 * int(event.delta / 120), "units")
 
-    window = ctk.CTk()
-    window.title("Edit Server Properties")
-    window.geometry("800x600")
+    # window = ctk.CTk()
+    # window.title("Edit Server Properties")
+    # window.geometry("800x600")
 
     ctk.set_appearance_mode("dark")  # Choose dark theme
-    window.configure(bg="#2b2b2b")
-    main_frame = ctk.CTkFrame(window)
+    # window.configure(bg="#2b2b2b")
+    main_frame = ctk.CTkFrame(app)
     main_frame.pack(fill=tk.BOTH, expand=True)
     # main_frame.config(bg="#2b2b2b")
     canvas = ctk.CTkCanvas(main_frame,bg="#2b2b2b")
@@ -213,7 +214,7 @@ def edit_properties_window(properties, file_path):
     widgets = {}
     row = 0
 
-    vcmd = (window.register(validate_int_input), '%P')
+    vcmd = (app.register(validate_int_input), '%P')
 
     for key, value in properties.items():
         label = ctk.CTkLabel(sub_frame, text=key)
@@ -239,11 +240,14 @@ def edit_properties_window(properties, file_path):
 
     sub_frame.update_idletasks()  # Ensure sub_frame is updated with widgets
     canvas.config(scrollregion=canvas.bbox("all"))  # Update scroll region
-
-    save_button = ctk.CTkButton(window, text="Save", command=save_changes)
+    def back():
+        clear_window()
+        ManageServerFunction()
+    save_button = ctk.CTkButton(app, text="Save", command=save_changes)
     save_button.pack(side=tk.RIGHT, padx=5, pady=5, fill=tk.X)
-
-    window.mainloop()
+    back_button = ctk.CTkButton(app, text="Back",command=back)
+    back_button.pack(side=tk.RIGHT, padx=5, pady=5, fill=tk.X)
+    # window.mainloop()
 
 def adjust_path():
     current_path = os.getcwd()
