@@ -11,7 +11,7 @@ customtkinter.set_default_color_theme("blue")
 app = customtkinter.CTk()
 app.geometry("720x480")
 app.title("Tow Truck Server")
-app.iconbitmap("./clean/assets/images/window_icon.ico") #Remove ./clean when finished
+app.iconbitmap("./assets/images/window_icon.ico") #Remove ./clean when finished
 
 def main_screen():
     clear_window(app)
