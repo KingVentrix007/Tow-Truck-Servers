@@ -2,8 +2,9 @@
 
 ## Welcome
 
-Welcome to **Tow Truck Servers**. A dynamic server wrapper designed to streamline the creation, modification and management of Minecraft servers. Our aim is to provide and intuitive UI for the creation of servers, as well as an efficient system for managing installed mods and words
+Welcome to **Tow Truck Servers**. A dynamic server wrapper designed to streamline the creation, modification and management of Minecraft servers. Our aim is to provide an intuitive UI for the creation of servers, as well as an efficient system for managing mods, players and more. 
 
+Let us take care of the hard stuff, so you can focus on what's important. Playing minecraft
 ## Features
 
 ### Implemented
