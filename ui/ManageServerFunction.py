@@ -1,32 +1,35 @@
 import tkinter as tk
-from tkinter import messagebox
-from tkinter.scrolledtext import ScrolledText
 import subprocess
-import customtkinter
-import customtkinter as ctk
-import makeserver as makeserver
-import os
-import threading
-from CTkSpinbox import *
-from server_utils.server_utils import *
-# from 
 from tkinter import messagebox
-from tkinter import ttk
-def ManageServerFunction():
-    clear_window()
+import threading
+
+from tkinter.scrolledtext import ScrolledText
+import customtkinter as ctk
+from ui.general import clear_window
+from server_utils.create_server import extract_libraries_path
+from server_utils.server_manager import get_all_servers,load_properties,del_server
+from file_utils.path_mangment import adjust_path
+from ui.settings import edit_properties_window
+from ui.ModMenu import mod_menu
+import os
+
+def ManageServerFunction(window,parent_screen_function):
+    clear_window(window)
 
     servers = get_all_servers()
-
+    def back_window():
+        clear_window(window)
+        ManageServerFunction(window,parent_screen_function)
     def create_server_window(server_info):
         global process  # Ensure process is global
 
         def open_settings():
             path = server_info.get('path', "/fake/")
             properties_file = os.path.join(path, "server.properties")
-            print("properties_file ==",properties_file)
+            print("properties_file ==", properties_file)
             if os.path.exists(properties_file):
                 properties = load_properties(properties_file)
-                edit_properties_window(properties, properties_file)
+                edit_properties_window(properties, properties_file,window,back_window)
             else:
                 messagebox.showerror("Error", f"server.properties file not found at {properties_file}")
 
@@ -38,7 +41,7 @@ def ManageServerFunction():
             java = server_info.get('javaPath', "java")
             os.chdir(path)
             print("PATH == ", os.getcwd())
-            lib = makeserver.extract_libraries_path("run.bat")
+            lib = extract_libraries_path("run.bat")
             ram = server_info.get('ram', "2G")
             cmd = f"{java} -Xmx{ram} {lib} nogui %*"
 
@@ -49,8 +52,11 @@ def ManageServerFunction():
                 for line in iter(process.stdout.readline, ""):
                     print(line)
                     formatted_output = format_output_as_html(line)
-                    text_widget.insert(tk.END, formatted_output)
-                    text_widget.see(tk.END)  # Auto-scroll to the end
+                    try:
+                        text_widget.insert(tk.END, formatted_output)
+                        text_widget.see(tk.END)  # Auto-scroll to the end
+                    except Exception as e:
+                        pass
                 process.stdout.close()
                 process.wait()
 
@@ -78,21 +84,17 @@ def ManageServerFunction():
         def del_server_callback():
             # server_window.destroy()
             del_server(server_info.get('displayName', "Unnamed Server"))
-        def back():
-            clear_window()
-            ManageServerFunction()
-        clear_window()
-        # server_window = ctk.CTk()
-        # server_window.geometry("800x600")
-        # server_window.title(server_info.get('displayName', "Server"))
+        # clear_window()
+        server_window = ctk.CTk()
+        server_window.geometry("800x600")
+        server_window.title(server_info.get('displayName', "Server"))
 
         # Create a frame for the top menu bar
-        menu_bar = ctk.CTkFrame(app)
+        menu_bar = ctk.CTkFrame(server_window)
         menu_bar.pack(side=tk.TOP, fill=tk.X)
 
         delete_button = ctk.CTkButton(menu_bar, text="Delete", command=del_server_callback)
         delete_button.pack(side=tk.LEFT, padx=5, pady=5)
-        back_button = ctk.CTkButton(menu_bar,text="Back", command=back)
         run_button = ctk.CTkButton(menu_bar, text="Run", command=run_server)
         run_button.pack(side=tk.LEFT, padx=5, pady=5)
 
@@ -101,21 +103,21 @@ def ManageServerFunction():
 
         mod_btn = ctk.CTkButton(menu_bar, text="Mod Menu",command=lambda: mod_menu(server_info.get('path','null')))
         mod_btn.pack(side=tk.LEFT, padx=5, pady=5)
-        back_button.pack(side=tk.LEFT,padx=5, pady=5)
-        text_widget = ScrolledText(app, wrap=tk.WORD)
+        # back_button.pack(side=tk.LEFT,padx=5, pady=5)
+        text_widget = ScrolledText(server_window, wrap=tk.WORD)
         text_widget.pack(fill=tk.BOTH, expand=True)
 
-        command_entry = ctk.CTkEntry(app)
+        command_entry = ctk.CTkEntry(server_window)
         command_entry.pack(fill=tk.X, pady=5)
 
-        send_button = ctk.CTkButton(app, text="Send Command", command=send_command)
+        send_button = ctk.CTkButton(server_window, text="Send Command", command=send_command)
         send_button.pack(pady=5)
 
-        # server_window.mainloop()
+        server_window.mainloop()
     for idx, server in enumerate(servers):
         display_name = server.get('displayName', f"Server {idx+1}")
-        server_button = customtkinter.CTkButton(app, text=display_name, command=lambda server_info=server: create_server_window(server_info))
+        server_button = ctk.CTkButton(window, text=display_name, command=lambda server_info=server: create_server_window(server_info))
         server_button.grid(row=idx, column=0, padx=10, pady=5)
 
-    back_button = customtkinter.CTkButton(app, text="Back", command=main_screen)
+    back_button = ctk.CTkButton(window, text="Back", command=parent_screen_function)
     back_button.grid(row=len(servers), column=0, pady=10)
