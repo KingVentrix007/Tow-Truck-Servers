@@ -9,6 +9,8 @@ from file_utils.path_mangment import adjust_path
 import json
 import re
 import subprocess
+import psutil
+from tkinter import messagebox
 def add_entry(name: str, game_version: str, config_path='config.json',img=None):
     display_name = name
 
@@ -78,7 +80,7 @@ def add_entry(name: str, game_version: str, config_path='config.json',img=None):
         print("New entry added successfully.")
     except Exception as e:
         print(f"Error writing to config file: {e}")
-# from server_utils.server_manager import add_entry
+
 def get_server(display_name: str, config_path='config.json'):
     # Load existing config
     try:
@@ -106,7 +108,7 @@ def install_server(name,jar_file,modloader):
     else:
         return -1
 
-def make_server(name, description, version, seed,img,modloader):
+def make_server(name, description, version,img,modloader):
     valid_server_name = name.replace(" ","")
     if(os.path.exists(valid_server_name)):
         return -1
@@ -120,8 +122,8 @@ def make_server(name, description, version, seed,img,modloader):
     def on_complete(name, version):
         jar_download_window.destroy()
         install_server(name, version, modloader)
-        adjust_path()
-        add_entry(name=name, game_version=version,description=description,modloader=modloader,img=img)
+        adjust_path() #TODO: Redo Path handling, way to much os.chdir() and back and forth, look into better solutions
+        add_entry(name=name, game_version=version,description=description,modloader=modloader,img=img) #TODO: Fix this, wrong values getting passed
         
 
     

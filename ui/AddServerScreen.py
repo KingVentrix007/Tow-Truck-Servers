@@ -1,3 +1,8 @@
+
+#TODO Add button for modloader, forge/fabric. Must be passed to make_server(): modloader="" 
+#TODO Images for servers must be transferred into the servers folders
+#TODO Redo Path handling, way to much os.chdir() and back and forth, look into better solutions
+
 import tkinter as tk
 from tkinter import filedialog
 import customtkinter
@@ -44,6 +49,7 @@ def AddServerScreen(window,parent_screen_function):
         description = server_description_entry.get()
         version = game_version_combobox.get()  # Get the selected version from the combobox
         seed = seed_label.cget("text")  # Get the current text of the seed label
+        #! ADD modloader values
         make_server(name, description, version, seed,img=file_path)  # Call the make_server function with the provided parameters
     
     add_server_button = customtkinter.CTkButton(window, text="Add Server", command=add_server)
