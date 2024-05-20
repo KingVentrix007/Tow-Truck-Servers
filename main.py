@@ -16,9 +16,12 @@ from CTkSpinbox import *
 # from 
 from tkinter import messagebox
 from tkinter import ttk
+main_icons_width = 40
+main_icons_hight = 40
+
 # System Settings
 customtkinter.set_appearance_mode("System")
-customtkinter.set_default_color_theme("green")
+customtkinter.set_default_color_theme("blue")
 def animate_tow_truck(canvas, image, x, y, dx):
     canvas.move(image, dx, 0)
     if canvas.coords(image)[0] > 100:
@@ -472,17 +475,86 @@ def ManageServerFunction():
 
     back_button = customtkinter.CTkButton(app, text="Back", command=main_screen)
     back_button.grid(row=len(servers), column=0, pady=10)
+class Tooltip:
+    def __init__(self, widget, text):
+        self.widget = widget
+        self.text = text
+        self.tooltip_window = None
+        widget.bind("<Enter>", self.show_tooltip)
+        widget.bind("<Leave>", self.hide_tooltip)
 
+    def show_tooltip(self, event=None):
+        if self.tooltip_window or not self.text:
+            return
+        x, y, _, _ = self.widget.bbox("insert")
+        x += self.widget.winfo_rootx() + 25
+        y += self.widget.winfo_rooty() + 25
+        self.tooltip_window = tw = tk.Toplevel(self.widget)
+        tw.wm_overrideredirect(True)
+        tw.wm_geometry(f"+{x}+{y}")
+        label = tk.Label(tw, text=self.text, justify='left',
+                         background="#ffffe0", relief='solid', borderwidth=1,
+                         font=("tahoma", "8", "normal"))
+        label.pack(ipadx=1)
+
+    def hide_tooltip(self, event=None):
+        tw = self.tooltip_window
+        self.tooltip_window = None
+        if tw:
+            tw.destroy()
 def main_screen():
     clear_window()
-    AddServer = customtkinter.CTkButton(app, text="Add Server", command=AddServerScreen)
-    AddServer.place(relx=0.5, rely=0.5, anchor=customtkinter.CENTER)
 
-    ManageServer = customtkinter.CTkButton(app, text="Manage Server", command=ManageServerFunction)
-    ManageServer.place(relx=0.5, rely=0.56, anchor=customtkinter.CENTER)
+    # Create a frame for the side menu
+    side_menu = customtkinter.CTkFrame(app, width=200)
+    side_menu.place(relx=0.0, rely=0.0, relheight=1.0, anchor='nw')
+    
+    # Define the dimensions for the icons and buttons
+    # main_icons_width = 80
+    # main_icons_height = 80
 
-    Credits = customtkinter.CTkButton(app, text="Credits")
-    Credits.place(relx=1.0, rely=1.0, anchor=customtkinter.SE)
+    AddServer_icon = customtkinter.CTkImage(
+        light_image=Image.open('./icons8-plus-80.png'),
+        dark_image=Image.open('./icons8-plus-80.png'),
+        size=(main_icons_width, main_icons_hight)
+    )
+    AddServer = customtkinter.CTkButton(
+        side_menu,
+        text="",
+        command=AddServerScreen,
+        image=AddServer_icon,
+        width=main_icons_width,
+        height=main_icons_hight
+    )
+    AddServer.pack(pady=10, padx=10)
+    Tooltip(AddServer, "Add a new server")
+
+    ManageServer_icon = customtkinter.CTkImage(
+        light_image=Image.open('./icons8-bookmark-100.png'),
+        dark_image=Image.open('./icons8-bookmark-100.png'),
+        size=(main_icons_width, main_icons_hight)
+    )
+    ManageServer = customtkinter.CTkButton(
+        side_menu,
+        text="",
+        command=ManageServerFunction,
+        image=ManageServer_icon,
+        width=main_icons_width,
+        height=main_icons_hight
+    )
+    ManageServer.pack(pady=10, padx=10)
+    Tooltip(ManageServer, "Manage existing servers")
+
+    # Add the Credits button at the bottom of the side menu
+    Credits = customtkinter.CTkButton(
+        side_menu,
+        text="Credits",
+        width=main_icons_width,
+        height=main_icons_hight
+    )
+    Credits.pack(pady=10, padx=10, side='bottom')
+    Tooltip(Credits, "View credits")
+
 
 
 # Create canvas
