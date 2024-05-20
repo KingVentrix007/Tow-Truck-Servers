@@ -1,7 +1,9 @@
 import requests
-
+import json
 # Define the URL to get the loader version information
 loader_info_url = 'https://meta.fabricmc.net/v2/versions/loader/1.19.2'
+
+
 
 # Send a GET request to the URL
 response = requests.get(loader_info_url)
@@ -33,3 +35,5 @@ if response.status_code == 200:
         print('No stable versions found in the response.')
 else:
     print('Failed to fetch the loader version information.')
+
+

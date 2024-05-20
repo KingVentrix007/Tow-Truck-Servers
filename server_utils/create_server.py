@@ -1,6 +1,6 @@
 # this is the makeserver file, can u do the same:
 import re
-import forgepy
+from mods.forge import GetRecommendedURL
 import requests
 import os
 import tkinter as tk
@@ -11,7 +11,7 @@ import json
 from tkinter import messagebox
 import psutil
 def download_server_jar(name:str, version:str, progress_var, on_complete):
-    latest = forgepy.GetLatestURL(version) # This must always have the version var past to it. 
+    latest = GetRecommendedURL(version) # This must always have the version var past to it. 
     response = requests.get(latest, stream=True)
     total_size = int(response.headers.get('content-length', 0))
     block_size = 1024 # 1 Kibibyte
