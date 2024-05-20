@@ -198,7 +198,7 @@ def add_entry(name: str, game_version: str, config_path='config.json',img=None):
 
     # Load existing config
     try:
-        with open(config_path, 'r') as file:
+        with open(config_path, 'r', encoding='utf-8') as file:
             config = json.load(file)
     except FileNotFoundError:
         config = {"servers": []}

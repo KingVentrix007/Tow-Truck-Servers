@@ -5,6 +5,7 @@ from ui.general import clear_window
 from config.ui_config import main_icons_width,main_icons_hight
 from ui.AddServerScreen import AddServerScreen
 from ui.ManageServerFunction import ManageServerFunction
+from ui.Credits  import DisplayCredits
 customtkinter.set_appearance_mode("System")
 customtkinter.set_default_color_theme("blue")
 app = customtkinter.CTk()
@@ -56,13 +57,14 @@ def main_screen():
     # Tooltip(ManageServer, "Manage existing servers")
 
     # # Add the Credits button at the bottom of the side menu
-    # Credits = customtkinter.CTkButton(
-    #     side_menu,
-    #     text="Credits",
-    #     width=main_icons_width,
-    #     height=main_icons_hight
-    # )
-    # Credits.pack(pady=10, padx=10, side='bottom')
+    Credits = customtkinter.CTkButton(
+        side_menu,
+        command=DisplayCredits,
+        text="Credits",
+        width=main_icons_width,
+        height=main_icons_hight
+    )
+    Credits.pack(pady=10, padx=10, side='bottom')
     # Tooltip(Credits, "View credits")
 
 main_screen()
