@@ -1,3 +1,17 @@
+import tkinter as tk
+from tkinter import messagebox
+from tkinter.scrolledtext import ScrolledText
+import subprocess
+import customtkinter
+import customtkinter as ctk
+import makeserver as makeserver
+import os
+import threading
+from CTkSpinbox import *
+from server_utils.server_utils import *
+# from 
+from tkinter import messagebox
+from tkinter import ttk
 def ManageServerFunction():
     clear_window()
 
@@ -35,11 +49,8 @@ def ManageServerFunction():
                 for line in iter(process.stdout.readline, ""):
                     print(line)
                     formatted_output = format_output_as_html(line)
-                    try:
-                        text_widget.insert(tk.END, formatted_output)
-                        text_widget.see(tk.END)  # Auto-scroll to the end
-                    except Exception as e:
-                        pass
+                    text_widget.insert(tk.END, formatted_output)
+                    text_widget.see(tk.END)  # Auto-scroll to the end
                 process.stdout.close()
                 process.wait()
 
@@ -70,13 +81,13 @@ def ManageServerFunction():
         def back():
             clear_window()
             ManageServerFunction()
-        # clear_window()
-        server_window = ctk.CTk()
-        server_window.geometry("800x600")
-        server_window.title(server_info.get('displayName', "Server"))
+        clear_window()
+        # server_window = ctk.CTk()
+        # server_window.geometry("800x600")
+        # server_window.title(server_info.get('displayName', "Server"))
 
         # Create a frame for the top menu bar
-        menu_bar = ctk.CTkFrame(server_window)
+        menu_bar = ctk.CTkFrame(app)
         menu_bar.pack(side=tk.TOP, fill=tk.X)
 
         delete_button = ctk.CTkButton(menu_bar, text="Delete", command=del_server_callback)
@@ -90,17 +101,17 @@ def ManageServerFunction():
 
         mod_btn = ctk.CTkButton(menu_bar, text="Mod Menu",command=lambda: mod_menu(server_info.get('path','null')))
         mod_btn.pack(side=tk.LEFT, padx=5, pady=5)
-        # back_button.pack(side=tk.LEFT,padx=5, pady=5)
-        text_widget = ScrolledText(server_window, wrap=tk.WORD)
+        back_button.pack(side=tk.LEFT,padx=5, pady=5)
+        text_widget = ScrolledText(app, wrap=tk.WORD)
         text_widget.pack(fill=tk.BOTH, expand=True)
 
-        command_entry = ctk.CTkEntry(server_window)
+        command_entry = ctk.CTkEntry(app)
         command_entry.pack(fill=tk.X, pady=5)
 
-        send_button = ctk.CTkButton(server_window, text="Send Command", command=send_command)
+        send_button = ctk.CTkButton(app, text="Send Command", command=send_command)
         send_button.pack(pady=5)
 
-        server_window.mainloop()
+        # server_window.mainloop()
     for idx, server in enumerate(servers):
         display_name = server.get('displayName', f"Server {idx+1}")
         server_button = customtkinter.CTkButton(app, text=display_name, command=lambda server_info=server: create_server_window(server_info))

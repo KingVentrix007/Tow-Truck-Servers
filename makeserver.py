@@ -25,7 +25,7 @@ def download_server_jar(name:str, version:str, progress_var, on_complete):
             progress_var.set(progress)
     on_complete(name, version)
 
-def install_server(name:str, version:str, root,eula=False):
+def install_server(name:str, version:str, root,eula=False,img=None):
     def run_command(command, output_widget):
         process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, universal_newlines=True)
         for line in iter(process.stdout.readline, ""):
@@ -147,7 +147,7 @@ def get_server(display_name: str, config_path='config.json'):
     
     print(f"Server with display name '{display_name}' not found.")
     return None
-def add_entry(name: str, game_version: str, config_path='config.json'):
+def add_entry(name: str, game_version: str, config_path='config.json',img=None):
     display_name = name
 
     # Retrieve Java version
@@ -192,7 +192,8 @@ def add_entry(name: str, game_version: str, config_path='config.json'):
         "gameVersion": game_version,
         "javaVersion": java_version,
         "javaPath": java_path,
-        "ram": f"{allocated_ram}G"
+        "ram": f"{allocated_ram}G",
+        "image": f"{img}"
     }
 
     # Load existing config
@@ -215,7 +216,8 @@ def add_entry(name: str, game_version: str, config_path='config.json'):
         print("New entry added successfully.")
     except Exception as e:
         print(f"Error writing to config file: {e}")
-def make_server(name, description, version, seed,eula=False):
+def make_server(name, description, version, seed,eula=False,img=None):
+    print(">",img)
     use_name = name.replace(" ","")
     os.makedirs(f"./servers/{use_name}", exist_ok=True)
     
@@ -228,7 +230,7 @@ def make_server(name, description, version, seed,eula=False):
     
     def on_complete(name, version):
         root.destroy()
-        install_server(name, version, root)
+        install_server(name, version, root,img=img)
     
     download_thread = Thread(target=download_server_jar, args=(name, version, progress_var, on_complete))
     download_thread.start()

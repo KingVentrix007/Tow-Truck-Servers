@@ -78,16 +78,16 @@ def validate_int_input(P):
     return False
 
 def mod_menu(path,back_window=None):
-    clear_window()
+    # clear_window()
     # print("HERE",path)
-    # window = ctk.CTk()
-    # window.title("Mod Menu")
-    # window.geometry("800x600")
+    window = ctk.CTk()
+    window.title("Mod Menu")
+    window.geometry("800x600")
 
-    canvas = ctk.CTkCanvas(app)
+    canvas = ctk.CTkCanvas(window)
     canvas.pack(side=ctk.LEFT, fill=ctk.BOTH, expand=True)
 
-    scrollbar = ctk.CTkScrollbar(app, command=canvas.yview)
+    scrollbar = ctk.CTkScrollbar(window, command=canvas.yview)
     scrollbar.pack(side=ctk.RIGHT, fill=ctk.Y)
 
     canvas.configure(yscrollcommand=scrollbar.set,background="#2b2b2b",highlightthickness=0)
@@ -166,10 +166,10 @@ def mod_menu(path,back_window=None):
             ManageServerFunction()
     # Position the frame on the left side of the window
     frame.pack(side=ctk.LEFT, fill=ctk.Y)
-    BackBtn = customtkinter.CTkButton(app,text="Back",command=back)
-    BackBtn.pack(side=ctk.BOTTOM)
+    # BackBtn = customtkinter.CTkButton(app,text="Back",command=back)
+    # BackBtn.pack(side=ctk.BOTTOM)
     
-    # window.mainloop()
+    window.mainloop()
 # Example usage:
 # mod_menu("F:/ServerWrapper/servers/Test")
 # 
@@ -192,11 +192,9 @@ def edit_properties_window(properties, file_path):
     def on_mousewheel(event):
         canvas.yview_scroll(-1 * int(event.delta / 120), "units")
 
-    # window = ctk.CTk()
-    # window.title("Edit Server Properties")
-    # window.geometry("800x600")
+    
 
-    ctk.set_appearance_mode("dark")  # Choose dark theme
+    # ctk.set_appearance_mode("dark")  # Choose dark theme
     # window.configure(bg="#2b2b2b")
     main_frame = ctk.CTkFrame(app)
     main_frame.pack(fill=tk.BOTH, expand=True)
@@ -324,10 +322,10 @@ def generate_random_seed():
 def update_seed_label(seed_label):
     new_seed = generate_random_seed()
     seed_label.configure(text=new_seed)
-
+file_path = ""
 def AddServerScreen():
     clear_window()
-    
+    # file_path = ""
     # Server Name input
     server_name_label = customtkinter.CTkLabel(app, text="Server Name:")
     server_name_label.place(relx=0.3, rely=0.2, anchor=customtkinter.E)
@@ -359,10 +357,20 @@ def AddServerScreen():
         description = server_description_entry.get()
         version = game_version_combobox.get()  # Get the selected version from the combobox
         seed = seed_label.cget("text")  # Get the current text of the seed label
-        makeserver.make_server(name, description, version, seed)  # Call the make_server function with the provided parameters
+        makeserver.make_server(name, description, version, seed,img=file_path)  # Call the make_server function with the provided parameters
     
     add_server_button = customtkinter.CTkButton(app, text="Add Server", command=add_server)
     add_server_button.place(relx=0.5, rely=0.6, anchor=customtkinter.CENTER)
+    
+    # Add Image button
+    def add_image():
+        global file_path
+        file_path = filedialog.askopenfilename(filetypes=[("Image files", "*.png;*.jpg;*.jpeg")])
+        # return file_path
+    
+    add_image_button = customtkinter.CTkButton(app, text="Add Image", command=lambda: add_image())
+
+    add_image_button.place(relx=0.5, rely=0.65, anchor=customtkinter.CENTER)
 
     # Back button
     back_button = customtkinter.CTkButton(app, text="Back", command=main_screen)
@@ -379,7 +387,7 @@ def ManageServerFunction():
         def open_settings():
             path = server_info.get('path', "/fake/")
             properties_file = os.path.join(path, "server.properties")
-            print("properties_file ==",properties_file)
+            print("properties_file ==", properties_file)
             if os.path.exists(properties_file):
                 properties = load_properties(properties_file)
                 edit_properties_window(properties, properties_file)
@@ -405,8 +413,11 @@ def ManageServerFunction():
                 for line in iter(process.stdout.readline, ""):
                     print(line)
                     formatted_output = format_output_as_html(line)
-                    text_widget.insert(tk.END, formatted_output)
-                    text_widget.see(tk.END)  # Auto-scroll to the end
+                    try:
+                        text_widget.insert(tk.END, formatted_output)
+                        text_widget.see(tk.END)  # Auto-scroll to the end
+                    except Exception as e:
+                        pass
                 process.stdout.close()
                 process.wait()
 
@@ -437,13 +448,13 @@ def ManageServerFunction():
         def back():
             clear_window()
             ManageServerFunction()
-        clear_window()
-        # server_window = ctk.CTk()
-        # server_window.geometry("800x600")
-        # server_window.title(server_info.get('displayName', "Server"))
+        # clear_window()
+        server_window = ctk.CTk()
+        server_window.geometry("800x600")
+        server_window.title(server_info.get('displayName', "Server"))
 
         # Create a frame for the top menu bar
-        menu_bar = ctk.CTkFrame(app)
+        menu_bar = ctk.CTkFrame(server_window)
         menu_bar.pack(side=tk.TOP, fill=tk.X)
 
         delete_button = ctk.CTkButton(menu_bar, text="Delete", command=del_server_callback)
@@ -457,17 +468,17 @@ def ManageServerFunction():
 
         mod_btn = ctk.CTkButton(menu_bar, text="Mod Menu",command=lambda: mod_menu(server_info.get('path','null')))
         mod_btn.pack(side=tk.LEFT, padx=5, pady=5)
-        back_button.pack(side=tk.LEFT,padx=5, pady=5)
-        text_widget = ScrolledText(app, wrap=tk.WORD)
+        # back_button.pack(side=tk.LEFT,padx=5, pady=5)
+        text_widget = ScrolledText(server_window, wrap=tk.WORD)
         text_widget.pack(fill=tk.BOTH, expand=True)
 
-        command_entry = ctk.CTkEntry(app)
+        command_entry = ctk.CTkEntry(server_window)
         command_entry.pack(fill=tk.X, pady=5)
 
-        send_button = ctk.CTkButton(app, text="Send Command", command=send_command)
+        send_button = ctk.CTkButton(server_window, text="Send Command", command=send_command)
         send_button.pack(pady=5)
 
-        # server_window.mainloop()
+        server_window.mainloop()
     for idx, server in enumerate(servers):
         display_name = server.get('displayName', f"Server {idx+1}")
         server_button = customtkinter.CTkButton(app, text=display_name, command=lambda server_info=server: create_server_window(server_info))
