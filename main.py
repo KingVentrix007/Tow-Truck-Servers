@@ -15,7 +15,6 @@ app.iconbitmap("./assets/images/window_icon.ico") #Remove ./clean when finished
 
 def main_screen():
     clear_window(app)
-
     # Create a frame for the side menu
     side_menu = customtkinter.CTkFrame(app, width=200)
     side_menu.place(relx=0.0, rely=0.0, relheight=1.0, anchor='nw')

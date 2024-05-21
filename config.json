@@ -1,21 +1,15 @@
 {
     "servers": [
         {
-            "displayName": "Test",
-            "path": "./servers/Test",
-            "gameVersion": "1.18.2",
-            "javaVersion": "17.0.6",
-            "javaPath": "C:\\Program Files\\Java\\jdk-17\\bin\\java.exe",
-            "ram": "4G"
-        },
-        {
-            "displayName": "d",
-            "path": "./servers/d",
-            "gameVersion": "1.20.6",
+            "displayName": "My games",
+            "path": "./servers/Mygames",
+            "gameVersion": "1.19.2",
+            "description": "1111",
+            "modloader": "forge",
             "javaVersion": "17.0.6",
             "javaPath": "C:\\Program Files\\Java\\jdk-17\\bin\\java.exe",
             "ram": "4G",
-            "image": "None"
+            "image": ""
         }
     ]
 }

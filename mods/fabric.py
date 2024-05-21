@@ -67,7 +67,7 @@ def GetLatestStableFabricServerURL(version):
         print('Failed to fetch the loader version information.')
         return -3
 
-def install_fabric_server(jar_file,name):
+def install_fabric_server(version,name):
     # java -Xmx2G -jar fabric-server-mc.1.20.6-loader.0.15.11-launcher.1.0.1.jar nogui
     root = tk.Tk()
     root.title("Installing Server")
@@ -76,7 +76,8 @@ def install_fabric_server(jar_file,name):
     output_widget.pack(expand=True, fill="both")
     use_name = name.replace(" ","")
     os.chdir(f"./servers/{use_name}")
+    jar_file = f"fabric_installer_{version}.jar"
     command = ["java","-Xmx2G","-jar",jar_file,"nogui"]
-    thread = Thread(target=run_command, args=(command, output_widget))
+    thread = Thread.Thread(target=run_command, args=(command, output_widget))
     thread.start()
     root.mainloop()

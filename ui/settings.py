@@ -12,7 +12,7 @@ def validate_int_input(P):
         return True
     return False
 def edit_properties_window(properties, file_path,window,parent_screen_function):
-    clear_window()
+    clear_window(window)
     def save_changes():
         for key, widget in widgets.items():
             if isinstance(widget, tk.BooleanVar):
@@ -20,18 +20,15 @@ def edit_properties_window(properties, file_path,window,parent_screen_function):
             else:
                 properties[key] = widget.get()
         save_properties(file_path, properties)
-        # window.destroy()
-        clear_window(window)
-        parent_screen_function()
+        window.destroy()
         messagebox.showinfo("Save", "Properties saved successfully")
+
+        # clear_window(window)
+        parent_screen_function()
 
     def on_mousewheel(event):
         canvas.yview_scroll(-1 * int(event.delta / 120), "units")
 
-    
-
-    # ctk.set_appearance_mode("dark")  # Choose dark theme
-    # window.configure(bg="#2b2b2b")
     main_frame = ctk.CTkFrame(window)
     main_frame.pack(fill=tk.BOTH, expand=True)
     # main_frame.config(bg="#2b2b2b")
@@ -78,8 +75,8 @@ def edit_properties_window(properties, file_path,window,parent_screen_function):
     sub_frame.update_idletasks()  # Ensure sub_frame is updated with widgets
     canvas.config(scrollregion=canvas.bbox("all"))  # Update scroll region
     def back(window):
-        clear_window()
-        parent_screen_function()
+        clear_window(window)
+        parent_screen_function(window)
     save_button = ctk.CTkButton(window, text="Save", command=save_changes)
     save_button.pack(side=tk.RIGHT, padx=5, pady=5, fill=tk.X)
     back_button = ctk.CTkButton(window, text="Back",command=back)

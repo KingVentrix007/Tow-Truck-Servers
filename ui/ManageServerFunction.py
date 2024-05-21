@@ -1,74 +1,41 @@
 import tkinter as tk
-import subprocess
 from tkinter import messagebox
-import threading
-
 from tkinter.scrolledtext import ScrolledText
 import customtkinter as ctk
 from ui.general import clear_window
-from server_utils.create_server import extract_libraries_path
 from server_utils.server_manager import get_all_servers,load_properties,del_server
-from file_utils.path_mangment import adjust_path
 from ui.settings import edit_properties_window
 from ui.ModMenu import mod_menu
+from server_utils.server import run_server
+from file_utils.path_mangment import adjust_path
 import os
+
+current_Server_data = ""
 
 def ManageServerFunction(window,parent_screen_function):
     clear_window(window)
 
     servers = get_all_servers()
-    def back_window():
-        clear_window(window)
-        ManageServerFunction(window,parent_screen_function)
+    
     def create_server_window(server_info):
         global process  # Ensure process is global
 
         def open_settings():
+            adjust_path()
             path = server_info.get('path', "/fake/")
             properties_file = os.path.join(path, "server.properties")
+            properties_file = os.path.normpath(properties_file)
             print("properties_file ==", properties_file)
             if os.path.exists(properties_file):
                 properties = load_properties(properties_file)
-                edit_properties_window(properties, properties_file,window,back_window)
+                global current_Server_data
+                current_Server_data = server_info
+                edit_properties_window(properties, properties_file,server_window,back_window)
             else:
                 messagebox.showerror("Error", f"server.properties file not found at {properties_file}")
 
-        def run_server():
-            global process  # Ensure process is global
-            adjust_path()
 
-            path = server_info.get('path', "/fake/")
-            java = server_info.get('javaPath', "java")
-            os.chdir(path)
-            print("PATH == ", os.getcwd())
-            lib = extract_libraries_path("run.bat")
-            ram = server_info.get('ram', "2G")
-            cmd = f"{java} -Xmx{ram} {lib} nogui %*"
-
-            def run_command(command):
-                global process  # Ensure process is global
-                print(command)
-                process = subprocess.Popen(command, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, universal_newlines=True)
-                for line in iter(process.stdout.readline, ""):
-                    print(line)
-                    formatted_output = format_output_as_html(line)
-                    try:
-                        text_widget.insert(tk.END, formatted_output)
-                        text_widget.see(tk.END)  # Auto-scroll to the end
-                    except Exception as e:
-                        pass
-                process.stdout.close()
-                process.wait()
-
-            def format_output_as_html(output):
-                output = output.replace('ERROR', '[ERROR]')
-                output = output.replace('WARNING', '[WARNING]')
-                output = output.replace('INFO', '[INFO]')
-                return f'{output}'
-
-            thread = threading.Thread(target=run_command, args=(cmd,), daemon=True)
-            thread.start()
-            print(thread.is_alive())
+            
 
         def send_command():
             global process  # Ensure process is global
@@ -88,14 +55,15 @@ def ManageServerFunction(window,parent_screen_function):
         server_window = ctk.CTk()
         server_window.geometry("800x600")
         server_window.title(server_info.get('displayName', "Server"))
-
+        def back_window():
+            create_server_window(current_Server_data)
         # Create a frame for the top menu bar
         menu_bar = ctk.CTkFrame(server_window)
         menu_bar.pack(side=tk.TOP, fill=tk.X)
 
         delete_button = ctk.CTkButton(menu_bar, text="Delete", command=del_server_callback)
         delete_button.pack(side=tk.LEFT, padx=5, pady=5)
-        run_button = ctk.CTkButton(menu_bar, text="Run", command=run_server)
+        run_button = ctk.CTkButton(menu_bar, text="Run", command=lambda: run_server(server_info,text_widget))
         run_button.pack(side=tk.LEFT, padx=5, pady=5)
 
         settings_button = ctk.CTkButton(menu_bar, text="Settings", command=open_settings)

@@ -10,8 +10,9 @@ import json
 import re
 import subprocess
 import psutil
-from tkinter import messagebox
-def add_entry(name: str, game_version: str, config_path='config.json',img=None):
+from tkinter import messagebox,ttk
+
+def add_entry(name: str, game_version: str,description,modloader, config_path='config.json',img=None):
     display_name = name
 
     # Retrieve Java version
@@ -54,6 +55,8 @@ def add_entry(name: str, game_version: str, config_path='config.json',img=None):
         "displayName": display_name,
         "path": f"./servers/{use_name}",
         "gameVersion": game_version,
+        "description": description,
+        "modloader": modloader,
         "javaVersion": java_version,
         "javaPath": java_path,
         "ram": f"{allocated_ram}G",
@@ -100,11 +103,12 @@ def get_server(display_name: str, config_path='config.json'):
     
     print(f"Server with display name '{display_name}' not found.")
     return None
-def install_server(name,jar_file,modloader):
+def install_server(name,version,modloader):
     if(modloader == "fabric"):
-        install_fabric_server(name,jar_file)
+        install_fabric_server(name=name,version=version)
     elif(modloader == "forge"):
-        install_forge_server(name=name,jar_file=jar_file)
+        install_forge_server(name=name,jar_file=version)
+        
     else:
         return -1
 
@@ -117,14 +121,14 @@ def make_server(name, description, version,img,modloader):
     jar_download_window.title("Downloading Server Jar")
     jar_download_window.geometry("30x40")
     progress_var = tk.DoubleVar(jar_download_window, 0.0)
-    progressbar = ctk.CTkProgressbar(jar_download_window, variable=progress_var, maximum=100)
+    progressbar = ttk.Progressbar(jar_download_window, variable=progress_var, maximum=100)
     progressbar.pack(pady=10)
     def on_complete(name, version):
         jar_download_window.destroy()
         install_server(name, version, modloader)
         adjust_path() #TODO: Redo Path handling, way to much os.chdir() and back and forth, look into better solutions
-        add_entry(name=name, game_version=version,description=description,modloader=modloader,img=img) #TODO: Fix this, wrong values getting passed
-        
+        add_entry(name=name, game_version=version,description=description,modloader=modloader,img=img)
+    
 
     
     download_thread = Thread(target=download_server_jar, args=(name, version, progress_var, on_complete,modloader))
@@ -132,24 +136,3 @@ def make_server(name, description, version,img,modloader):
     
     jar_download_window.mainloop()
 
-def extract_libraries_path(file_path: str):
-    try:
-        with open(file_path, 'r') as file:
-            lines = file.readlines()
-        
-        for line in lines:
-            if '@libraries' in line:
-                match = re.search(r'@libraries[^\s]*', line)
-                if match:
-                    libraries_path = match.group(0)
-                    return libraries_path
-
-        print("No @libraries path found in the file.")
-        return None
-
-    except FileNotFoundError:
-        print(f"File {file_path} not found.")
-        return None
-    except Exception as e:
-        print(f"An error occurred: {e}")
-        return None

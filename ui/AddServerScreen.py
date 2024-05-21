@@ -1,5 +1,4 @@
 
-#TODO Add button for modloader, forge/fabric. Must be passed to make_server(): modloader="" 
 #TODO Images for servers must be transferred into the servers folders
 #TODO Redo Path handling, way to much os.chdir() and back and forth, look into better solutions
 
@@ -10,6 +9,7 @@ from ui.general import clear_window
 from minecraft.minecraft_versions import minecraft_versions
 from minecraft.generation import generate_random_seed
 from server_utils.create_server import make_server
+from mods.modloader import valid_mod_loaders
 file_path = ""
 
 def update_seed_label(seed_label):
@@ -37,23 +37,27 @@ def AddServerScreen(window,parent_screen_function):
     game_version_combobox.set(minecraft_versions[0])
     game_version_combobox.place(relx=0.5, rely=0.4, anchor=customtkinter.W)
     
+    modloader_label = customtkinter.CTkLabel(window, text="Mod loader:")
+    modloader_label.place(relx=0.3, rely=0.5, anchor=customtkinter.E)
+    modloader_combobox = customtkinter.CTkComboBox(window, values=valid_mod_loaders)
+    modloader_combobox.set(valid_mod_loaders[0])
+    modloader_combobox.place(relx=0.5, rely=0.5, anchor=customtkinter.W)
     # Seed label and button
-    seed_label = customtkinter.CTkLabel(window, text=generate_random_seed())
-    seed_label.place(relx=0.5, rely=0.5, anchor=customtkinter.W)
-    random_seed_button = customtkinter.CTkButton(window, text="Random Seed", command=lambda: update_seed_label(seed_label))
-    random_seed_button.place(relx=0.8, rely=0.5, anchor=customtkinter.CENTER)
+    # seed_label = customtkinter.CTkLabel(window, text=generate_random_seed())
+    # seed_label.place(relx=0.5, rely=0.6, anchor=customtkinter.W)
+    # random_seed_button = customtkinter.CTkButton(window, text="Random Seed", command=lambda: update_seed_label(seed_label))
+    # random_seed_button.place(relx=0.8, rely=0.6, anchor=customtkinter.CENTER)
 
     # Add Server button
     def add_server():
         name = server_name_entry.get()
         description = server_description_entry.get()
         version = game_version_combobox.get()  # Get the selected version from the combobox
-        seed = seed_label.cget("text")  # Get the current text of the seed label
-        #! ADD modloader values
-        make_server(name, description, version, seed,img=file_path)  # Call the make_server function with the provided parameters
+        modloader = modloader_combobox.get()
+        make_server(name=name, description=description, version=version,img=file_path,modloader=modloader)  # Call the make_server function with the provided parameters
     
     add_server_button = customtkinter.CTkButton(window, text="Add Server", command=add_server)
-    add_server_button.place(relx=0.5, rely=0.6, anchor=customtkinter.CENTER)
+    add_server_button.place(relx=0.5, rely=0.7, anchor=customtkinter.CENTER)
     
     # Add Image button
     def add_image():
@@ -62,8 +66,8 @@ def AddServerScreen(window,parent_screen_function):
     
     add_image_button = customtkinter.CTkButton(window, text="Add Image", command=lambda: add_image())
 
-    add_image_button.place(relx=0.5, rely=0.65, anchor=customtkinter.CENTER)
+    add_image_button.place(relx=0.5, rely=0.8, anchor=customtkinter.CENTER)
 
     # Back button
     back_button = customtkinter.CTkButton(window, text="Back", command=parent_screen_function)
-    back_button.place(relx=0.5, rely=0.7, anchor=customtkinter.CENTER)
+    back_button.place(relx=0.5, rely=0.9, anchor=customtkinter.CENTER)
