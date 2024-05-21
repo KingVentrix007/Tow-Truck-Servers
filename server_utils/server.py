@@ -4,4 +4,4 @@ def run_server(server_data,output):
     if modloader == "null":
         return -1
     if(modloader == "forge"):
-        run_forge_server(server_data,output)
+        return run_forge_server(server_data,output)

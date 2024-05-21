@@ -114,7 +114,8 @@ def install_server(name,version,modloader):
 
 def make_server(name, description, version,img,modloader):
     valid_server_name = name.replace(" ","")
-    if(os.path.exists(valid_server_name)):
+    if(os.path.exists(f"./servers/{valid_server_name}")):
+        print("Server already exists",os.getcwd(),valid_server_name)
         return -1
     os.makedirs(f"./servers/{valid_server_name}", exist_ok=True)
     jar_download_window = ctk.CTk()
