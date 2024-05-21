@@ -11,7 +11,8 @@ from file_utils.path_mangment import adjust_path
 import os
 
 current_Server_data = ""
-process = None  # Ensure process is a global variable
+processes = {}  # Dictionary to store server processes
+server_states = {}  # Dictionary to store server states including text content
 
 def ManageServerFunction(window, parent_screen_function):
     clear_window(window)
@@ -22,7 +23,7 @@ def ManageServerFunction(window, parent_screen_function):
     tabview.pack(expand=1, fill='both')
 
     def create_server_tab(tabview, server_info):
-        global process  # Ensure process is global
+        server_name = server_info.get('displayName', "Server")
 
         def open_settings():
             adjust_path()
@@ -39,33 +40,47 @@ def ManageServerFunction(window, parent_screen_function):
                 messagebox.showerror("Error", f"server.properties file not found at {properties_file}")
 
         def send_command():
-            global process  # Ensure process is global
             command = command_entry.get()
             print("command")
-            print("Process == ", process)
-            print("process.stdin == ", process.stdin if process else None)
-            if process and process.stdin:
+            if server_name in processes and processes[server_name].stdin:
                 print("command is being run\n")
-                process.stdin.write(command + "\n")
-                process.stdin.flush()
+                processes[server_name].stdin.write(command + "\n")
+                processes[server_name].stdin.flush()
             else:
                 messagebox.showerror("Error", "Process is not running")
 
         def del_server_callback():
             del_server(server_info.get('displayName', "Unnamed Server"))
+            if server_name in processes:
+                del processes[server_name]
+            if server_name in server_states:
+                del server_states[server_name]
+            tabview.delete(tab_name)
 
         def run_server_callback():
-            global process  # Ensure process is global
-            process = run_server(server_info, text_widget)
-            if process is None:
-                messagebox.showerror("Error", "Failed to start the server")
-            else:
-                print("Server process started")
+            if server_name not in processes or processes[server_name] is None:
+                processes[server_name] = run_server(server_info, text_widget)
+                if processes[server_name] is None:
+                    messagebox.showerror("Error", "Failed to start the server")
+                else:
+                    print("Server process started")
 
         tab_name = server_info.get('displayName', "Server")
+        if tab_name in tabview._tab_dict:
+            tabview.delete(tab_name)
         server_tab = tabview.add(tab_name)
 
         def back_tab():
+            server_states[server_name] = {
+                'text': text_widget.get('1.0', tk.END),
+                'is_running': processes.get(server_name) is not None,
+            }
+            print(tabview._tab_dict.keys())
+            current_tabs = tabview._tab_dict.keys()
+            tab_name_t = current_Server_data.get('displayName', "Server")
+            if tab_name_t in current_tabs:
+                tabview.delete(tab_name_t)
+            adjust_path()
             create_server_tab(tabview, current_Server_data)
 
         # Create a frame for the top menu bar
@@ -86,6 +101,11 @@ def ManageServerFunction(window, parent_screen_function):
         text_widget = ScrolledText(server_tab, wrap=tk.WORD)
         text_widget.pack(fill=tk.BOTH, expand=True)
 
+        if server_name in server_states:
+            text_widget.insert(tk.END, server_states[server_name]['text'])
+            if server_states[server_name]['is_running']:
+                run_server_callback()
+
         command_entry = ctk.CTkEntry(server_tab)
         command_entry.pack(fill=tk.X, pady=5)
 
@@ -95,5 +115,15 @@ def ManageServerFunction(window, parent_screen_function):
     for server in servers:
         create_server_tab(tabview, server)
 
-    back_button = ctk.CTkButton(window, text="Back", command=parent_screen_function)
+    def simple_back():
+        for server_name, server_state in server_states.items():
+            text_widget_content = server_state['text']
+            if server_name in processes and processes[server_name] is not None:
+                server_state['text'] = text_widget.get('1.0', tk.END)
+                server_state['is_running'] = processes.get(server_name) is not None
+        adjust_path()
+        parent_screen_function()
+
+    back_button = ctk.CTkButton(window, text="Back", command=simple_back)
     back_button.pack(pady=10)
+

@@ -12,7 +12,10 @@ def validate_int_input(P):
         return True
     return False
 def edit_properties_window(properties, file_path,window,parent_screen_function):
-    clear_window(window)
+    settings_window = ctk.CTk()
+    settings_window.title(properties.get("displayName",'Server'))
+
+    # clear_window(window)
     def save_changes():
         for key, widget in widgets.items():
             if isinstance(widget, tk.BooleanVar):
@@ -20,16 +23,16 @@ def edit_properties_window(properties, file_path,window,parent_screen_function):
             else:
                 properties[key] = widget.get()
         save_properties(file_path, properties)
-        window.destroy()
+        settings_window.destroy()
         messagebox.showinfo("Save", "Properties saved successfully")
 
         # clear_window(window)
-        parent_screen_function()
+        # parent_screen_function()
 
     def on_mousewheel(event):
         canvas.yview_scroll(-1 * int(event.delta / 120), "units")
 
-    main_frame = ctk.CTkFrame(window)
+    main_frame = ctk.CTkFrame(settings_window)
     main_frame.pack(fill=tk.BOTH, expand=True)
     # main_frame.config(bg="#2b2b2b")
     canvas = ctk.CTkCanvas(main_frame,bg="#2b2b2b")
@@ -48,7 +51,7 @@ def edit_properties_window(properties, file_path,window,parent_screen_function):
     widgets = {}
     row = 0
 
-    vcmd = (window.register(validate_int_input), '%P')
+    vcmd = (settings_window.register(validate_int_input), '%P')
 
     for key, value in properties.items():
         label = ctk.CTkLabel(sub_frame, text=key)
@@ -76,9 +79,9 @@ def edit_properties_window(properties, file_path,window,parent_screen_function):
     canvas.config(scrollregion=canvas.bbox("all"))  # Update scroll region
     def back(window):
         clear_window(window)
-        parent_screen_function(window)
-    save_button = ctk.CTkButton(window, text="Save", command=save_changes)
+        parent_screen_function()
+    save_button = ctk.CTkButton(settings_window, text="Save", command=save_changes)
     save_button.pack(side=tk.RIGHT, padx=5, pady=5, fill=tk.X)
-    back_button = ctk.CTkButton(window, text="Back",command=back)
-    back_button.pack(side=tk.RIGHT, padx=5, pady=5, fill=tk.X)
-    # window.mainloop()
+    back_button = ctk.CTkButton(window, text="Back",command=lambda: back(window))
+    # back_button.pack(side=tk.RIGHT, padx=5, pady=5, fill=tk.X)
+    settings_window.mainloop()

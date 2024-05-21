@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minecraft Server Manager</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f3f3f3;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 90%;
+            margin: auto;
+            padding: 20px;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #0078d4;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+        }
+        .header h1 {
+            margin: 0;
+        }
+        .header button {
+            background-color: #fff;
+            color: #0078d4;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .server-list {
+            margin-top: 20px;
+        }
+        .server {
+            background-color: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .server h2 {
+            margin: 0 0 10px 0;
+        }
+        .server .actions button {
+            background-color: #0078d4;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        .server .actions button.stop {
+            background-color: #e81123;
+        }
+        .server .info {
+            margin-top: 10px;
+        }
+        .info-item {
+            margin-bottom: 10px;
+        }
+        .info-item span {
+            font-weight: bold;
+        }
+        .add-server-dialog, .server-settings-dialog, .mods-dialog {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+        .dialog-backdrop {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 900;
+        }
+        .dialog-backdrop.active, .add-server-dialog.active, .server-settings-dialog.active, .mods-dialog.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Minecraft Server Manager</h1>
+        <button onclick="showAddServerDialog()">Add Server</button>
+    </div>
+    <div class="container">
+        <div class="server-list">
+            <div class="server">
+                <h2>Server 1</h2>
+                <div class="actions">
+                    <button onclick="showServerSettingsDialog()">Settings</button>
+                    <button class="stop">Stop</button>
+                    <button>Start</button>
+                    <button onclick="showModsDialog()">Mods</button>
+                </div>
+                <div class="info">
+                    <div class="info-item"><span>Resource Usage:</span> CPU: 20%, RAM: 512MB</div>
+                    <div class="info-item"><span>Players:</span> 10/20</div>
+                    <div class="info-item"><span>Status:</span> Running</div>
+                </div>
+            </div>
+            <!-- Add more server blocks as needed -->
+        </div>
+    </div>
+
+    <div class="dialog-backdrop" id="dialog-backdrop"></div>
+
+    <div class="add-server-dialog" id="add-server-dialog">
+        <h2>Add New Server</h2>
+        <form>
+            <div>
+                <label for="server-name">Server Name:</label>
+                <input type="text" id="server-name">
+            </div>
+            <div>
+                <label for="server-ip">Server IP:</label>
+                <input type="text" id="server-ip">
+            </div>
+            <div>
+                <label for="server-port">Server Port:</label>
+                <input type="number" id="server-port">
+            </div>
+            <div>
+                <button type="button" onclick="addServer()">Add Server</button>
+                <button type="button" onclick="closeDialog()">Cancel</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="server-settings-dialog" id="server-settings-dialog">
+        <h2>Server Settings</h2>
+        <form>
+            <div>
+                <label for="server-name">Server Name:</label>
+                <input type="text" id="edit-server-name">
+            </div>
+            <div>
+                <label for="server-ip">Server IP:</label>
+                <input type="text" id="edit-server-ip">
+            </div>
+            <div>
+                <label for="server-port">Server Port:</label>
+                <input type="number" id="edit-server-port">
+            </div>
+            <div>
+                <button type="button" onclick="saveServerSettings()">Save Settings</button>
+                <button type="button" onclick="closeDialog()">Cancel</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="mods-dialog" id="mods-dialog">
+        <h2>Manage Mods</h2>
+        <form>
+            <div>
+                <label for="mod-name">Mod Name:</label>
+                <input type="text" id="mod-name">
+            </div>
+            <div>
+                <button type="button" onclick="addMod()">Add Mod</button>
+                <button type="button" onclick="closeDialog()">Close</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function showAddServerDialog() {
+            document.getElementById('add-server-dialog').classList.add('active');
+            document.getElementById('dialog-backdrop').classList.add('active');
+        }
+
+        function showServerSettingsDialog() {
+            document.getElementById('server-settings-dialog').classList.add('active');
+            document.getElementById('dialog-backdrop').classList.add('active');
+        }
+
+        function showModsDialog() {
+            document.getElementById('mods-dialog').classList.add('active');
+            document.getElementById('dialog-backdrop').classList.add('active');
+        }
+
+        function closeDialog() {
+            document.querySelectorAll('.add-server-dialog, .server-settings-dialog, .mods-dialog, .dialog-backdrop').forEach(function(el) {
+                el.classList.remove('active');
+            });
+        }
+
+        function addServer() {
+            // Dummy function to simulate adding a server
+            closeDialog();
+            alert('Server added!');
+        }
+
+        function saveServerSettings() {
+            // Dummy function to simulate saving server settings
+            closeDialog();
+            alert('Server settings saved!');
+        }
+
+        function addMod() {
+            // Dummy function to simulate adding a mod
+            closeDialog();
+            alert('Mod added!');
+        }
+    </script>
+</body>
+</html>
