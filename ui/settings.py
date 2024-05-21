@@ -11,7 +11,7 @@ def validate_int_input(P):
     if P.isdigit() or P == "":
         return True
     return False
-def edit_properties_window(properties, file_path,window,parent_screen_function):
+def edit_properties_window(properties, file_path):
     settings_window = ctk.CTk()
     settings_window.title(properties.get("displayName",'Server'))
 
@@ -26,8 +26,6 @@ def edit_properties_window(properties, file_path,window,parent_screen_function):
         settings_window.destroy()
         messagebox.showinfo("Save", "Properties saved successfully")
 
-        # clear_window(window)
-        # parent_screen_function()
 
     def on_mousewheel(event):
         canvas.yview_scroll(-1 * int(event.delta / 120), "units")
@@ -77,11 +75,6 @@ def edit_properties_window(properties, file_path,window,parent_screen_function):
 
     sub_frame.update_idletasks()  # Ensure sub_frame is updated with widgets
     canvas.config(scrollregion=canvas.bbox("all"))  # Update scroll region
-    def back(window):
-        clear_window(window)
-        parent_screen_function()
     save_button = ctk.CTkButton(settings_window, text="Save", command=save_changes)
     save_button.pack(side=tk.RIGHT, padx=5, pady=5, fill=tk.X)
-    back_button = ctk.CTkButton(window, text="Back",command=lambda: back(window))
-    # back_button.pack(side=tk.RIGHT, padx=5, pady=5, fill=tk.X)
     settings_window.mainloop()

@@ -35,7 +35,7 @@ def ManageServerFunction(window, parent_screen_function):
                 properties = load_properties(properties_file)
                 global current_Server_data
                 current_Server_data = server_info
-                edit_properties_window(properties, properties_file, server_tab, back_tab)
+                edit_properties_window(properties, properties_file)
             else:
                 messagebox.showerror("Error", f"server.properties file not found at {properties_file}")
 
