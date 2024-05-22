@@ -20,7 +20,7 @@ def HomeScreen(tab_view, servers):
 def display_servers(frame, servers):
     for i, server in enumerate(servers):
         server_frame = ctk.CTkFrame(frame)
-        server_frame.pack(fill="x", padx=10, pady=5)
+        server_frame.grid(row=0, column=i, padx=10, pady=5)
 
         # Check if image path is valid, otherwise use default image
         if server["modloader"] == "forge":

@@ -8,6 +8,7 @@ from minecraft.minecraft_versions import minecraft_versions
 from minecraft.generation import generate_random_seed
 from server_utils.create_server import make_server
 from mods.modloader import valid_mod_loaders
+from libs.CTkScrollableDropdown import *
 import os
 file_path = ""
 
@@ -32,13 +33,16 @@ def AddServerScreen(window):
     # Game Version dropdown
     game_version_label = customtkinter.CTkLabel(window, text="Game Version:")
     game_version_label.place(relx=0.3, rely=0.4, anchor=customtkinter.E)
-    game_version_combobox = customtkinter.CTkComboBox(window, values=minecraft_versions)
+    game_version_combobox = customtkinter.CTkComboBox(window)
+    CTkScrollableDropdown(game_version_combobox,values=minecraft_versions)
     game_version_combobox.set(minecraft_versions[0])
     game_version_combobox.place(relx=0.5, rely=0.4, anchor=customtkinter.W)
     
     modloader_label = customtkinter.CTkLabel(window, text="Mod loader:")
     modloader_label.place(relx=0.3, rely=0.5, anchor=customtkinter.E)
-    modloader_combobox = customtkinter.CTkComboBox(window, values=valid_mod_loaders)
+    modloader_combobox = customtkinter.CTkComboBox(window)
+    CTkScrollableDropdown(modloader_combobox,values=valid_mod_loaders)
+
     modloader_combobox.set(valid_mod_loaders[0])
     modloader_combobox.place(relx=0.5, rely=0.5, anchor=customtkinter.W)
 
