@@ -1,0 +1,1 @@
+Glitch22/05/2024/1 = Running 2 servers simultaneously and stopping one will only stop the server but not call on_finish, and will cause the other server to trigger EBADF

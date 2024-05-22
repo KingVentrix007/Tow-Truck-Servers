@@ -11,6 +11,7 @@ import threading as Thread
 import subprocess
 from tkinter import messagebox
 from file_utils.path_mangment import adjust_path
+from config.errors import err_code_process_closed
 import re
 list = []
 
@@ -104,18 +105,24 @@ def run_forge_server(server_info,text_widget,on_finish):
         global process
         print(command)
         process = subprocess.Popen(command, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, universal_newlines=True)
-        for line in iter(process.stdout.readline, ""):
-            print(line)
-            formatted_output = format_output_as_html(line)
-            try:
-                text_widget.insert(tk.END, formatted_output)
-                text_widget.see(tk.END)  # Auto-scroll to the end
-            except Exception as e:
-                print(e)
-        process.stdout.close()
-        process.wait()
-        process.pid
-        on_finish(server_info)
+        try:
+            for line in iter(process.stdout.readline, ""):
+                # print(line)
+                formatted_output = format_output_as_html(line)
+                try:
+                    text_widget.insert(tk.END, formatted_output)
+                    text_widget.see(tk.END)  # Auto-scroll to the end
+                except Exception as e:
+                    print(e)
+            process.stdout.close()
+            process.wait()
+            process.pid
+            on_finish(server_info)
+        except ValueError:
+            name = server_info.get("displayName",'None')
+            print(f"{err_code_process_closed}:Server{name} tried to read from stdout when stdout was closed")
+            # on_finish(server_info)
+
     def format_output_as_html(output):
         output = output.replace('ERROR', '[ERROR]')
         output = output.replace('WARNING', '[WARNING]')

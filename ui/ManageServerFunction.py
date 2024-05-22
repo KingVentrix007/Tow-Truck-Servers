@@ -8,6 +8,8 @@ from ui.settings import edit_properties_window
 from ui.ModMenu import mod_menu
 from server_utils.server import run_server  # Ensure this function returns the process
 from file_utils.path_mangment import adjust_path
+from config.globals import is_server_running,set_server_running,set_server_stopped
+from config.errors import err_code_process_closed
 import os
 
 current_Server_data = ""
@@ -55,7 +57,7 @@ def ManageServerFunction(window):
             if server_name in processes and processes[server_name] is not None:
                 # Retrieve the correct process based on the currently selected tab
                 current_process = processes[server_name]
-                print(current_process.pid)
+                print(f"Sending {command} to {current_process} pid {current_process.pid}")
                 current_process.stdin.write(command + "\n")
                 current_process.stdin.flush()
             else:
@@ -71,20 +73,26 @@ def ManageServerFunction(window):
             del created_tabs[server_name]
         def on_server_complete(server_data):
             int_server_name = server_data.get('displayName', "Unnamed Server")
-            print(processes[int_server_name].pid)
+            print(f"Server {int_server_name} pid {processes[int_server_name].pid} is being stopped")
+            pid = processes[int_server_name].pid
             processes.pop(int_server_name)
-            print('complete',int_server_name)
+            print(f'Server {int_server_name} has been stopped: PID {pid}')
             print("Server",int_server_name,int_server_name not in processes)
+            set_server_stopped()
 
         def run_server_callback():
-            text_widget.delete('1.0',tk.END)
-            if server_name not in processes or processes[server_name] is None:
-                # Store the server process in the dictionary
-                processes[server_name] = run_server(server_info, text_widget,on_server_complete)
-                if processes[server_name] is None:
-                    messagebox.showerror("Error", "Failed to start the server")
-                else:
-                    print("Server process started",processes[server_name].pid)
+            if(is_server_running() == True):
+                messagebox.showerror("Error", f"Running multiple servers simultaneously is not supported. See {err_code_process_closed} for more details.")
+            else:
+                set_server_running()
+                text_widget.delete('1.0',tk.END)
+                if server_name not in processes or processes[server_name] is None:
+                    # Store the server process in the dictionary
+                    processes[server_name] = run_server(server_info, text_widget,on_server_complete)
+                    if processes[server_name] is None:
+                        messagebox.showerror("Error", "Failed to start the server")
+                    else:
+                        print(f"Server {server_name} started with pid ",processes[server_name].pid)
         
         tab_name = server_info.get('displayName', "Server")
         server_tab = tabview.add(tab_name)
