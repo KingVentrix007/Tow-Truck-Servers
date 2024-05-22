@@ -6,7 +6,10 @@ import customtkinter as ctk
 from ui.AddServerScreen import AddServerScreen
 from ui.ManageServerFunction import ManageServerFunction
 from ui.Credits import ShowCredits
+from ui.HomeScreen import HomeScreen
 import pywinstyles
+from config.globals import tab_icon_width,tab_icon_hight
+from server_utils.server_manager import get_all_servers
 app = tk.Tk()
 app.geometry("720x480")
 app.title("Tow Truck Server")
@@ -22,21 +25,25 @@ def on_tab_visibility(tab_window):
 
         # Call corresponding function based on the index of the tab
         if index == 0:
+            HomeScreen(tab_window,get_all_servers())
+        elif index == 1:
             AddServerScreen(tab_window)
             print("Add Server tab opened")
             # Call your function for the Add Server tab here
-        elif index == 1:
+        elif index == 2:
             ManageServerFunction(tab_window)
             print("Manage Server tab opened")
             # Call your function for the Manage Server tab here
-        elif index == 2:
+        elif index == 3:
             ShowCredits(tab_window)
             print("Credits tab opened")
             # Call your function for the Credits tab here
     return inner
 
-AddServer_icon = Image.open("./img/addserver_icon_80.png").resize((20, 20))
+AddServer_icon = Image.open("./img/addserver_icon_80.png").resize((tab_icon_width, tab_icon_hight))
 AddServer_icon = ImageTk.PhotoImage(AddServer_icon)
+ServersIcon = Image.open("./img/bookmark_100.png").resize((tab_icon_width, tab_icon_hight))
+ServersIcon = ImageTk.PhotoImage(ServersIcon)
 
 def main_screen():
     # Create a style for the notebook with vertical tabs
@@ -47,22 +54,18 @@ def main_screen():
     global notebook
     notebook = ttk.Notebook(app, style="Vertical.TNotebook")
     notebook.pack(fill='both', expand=True)
+    global home_tab
+    home_tab = ttk.Frame(notebook)
+    notebook.add(home_tab, text='Home')
+    home_tab.bind("<Visibility>", on_tab_visibility(home_tab))
 
     # Create the Add Server tab
     global add_server_tab
     add_server_tab = ttk.Frame(notebook)
     notebook.add(add_server_tab, text='',image=AddServer_icon)
     add_server_tab.bind("<Visibility>", on_tab_visibility(add_server_tab))
-    # ToolTip(add_server_tab, msg="Your Message")
-
-    
-    # AddServer_label = tk.Label(add_server_tab, image=AddServer_icon)
-    # AddServer_label.pack(pady=10, padx=10)
-
-    # Create the Manage Server tab
-    global manage_server_tab
     manage_server_tab = ttk.Frame(notebook)
-    notebook.add(manage_server_tab, text='Manage Server')
+    notebook.add(manage_server_tab, text='',image=ServersIcon)
     manage_server_tab.bind("<Visibility>", on_tab_visibility(manage_server_tab))
     # Add the Credits tab
     global credits_tab

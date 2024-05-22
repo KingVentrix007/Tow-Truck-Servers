@@ -21,6 +21,17 @@
             "javaPath": "C:\\Program Files\\Java\\jdk-17\\bin\\java.exe",
             "ram": "4G",
             "image": ""
+        },
+        {
+            "displayName": "TestFab",
+            "path": "./servers/TestFab",
+            "gameVersion": "1.19.2",
+            "description": "This is an image test",
+            "modloader": "fabric",
+            "javaVersion": "17.0.6",
+            "javaPath": "C:\\Program Files\\Java\\jdk-17\\bin\\java.exe",
+            "ram": "4G",
+            "image": "C:/Users/trist/OneDrive/Pictures/CoverIimg.jpeg"
         }
     ]
 }

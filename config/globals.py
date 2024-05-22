@@ -11,3 +11,7 @@ def set_server_running():
 def set_server_stopped():
     global server_running
     server_running = False
+
+# Global variables for width and height of icons
+tab_icon_width = 30
+tab_icon_hight = 30

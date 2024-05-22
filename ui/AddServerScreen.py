@@ -1,7 +1,5 @@
 
 #TODO Images for servers must be transferred into the servers folders
-#TODO Redo Path handling, way to much os.chdir() and back and forth, look into better solutions
-
 import tkinter as tk
 from tkinter import filedialog
 import customtkinter
@@ -10,6 +8,7 @@ from minecraft.minecraft_versions import minecraft_versions
 from minecraft.generation import generate_random_seed
 from server_utils.create_server import make_server
 from mods.modloader import valid_mod_loaders
+import os
 file_path = ""
 
 def update_seed_label(seed_label):
@@ -42,11 +41,6 @@ def AddServerScreen(window):
     modloader_combobox = customtkinter.CTkComboBox(window, values=valid_mod_loaders)
     modloader_combobox.set(valid_mod_loaders[0])
     modloader_combobox.place(relx=0.5, rely=0.5, anchor=customtkinter.W)
-    # Seed label and button
-    # seed_label = customtkinter.CTkLabel(window, text=generate_random_seed())
-    # seed_label.place(relx=0.5, rely=0.6, anchor=customtkinter.W)
-    # random_seed_button = customtkinter.CTkButton(window, text="Random Seed", command=lambda: update_seed_label(seed_label))
-    # random_seed_button.place(relx=0.8, rely=0.6, anchor=customtkinter.CENTER)
 
     # Add Server button
     def add_server():
@@ -63,7 +57,7 @@ def AddServerScreen(window):
     def add_image():
         global file_path
         file_path = filedialog.askopenfilename(filetypes=[("Image files", "*.png;*.jpg;*.jpeg")])
-    
+        print(os.getcwd(), file_path)
     add_image_button = customtkinter.CTkButton(window, text="Add Image", command=lambda: add_image())
 
     add_image_button.place(relx=0.5, rely=0.8, anchor=customtkinter.CENTER)

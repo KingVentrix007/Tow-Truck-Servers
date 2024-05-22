@@ -97,8 +97,6 @@ def ManageServerFunction(window):
         tab_name = server_info.get('displayName', "Server")
         server_tab = tabview.add(tab_name)
         created_tabs[server_name] = server_tab  # Add the created tab to the dictionary
-       
-
         # Create a frame for the top menu bar
         menu_bar = ctk.CTkFrame(server_tab)
         menu_bar.pack(side=tk.TOP, fill=tk.X)
