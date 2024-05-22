@@ -2,19 +2,21 @@ import tkinter as tk
 from tkinter import ttk
 from PIL import Image, ImageTk
 import sv_ttk
+import customtkinter as ctk
 from ui.AddServerScreen import AddServerScreen
 from ui.ManageServerFunction import ManageServerFunction
 from ui.Credits import ShowCredits
+import pywinstyles
 app = tk.Tk()
 app.geometry("720x480")
 app.title("Tow Truck Server")
 app.iconbitmap("./assets/images/window_icon.ico") # Remove ./clean when finished
-
+pywinstyles.apply_style(app, 'mica')
 def on_tab_visibility(tab_window):
     def inner(event):
         # Get the notebook widget
         notebook = event.widget.nametowidget(event.widget.winfo_parent())
-
+        print(type(notebook))
         # Get the index of the currently selected tab
         index = notebook.index(notebook.select())
 
@@ -33,6 +35,8 @@ def on_tab_visibility(tab_window):
             # Call your function for the Credits tab here
     return inner
 
+AddServer_icon = Image.open("./img/addserver_icon_80.png").resize((20, 20))
+AddServer_icon = ImageTk.PhotoImage(AddServer_icon)
 
 def main_screen():
     # Create a style for the notebook with vertical tabs
@@ -47,13 +51,13 @@ def main_screen():
     # Create the Add Server tab
     global add_server_tab
     add_server_tab = ttk.Frame(notebook)
-    notebook.add(add_server_tab, text='Add Server')
+    notebook.add(add_server_tab, text='',image=AddServer_icon)
     add_server_tab.bind("<Visibility>", on_tab_visibility(add_server_tab))
+    # ToolTip(add_server_tab, msg="Your Message")
 
-    AddServer_icon = Image.open('./img/addserver_icon_80.png').resize((80, 80), Image.BICUBIC)
-    AddServer_icon = ImageTk.PhotoImage(AddServer_icon)
-    AddServer_label = tk.Label(add_server_tab, image=AddServer_icon)
-    AddServer_label.pack(pady=10, padx=10)
+    
+    # AddServer_label = tk.Label(add_server_tab, image=AddServer_icon)
+    # AddServer_label.pack(pady=10, padx=10)
 
     # Create the Manage Server tab
     global manage_server_tab

@@ -13,7 +13,6 @@ from tkinter import messagebox
 from file_utils.path_mangment import adjust_path
 import re
 list = []
-process = None
 
 # The code falls under Disclaimer 1
 def request(version):
@@ -89,8 +88,12 @@ def install_forge_server(jar_file,name):
     thread.start()
     root.mainloop()
 
-def run_forge_server(server_info,text_widget):
+def run_forge_server(server_info,text_widget,on_finish):
     adjust_path()
+    global process  # Declare process as a global variable
+    process = None
+    # process = None
+
     path = server_info.get('path', "/fake/")
     java = server_info.get('javaPath', "java")
     os.chdir(path)
@@ -98,7 +101,7 @@ def run_forge_server(server_info,text_widget):
     ram = server_info.get('ram', "2G")
     cmd = f"{java} -Xmx{ram} {lib} nogui %*"
     def run_command(command):
-        global process  # Ensure process is global
+        global process
         print(command)
         process = subprocess.Popen(command, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, universal_newlines=True)
         for line in iter(process.stdout.readline, ""):
@@ -111,7 +114,8 @@ def run_forge_server(server_info,text_widget):
                 print(e)
         process.stdout.close()
         process.wait()
-
+        process.pid
+        on_finish(server_info)
     def format_output_as_html(output):
         output = output.replace('ERROR', '[ERROR]')
         output = output.replace('WARNING', '[WARNING]')

@@ -55,6 +55,7 @@ def ManageServerFunction(window):
             if server_name in processes and processes[server_name] is not None:
                 # Retrieve the correct process based on the currently selected tab
                 current_process = processes[server_name]
+                print(current_process.pid)
                 current_process.stdin.write(command + "\n")
                 current_process.stdin.flush()
             else:
@@ -68,15 +69,22 @@ def ManageServerFunction(window):
                 del server_states[server_name]
             tabview.delete(created_tabs[server_name])
             del created_tabs[server_name]
+        def on_server_complete(server_data):
+            int_server_name = server_data.get('displayName', "Unnamed Server")
+            print(processes[int_server_name].pid)
+            processes.pop(int_server_name)
+            print('complete',int_server_name)
+            print("Server",int_server_name,int_server_name not in processes)
 
         def run_server_callback():
+            text_widget.delete('1.0',tk.END)
             if server_name not in processes or processes[server_name] is None:
                 # Store the server process in the dictionary
-                processes[server_name] = run_server(server_info, text_widget)
+                processes[server_name] = run_server(server_info, text_widget,on_server_complete)
                 if processes[server_name] is None:
                     messagebox.showerror("Error", "Failed to start the server")
                 else:
-                    print("Server process started")
+                    print("Server process started",processes[server_name].pid)
         
         tab_name = server_info.get('displayName', "Server")
         server_tab = tabview.add(tab_name)
@@ -118,3 +126,7 @@ def ManageServerFunction(window):
         else:
             made_servers.append(server)
             create_server_tab(tabview, server)
+
+#Server process started 18004
+#18004
+#Server process started 18004
