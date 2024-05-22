@@ -15,7 +15,7 @@ file_path = ""
 def update_seed_label(seed_label):
     new_seed = generate_random_seed()
     seed_label.configure(text=new_seed)
-def AddServerScreen(window,parent_screen_function):
+def AddServerScreen(window):
     clear_window(window)
     # file_path = ""
     # Server Name input
@@ -67,7 +67,3 @@ def AddServerScreen(window,parent_screen_function):
     add_image_button = customtkinter.CTkButton(window, text="Add Image", command=lambda: add_image())
 
     add_image_button.place(relx=0.5, rely=0.8, anchor=customtkinter.CENTER)
-
-    # Back button
-    back_button = customtkinter.CTkButton(window, text="Back", command=parent_screen_function)
-    back_button.place(relx=0.5, rely=0.9, anchor=customtkinter.CENTER)

@@ -121,6 +121,6 @@ def run_forge_server(server_info,text_widget):
     thread = Thread.Thread(target=run_command, args=(cmd,), daemon=True)
     thread.start()
     while(process == None):
+        # Wait for the process to become valid
         pass
     return process
-    print(thread.is_alive())
