@@ -1,70 +1,89 @@
 import tkinter as tk
-import customtkinter
+from tkinter import ttk
 from PIL import Image, ImageTk
-from ui.general import clear_window
-from config.ui_config import main_icons_width,main_icons_hight
+import sv_ttk
 from ui.AddServerScreen import AddServerScreen
 from ui.ManageServerFunction import ManageServerFunction
-from ui.Credits  import DisplayCredits
-customtkinter.set_appearance_mode("System")
-customtkinter.set_default_color_theme("blue")
-app = customtkinter.CTk()
+from ui.Credits import DisplayCredits
+app = tk.Tk()
 app.geometry("720x480")
 app.title("Tow Truck Server")
-app.iconbitmap("./assets/images/window_icon.ico") #Remove ./clean when finished
+app.iconbitmap("./assets/images/window_icon.ico") # Remove ./clean when finished
+
+def on_tab_visibility(tab_window):
+    def main_Screen():
+        print("Tow Truck Server")
+    def inner(event):
+        # Get the notebook widget
+        notebook = event.widget.nametowidget(event.widget.winfo_parent())
+
+        # Get the index of the currently selected tab
+        index = notebook.index(notebook.select())
+
+        # Call corresponding function based on the index of the tab
+        if index == 0:
+            AddServerScreen(tab_window,main_screen)
+            print("Add Server tab opened")
+            # Call your function for the Add Server tab here
+        elif index == 1:
+            ManageServerFunction(tab_window,main_screen)
+            print("Manage Server tab opened")
+            # Call your function for the Manage Server tab here
+        elif index == 2:
+            DisplayCredits()
+            print("Credits tab opened")
+            # Call your function for the Credits tab here
+    return inner
+
 
 def main_screen():
-    clear_window(app)
-    # Create a frame for the side menu
-    side_menu = customtkinter.CTkFrame(app, width=200)
-    side_menu.place(relx=0.0, rely=0.0, relheight=1.0, anchor='nw')
-    
-    # Define the dimensions for the icons and buttons
-    # main_icons_width = 80
-    # main_icons_height = 80
+    # Create a style for the notebook with vertical tabs
+    style = ttk.Style()
+    style.configure("Vertical.TNotebook", tabposition="wn")
 
-    AddServer_icon = customtkinter.CTkImage(
-        light_image=Image.open('./img/addserver_icon_80.png'),
-        dark_image=Image.open('./img/addserver_icon_80.png'),
-        size=(main_icons_width, main_icons_hight)
-    )
-    AddServer = customtkinter.CTkButton(
-        side_menu,
-        text="",
-        command=lambda:AddServerScreen(app,main_screen),
-        image=AddServer_icon,
-        width=main_icons_width,
-        height=main_icons_hight
-    )
-    AddServer.pack(pady=10, padx=10)
-    # Tooltip(AddServer, "Add a new server")
+    # Create a notebook (tabbed interface) with the custom style
+    global notebook
+    notebook = ttk.Notebook(app, style="Vertical.TNotebook")
+    notebook.pack(fill='both', expand=True)
 
-    ManageServer_icon = customtkinter.CTkImage(
-        light_image=Image.open('./img/bookmark_100.png'),
-        dark_image=Image.open('./img/bookmark_100.png'),
-        size=(main_icons_width, main_icons_hight)
-    )
-    ManageServer = customtkinter.CTkButton(
-        side_menu,
-        text="",
-        command=lambda: ManageServerFunction(app,main_screen),
-        image=ManageServer_icon,
-        width=main_icons_width,
-        height=main_icons_hight
-    )
-    ManageServer.pack(pady=10, padx=10)
-    # Tooltip(ManageServer, "Manage existing servers")
+    # Create the Add Server tab
+    global add_server_tab
+    add_server_tab = ttk.Frame(notebook)
+    notebook.add(add_server_tab, text='Add Server')
+    add_server_tab.bind("<Visibility>", on_tab_visibility(add_server_tab))
 
-    # # Add the Credits button at the bottom of the side menu
-    Credits = customtkinter.CTkButton(
-        side_menu,
-        command=DisplayCredits,
-        text="Credits",
-        width=main_icons_width,
-        height=main_icons_hight
-    )
-    Credits.pack(pady=10, padx=10, side='bottom')
-    # Tooltip(Credits, "View credits")
+    AddServer_icon = Image.open('./img/addserver_icon_80.png').resize((80, 80), Image.BICUBIC)
+    AddServer_icon = ImageTk.PhotoImage(AddServer_icon)
+    AddServer_label = tk.Label(add_server_tab, image=AddServer_icon)
+    AddServer_label.pack(pady=10, padx=10)
+
+    # Create the Manage Server tab
+    global manage_server_tab
+    manage_server_tab = ttk.Frame(notebook)
+    notebook.add(manage_server_tab, text='Manage Server')
+    manage_server_tab.bind("<Visibility>", on_tab_visibility(manage_server_tab))
+
+    # ManageServer_icon = Image.open('./img/bookmark_100.png').resize((80, 80), Image.BICUBIC)
+    # ManageServer_icon = ImageTk.PhotoImage(ManageServer_icon)
+    # ManageServer_label = tk.Label(manage_server_tab, image=ManageServer_icon)
+    # ManageServer_label.pack(pady=10, padx=10)
+
+    # Add the Credits tab
+    global credits_tab
+    credits_tab = ttk.Frame(notebook)
+    notebook.add(credits_tab, text='Credits')
+    credits_tab.bind("<Visibility>", on_tab_visibility("Credits"))
+
+    # Define Credits content
+    def display_credits():
+        credits_text = """
+        This application was created by [Your Name].
+        """
+        credits_label = tk.Label(credits_tab, text=credits_text)
+        credits_label.pack(pady=10, padx=10)
+
+    display_credits()
+sv_ttk.set_theme("dark")
 
 main_screen()
 app.mainloop()

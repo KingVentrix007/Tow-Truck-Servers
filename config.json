@@ -1,3 +1,26 @@
 {
-    "servers": []
+    "servers": [
+        {
+            "displayName": "testt",
+            "path": "./servers/testt",
+            "gameVersion": "1.18.2",
+            "description": "ttt",
+            "modloader": "forge",
+            "javaVersion": "17.0.6",
+            "javaPath": "C:\\Program Files\\Java\\jdk-17\\bin\\java.exe",
+            "ram": "4G",
+            "image": ""
+        },
+        {
+            "displayName": "ForgeS",
+            "path": "./servers/ForgeS",
+            "gameVersion": "1.19.2",
+            "description": "ss",
+            "modloader": "forge",
+            "javaVersion": "17.0.6",
+            "javaPath": "C:\\Program Files\\Java\\jdk-17\\bin\\java.exe",
+            "ram": "4G",
+            "image": ""
+        }
+    ]
 }
