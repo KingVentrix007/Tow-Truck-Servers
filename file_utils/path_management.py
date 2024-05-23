@@ -1,3 +1,28 @@
+
+"""
+Filename: path_management.py
+Author: Tristan Kuhn
+Date: 2023-05-23
+License: TOW TRUCK SERVER LICENSE AGREEMENT
+Description: Path management functions for Tow Truck Servers
+
+Usage:
+    Import path_management.py into whatever code you need
+
+Dependencies:
+    None
+
+Functions:
+    - adjust_path: Adjusts the path to be One before the servers folder
+
+
+Classes:
+    - None
+
+Notes:
+    None
+    
+"""
 import os
 def adjust_path():
     current_path = os.getcwd()

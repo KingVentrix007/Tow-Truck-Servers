@@ -1,3 +1,26 @@
+
+"""
+Filename: minecraft_version.py
+Author: Tristan Kuhn
+Date: 2023-05-23
+License: TOW TRUCK SERVER LICENSE AGREEMENT
+Description: Data related to minecraft versions
+
+Usage:
+    Import into needed code
+
+Dependencies:
+    None
+Functions:
+    None
+
+Classes:
+    None
+
+Notes:
+    None
+    
+"""
 minecraft_versions = [
     # List of Minecraft versions
     "1.20.6", "1.20.5", "1.20.4", "1.20.3", "1.20.2", "1.20.1", "1.20",

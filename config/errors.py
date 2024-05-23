@@ -1,3 +1,27 @@
+"""
+Filename: errors.py
+Author: Tristan Kuhn
+Date: 2024-05-23
+License: TOW TRUCK SERVER LICENSE AGREEMENT
+Description: error codes for Tow Truck Servers
+
+Usage:
+    Simple library for TOW TRUCK SERVERS
+
+Dependencies:
+    No Dependencies
+
+Functions:
+    - No functions
+
+Classes:
+    - No classes
+
+Notes:
+    May become redundant in future versions
+    
+"""
+
 #Error codes:
 # A=1
 # B=2

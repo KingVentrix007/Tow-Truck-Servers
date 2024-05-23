@@ -1,3 +1,27 @@
+"""
+Filename: HomeScreen.py
+Author: Tristan Kuhn
+Date: 2024-05-24
+License: TOW TRUCK SERVER LICENSE AGREEMENT
+
+Usage:
+    HomeScreen.py is a GUI module for Tow Truck Server
+
+Dependencies:
+    customtkinter
+    PIL
+Functions:
+    - HomeScreen: Entry point for program, creates tab window.
+    - display_servers: Displays a list of servers
+
+Classes:
+    - None
+
+Notes:
+    Throws UserWarning concerning images, 
+    Do not remove 'import tkinter as tk' 
+    
+"""
 import tkinter as tk
 import customtkinter as ctk
 from PIL import Image, ImageTk
@@ -51,6 +75,6 @@ def display_servers(frame, servers):
         description_label = ctk.CTkLabel(server_frame, text=server['description'], font=("Arial", 12))
         description_label.pack()
 
-        # Display java version and ram in small grey letters
+        # Display java version and ram in small letters
         details_label = ctk.CTkLabel(server_frame, text=f"Java: {server['javaVersion']} | RAM: {server['ram']}", font=("Arial", 10))
         details_label.pack()
