@@ -15,14 +15,14 @@ def HomeScreen(tab_view, servers):
         made_home_screen = True
         display_servers(home_screen, servers[:5])
     else:
-        home_screen = home_screen_ext
-
+        # Prevents a new window from being created
+        pass
+        
 def display_servers(frame, servers):
     for i, server in enumerate(servers):
         server_frame = ctk.CTkFrame(frame)
         server_frame.grid(row=0, column=i, padx=10, pady=5)
 
-        # Check if image path is valid, otherwise use default image
         if server["modloader"] == "forge":
             backup_path = "./img/forge.png"
         elif server["modloader"] == "fabric":
