@@ -5,7 +5,7 @@ from threading import Thread
 from mods.modloader import download_server_jar
 from mods.fabric import install_fabric_server
 from mods.forge import install_forge_server
-from file_utils.path_mangment import adjust_path
+from file_utils.path_management import adjust_path
 import json
 import re
 import subprocess

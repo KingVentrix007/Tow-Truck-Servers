@@ -10,7 +10,7 @@ import tkinter as tk
 import threading as Thread
 import subprocess
 from tkinter import messagebox
-from file_utils.path_mangment import adjust_path
+from file_utils.path_management import adjust_path
 from config.errors import err_code_process_closed
 import re
 list = []
@@ -93,8 +93,6 @@ def run_forge_server(server_info,text_widget,on_finish):
     adjust_path()
     global process  # Declare process as a global variable
     process = None
-    # process = None
-
     path = server_info.get('path', "/fake/")
     java = server_info.get('javaPath', "java")
     os.chdir(path)
@@ -117,16 +115,13 @@ def run_forge_server(server_info,text_widget,on_finish):
             process.stdout.close()
             process.wait()
             process.pid
-            on_finish(server_info)
+            on_finish(server_info,text_widget)
         except ValueError:
             name = server_info.get("displayName",'None')
             print(f"{err_code_process_closed}:Server{name} tried to read from stdout when stdout was closed")
             # on_finish(server_info)
 
     def format_output_as_html(output):
-        output = output.replace('ERROR', '[ERROR]')
-        output = output.replace('WARNING', '[WARNING]')
-        output = output.replace('INFO', '[INFO]')
         return f'{output}'
 
     thread = Thread.Thread(target=run_command, args=(cmd,), daemon=True)

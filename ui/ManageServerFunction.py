@@ -2,13 +2,12 @@ import tkinter as tk
 from tkinter import messagebox
 from tkinter.scrolledtext import ScrolledText
 import customtkinter as ctk
-from ui.general import clear_window
 from server_utils.server_manager import get_all_servers, load_properties, del_server
 from ui.settings import edit_properties_window
 from ui.ModMenu import mod_menu
 from server_utils.server import run_server  # Ensure this function returns the process
-from file_utils.path_mangment import adjust_path
-from config.globals import is_server_running,set_server_running,set_server_stopped
+from file_utils.path_management import adjust_path
+from config.globals import is_server_running,set_server_running,set_server_stopped,default_server_name
 from config.errors import err_code_process_closed
 import os
 
@@ -18,27 +17,8 @@ server_states = {}  # Dictionary to store server states including text content
 made_servers = []
 made_tab_view = False
 global tabview
-def ManageServerFunction(window):
-    # clear_window(window)
-    global made_tab_view
-    global tabview
-    servers = get_all_servers()
-    if made_tab_view == False:
-        tabview_internal = ctk.CTkTabview(window)
-        tabview_internal.pack(expand=1, fill='both')
-        tabview = tabview_internal
-    made_tab_view = True
-    created_tabs = {}  # Dictionary to store created tabs by their names
-
-    def create_server_tab(tabview, server_info):
-        server_name = server_info.get('displayName', "Server")
-        
-        # Check if tab with the same name already exists
-        if server_name in created_tabs:
-            tabview.select(created_tabs[server_name])  # Focus on existing tab
-            return
-        
-        def open_settings():
+created_tabs = {}  # Dictionary to store created tabs by their names
+def open_settings(server_info):
             adjust_path()
             path = server_info.get('path', "/fake/")
             properties_file = os.path.join(path, "server.properties")
@@ -51,9 +31,7 @@ def ManageServerFunction(window):
                 edit_properties_window(properties, properties_file)
             else:
                 messagebox.showerror("Error", f"server.properties file not found at {properties_file}")
-
-        def send_command():
-            command = command_entry.get()
+def send_command(command,server_name):
             if server_name in processes and processes[server_name] is not None:
                 # Retrieve the correct process based on the currently selected tab
                 current_process = processes[server_name]
@@ -63,24 +41,8 @@ def ManageServerFunction(window):
             else:
                 messagebox.showerror("Error", "Process is not running")
 
-        def del_server_callback():
-            del_server(server_info.get('displayName', "Unnamed Server"))
-            if server_name in processes:
-                del processes[server_name]
-            if server_name in server_states:
-                del server_states[server_name]
-            tabview.delete(created_tabs[server_name])
-            del created_tabs[server_name]
-        def on_server_complete(server_data):
-            int_server_name = server_data.get('displayName', "Unnamed Server")
-            print(f"Server {int_server_name} pid {processes[int_server_name].pid} is being stopped")
-            pid = processes[int_server_name].pid
-            processes.pop(int_server_name)
-            print(f'Server {int_server_name} has been stopped: PID {pid}')
-            print("Server",int_server_name,int_server_name not in processes)
-            set_server_stopped()
-
-        def run_server_callback():
+def run_server_callback(text_widget,server_info,on_server_complete):
+            server_name = server_info.get("displayName", "server")
             if(is_server_running() == True):
                 messagebox.showerror("Error", f"Running multiple servers simultaneously is not supported. See {err_code_process_closed} for more details.")
             else:
@@ -93,20 +55,55 @@ def ManageServerFunction(window):
                         messagebox.showerror("Error", "Failed to start the server")
                     else:
                         print(f"Server {server_name} started with pid ",processes[server_name].pid)
+def on_server_complete(server_data,server_output):
+            int_server_name = server_data.get('displayName', default_server_name)
+            print(f"Server {int_server_name} pid {processes[int_server_name].pid} is being stopped")
+            pid = processes[int_server_name].pid
+            processes.pop(int_server_name)
+            print(f'Server {int_server_name} has been stopped: PID {pid}')
+            print("Server",int_server_name,int_server_name not in processes)
+            set_server_stopped()
+            server_output.insert(tk.END, "Server has stopped, you are free to start another server or edit the configuration of this server. Keep Trucking ")
+def del_server_callback(server_info):
+            server_name = server_info.get('displayName', default_server_name)
+            del_server(server_info.get('displayName', default_server_name))
+            if server_name in processes:
+                del processes[server_name]
+            if server_name in server_states:
+                del server_states[server_name]
+            tabview.delete(created_tabs[server_name])
+            del created_tabs[server_name]
+def create_server_tab(tabview, server_info):
+        global  created_tabs
+        server_name = server_info.get('displayName', default_server_name)
         
-        tab_name = server_info.get('displayName', "Server")
+        # Check if tab with the same name already exists
+        if server_name in created_tabs:
+            tabview.select(created_tabs[server_name])  # Focus on existing tab
+            return
+        
+        
+
+        
+
+        
+        
+
+        
+        
+        tab_name = server_info.get('displayName', default_server_name)
         server_tab = tabview.add(tab_name)
         created_tabs[server_name] = server_tab  # Add the created tab to the dictionary
         # Create a frame for the top menu bar
         menu_bar = ctk.CTkFrame(server_tab)
         menu_bar.pack(side=tk.TOP, fill=tk.X)
 
-        delete_button = ctk.CTkButton(menu_bar, text="Delete", command=del_server_callback)
+        delete_button = ctk.CTkButton(menu_bar, text="Delete", command=lambda:del_server_callback(server_info))
         delete_button.pack(side=tk.LEFT, padx=5, pady=5)
-        run_button = ctk.CTkButton(menu_bar, text="Run", command=run_server_callback)
+        run_button = ctk.CTkButton(menu_bar, text="Run", command=lambda:run_server_callback(text_widget,server_info,on_server_complete))
         run_button.pack(side=tk.LEFT, padx=5, pady=5)
 
-        settings_button = ctk.CTkButton(menu_bar, text="Settings", command=open_settings)
+        settings_button = ctk.CTkButton(menu_bar, text="Settings", command=lambda: open_settings(server_info))
         settings_button.pack(side=tk.LEFT, padx=5, pady=5)
 
         mod_btn = ctk.CTkButton(menu_bar, text="Mod Menu", command=lambda: mod_menu(server_info.get('path', 'null')))
@@ -118,16 +115,28 @@ def ManageServerFunction(window):
         if server_name in server_states:
             text_widget.insert(tk.END, server_states[server_name]['text'])
             if server_states[server_name]['is_running']:
-                run_server_callback()
+                run_server_callback(text_widget,server_info,on_server_complete)
 
         command_entry = ctk.CTkEntry(server_tab)
         command_entry.pack(fill=tk.X, pady=5)
 
-        send_button = ctk.CTkButton(server_tab, text="Send Command", command=send_command)
+        send_button = ctk.CTkButton(server_tab, text="Send Command", command=lambda:send_command(command_entry.get(),server_name))
         send_button.pack(pady=5)
+def ManageServerFunction(window):
+    # clear_window(window)
+    global made_tab_view
+    global tabview
+    servers = get_all_servers()
+    if made_tab_view == False:
+        tabview_internal = ctk.CTkTabview(window)
+        tabview_internal.pack(expand=1, fill='both')
+        tabview = tabview_internal
+    made_tab_view = True
+    
 
     for server in servers:
         if server in made_servers:
+            # if server is already created, don't create it again
             pass
         else:
             made_servers.append(server)
