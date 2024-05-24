@@ -1,21 +1,29 @@
 # Main.py
 
 import tkinter as tk
-from tkinter import ttk
+from tkinter import ttk,messagebox
 from PIL import Image, ImageTk
 import sv_ttk
 from ui.AddServerScreen import AddServerScreen
 from ui.ManageServerFunction import ManageServerFunction
 from ui.Credits import ShowCredits
 from ui.HomeScreen import HomeScreen
-import pywinstyles
+import os
+if os.name == 'nt':
+    import pywinstyles
 from config.globals import tab_icon_width,tab_icon_hight
 from server_utils.server_manager import get_all_servers
 app = tk.Tk()
 app.geometry("720x480")
 app.title("Tow Truck Server")
-app.iconbitmap("./assets/images/window_icon.ico") # Remove ./clean when finished
-pywinstyles.apply_style(app, 'mica')
+if os.name == 'nt':
+
+    app.iconbitmap("./assets/images/window_icon.ico") # Remove ./clean when finished
+
+
+    pywinstyles.apply_style(app, 'mica')
+else:
+    messagebox.showwarning("OS not supported", "None windows OS are not officially supported, please proceed with caution")
 def on_tab_visibility(tab_window,other_window=None):
     def inner(event):
         # Get the notebook widget
