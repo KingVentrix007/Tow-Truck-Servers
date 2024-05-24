@@ -37,6 +37,8 @@ import tkinter as tk
 import threading as Thread
 import subprocess
 from tkinter import messagebox
+from file_utils.path_management import adjust_path
+from config.errors import err_code_process_closed
 
 cache_file = "fabric_jar_cache.json"
 
@@ -112,3 +114,51 @@ def install_fabric_server(version,name):
     thread = Thread.Thread(target=run_command, args=(command, output_widget))
     thread.start()
     root.mainloop()
+
+
+def run_fabric_server(server_info,text_widget,on_finish):
+    adjust_path()
+    path = server_info.get('path', "/fake/")
+    java = server_info.get('javaPath', "java")
+    os.chdir(path)
+    print(os.getcwd())
+    # lib = extract_forge_libraries_path("run.bat")
+    ram = server_info.get('ram', "2G")
+    jar_version = server_info.get("gameVersion","0.0.0")
+    jar_file = f"fabric_installer_{jar_version}.jar"
+    cmd = f"{java} -Xmx{ram} -jar {jar_file} nogui %*"
+    global process  # Declare process as a global variable
+    process = None
+    def run_command(command):
+        # text_widget.tag_config("error", foreground="red")
+        # text_widget.tag_config("normal", foreground="black")
+        global process
+        print(command)
+        process = subprocess.Popen(command, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, universal_newlines=True)
+        try:
+            for line in iter(process.stdout.readline, ""):
+                # print(line)
+                formatted_output,color = format_output_as_html(line)
+                try:
+                    text_widget.insert(tk.END, formatted_output,color)
+                    text_widget.see(tk.END)  # Auto-scroll to the end
+                except Exception as e:
+                    print(e)
+            process.stdout.close()
+            process.wait()
+            process.pid
+            on_finish(server_info,text_widget)
+        except ValueError:
+            name = server_info.get("displayName",'None')
+            print(f"{err_code_process_closed}:Server{name} tried to read from stdout when stdout was closed")
+            # on_finish(server_info)
+
+    def format_output_as_html(output):
+        return f'{output}','error'
+
+    thread = Thread.Thread(target=run_command, args=(cmd,), daemon=True)
+    thread.start()
+    while(process == None):
+        # Wait for the process to become valid
+        pass
+    return process

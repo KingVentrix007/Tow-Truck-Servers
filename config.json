@@ -43,6 +43,17 @@
             "javaPath": "C:\\Program Files\\Java\\jdk-17\\bin\\java.exe",
             "ram": "4G",
             "image": ""
+        },
+        {
+            "displayName": "Fabric Main",
+            "path": "./servers/FabricMain",
+            "gameVersion": "1.19.2",
+            "description": "Main Gab",
+            "modloader": "fabric",
+            "javaVersion": "17.0.6",
+            "javaPath": "C:\\Program Files\\Java\\jdk-17\\bin\\java.exe",
+            "ram": "4G",
+            "image": ""
         }
     ]
 }

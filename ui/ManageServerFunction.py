@@ -81,10 +81,8 @@ def send_command(command,server_name):
 
 def run_server_callback(text_widget,server_info,on_server_complete):
             server_name = server_info.get("displayName", "server")
-            if(server_info.get("modloader","null") == 'fabric'):
-                messagebox.showerror("Error", "Running fabric servers is not supported currently")
             
-            elif(is_server_running() == True):
+            if(is_server_running() == True):
                 messagebox.showerror("Error", f"Running multiple servers simultaneously is not supported. See {err_code_process_closed} for more details.")
             else:
                 set_server_running()
@@ -106,6 +104,9 @@ def on_server_complete(server_data,server_output):
             set_server_stopped()
             server_output.insert(tk.END, "Server has stopped, you are free to start another server or edit the configuration of this server. Keep Trucking ")
 def del_server_callback(server_info):
+            messagebox.showerror("Error", "Until further notice, this feature is disabled")
+            return -1
+            # This is temporary
             server_name = server_info.get('displayName', default_server_name)
             del_server(server_info.get('displayName', default_server_name))
             if server_name in processes:
