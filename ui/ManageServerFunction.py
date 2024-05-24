@@ -81,7 +81,10 @@ def send_command(command,server_name):
 
 def run_server_callback(text_widget,server_info,on_server_complete):
             server_name = server_info.get("displayName", "server")
-            if(is_server_running() == True):
+            if(server_info.get("modloader","null") == 'fabric'):
+                messagebox.showerror("Error", "Running fabric servers is not supported currently")
+            
+            elif(is_server_running() == True):
                 messagebox.showerror("Error", f"Running multiple servers simultaneously is not supported. See {err_code_process_closed} for more details.")
             else:
                 set_server_running()

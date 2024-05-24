@@ -100,15 +100,17 @@ def run_forge_server(server_info,text_widget,on_finish):
     ram = server_info.get('ram', "2G")
     cmd = f"{java} -Xmx{ram} {lib} nogui %*"
     def run_command(command):
+        # text_widget.tag_config("error", foreground="red")
+        # text_widget.tag_config("normal", foreground="black")
         global process
         print(command)
         process = subprocess.Popen(command, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, universal_newlines=True)
         try:
             for line in iter(process.stdout.readline, ""):
                 # print(line)
-                formatted_output = format_output_as_html(line)
+                formatted_output,color = format_output_as_html(line)
                 try:
-                    text_widget.insert(tk.END, formatted_output)
+                    text_widget.insert(tk.END, formatted_output,color)
                     text_widget.see(tk.END)  # Auto-scroll to the end
                 except Exception as e:
                     print(e)
@@ -122,7 +124,7 @@ def run_forge_server(server_info,text_widget,on_finish):
             # on_finish(server_info)
 
     def format_output_as_html(output):
-        return f'{output}'
+        return f'{output}','error'
 
     thread = Thread.Thread(target=run_command, args=(cmd,), daemon=True)
     thread.start()
