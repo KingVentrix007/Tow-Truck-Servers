@@ -1,3 +1,28 @@
+
+"""
+Filename: modloader.py
+Author: Tristan Kuhn
+Date: 2024-05-24
+License: TOW TRUCK SERVER LICENSE AGREEMENT
+Description: Module of mod loader specific code
+Usage:
+    Import the module into the necessary code
+
+Dependencies:
+    requests
+
+Functions:
+    - download_forge: Starts the forge installer jar download
+    - download_fabric: Starts the fabric server jar download 
+    - download_server_jar: Downloads the server jar using one of the above functions
+
+Classes:
+    - ClassName: Brief description of what the class does.
+
+Notes:
+    Any additional notes or information.
+    
+"""
 from mods.fabric import GetLatestStableFabricServerURL
 from mods.forge import GetRecommendedURL
 from minecraft.minecraft_versions import minecraft_versions

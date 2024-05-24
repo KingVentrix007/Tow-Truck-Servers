@@ -1,3 +1,34 @@
+
+"""
+Filename: fabric.py
+Author: Tristan Kuhn
+Date: 2024-05-24
+License: TOW TRUCK SERVER LICENSE AGREEMENT
+Description: Fabric module for Tow Truck Server
+
+Usage:
+    Import fabric into necessary code 
+
+Dependencies:
+    tkinter
+    requests
+
+
+Functions:
+    - load_cache: Loads the fabric cache
+    - save_cache: Saves the fabric cache
+    - run_command: Runs the command
+    - GetLatestStableFabricServerURL: Gets the latest stable fabric server jar file url
+    - install_fabric_server: Installs the fabric server
+
+Classes:
+    - ClassName: Brief description of what the class does.
+
+Notes:
+    Any additional notes or information.
+    
+"""
+
 from minecraft.minecraft_versions import minecraft_versions
 import requests
 import json
