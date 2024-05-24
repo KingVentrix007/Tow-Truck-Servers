@@ -4,8 +4,6 @@ import tkinter as tk
 from tkinter import ttk
 from PIL import Image, ImageTk
 import sv_ttk
-import customtkinter as ctk
-from customtkinter import CTkImage
 from ui.AddServerScreen import AddServerScreen
 from ui.ManageServerFunction import ManageServerFunction
 from ui.Credits import ShowCredits
