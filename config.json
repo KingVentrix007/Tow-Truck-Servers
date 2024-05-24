@@ -32,6 +32,17 @@
             "javaPath": "C:\\Program Files\\Java\\jdk-17\\bin\\java.exe",
             "ram": "4G",
             "image": "C:/Users/trist/OneDrive/Pictures/CoverIimg.jpeg"
+        },
+        {
+            "displayName": "GG",
+            "path": "./servers/GG",
+            "gameVersion": "1.19.4",
+            "description": "fff",
+            "modloader": "forge",
+            "javaVersion": "17.0.6",
+            "javaPath": "C:\\Program Files\\Java\\jdk-17\\bin\\java.exe",
+            "ram": "4G",
+            "image": ""
         }
     ]
 }

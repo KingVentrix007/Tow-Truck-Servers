@@ -5,6 +5,7 @@ from tkinter import ttk
 from PIL import Image, ImageTk
 import sv_ttk
 import customtkinter as ctk
+from customtkinter import CTkImage
 from ui.AddServerScreen import AddServerScreen
 from ui.ManageServerFunction import ManageServerFunction
 from ui.Credits import ShowCredits
@@ -17,7 +18,7 @@ app.geometry("720x480")
 app.title("Tow Truck Server")
 app.iconbitmap("./assets/images/window_icon.ico") # Remove ./clean when finished
 pywinstyles.apply_style(app, 'mica')
-def on_tab_visibility(tab_window):
+def on_tab_visibility(tab_window,other_window=None):
     def inner(event):
         # Get the notebook widget
         notebook = event.widget.nametowidget(event.widget.winfo_parent())
@@ -27,7 +28,7 @@ def on_tab_visibility(tab_window):
 
         # Call corresponding function based on the index of the tab
         if index == 0:
-            HomeScreen(tab_window,get_all_servers())
+            HomeScreen(tab_window,get_all_servers(),other_window)
         elif index == 1:
             AddServerScreen(tab_window)
             print("Add Server tab opened")
@@ -42,12 +43,16 @@ def on_tab_visibility(tab_window):
             # Call your function for the Credits tab here
     return inner
 
-AddServer_icon = Image.open("./img/addserver_icon_80.png").resize((tab_icon_width, tab_icon_hight))
+AddServer_icon = Image.open("./assets/images/addserver_icon_80.png").resize((tab_icon_width, tab_icon_hight))
 AddServer_icon = ImageTk.PhotoImage(AddServer_icon)
-ServersIcon = Image.open("./img/bookmark_100.png").resize((tab_icon_width, tab_icon_hight))
+ServersIcon = Image.open("./assets/images/bookmark_100.png").resize((tab_icon_width, tab_icon_hight))
 ServersIcon = ImageTk.PhotoImage(ServersIcon)
+HomeIcon = Image.open("./assets/images/home-100.png").resize((tab_icon_width, tab_icon_hight))
+HomeIcon = ImageTk.PhotoImage(HomeIcon)
 
 def main_screen():
+    global manage_server_tab
+    
     # Create a style for the notebook with vertical tabs
     style = ttk.Style()
     style.configure("Vertical.TNotebook", tabposition="wn")
@@ -56,17 +61,18 @@ def main_screen():
     global notebook
     notebook = ttk.Notebook(app, style="Vertical.TNotebook")
     notebook.pack(fill='both', expand=True)
+    manage_server_tab = ttk.Frame(notebook)
+
     global home_tab
     home_tab = ttk.Frame(notebook)
-    notebook.add(home_tab, text='Home')
-    home_tab.bind("<Visibility>", on_tab_visibility(home_tab))
+    notebook.add(home_tab, text='',image=HomeIcon)
+    home_tab.bind("<Visibility>", on_tab_visibility(home_tab,manage_server_tab))
 
     # Create the Add Server tab
     global add_server_tab
     add_server_tab = ttk.Frame(notebook)
     notebook.add(add_server_tab, text='',image=AddServer_icon)
     add_server_tab.bind("<Visibility>", on_tab_visibility(add_server_tab))
-    manage_server_tab = ttk.Frame(notebook)
     notebook.add(manage_server_tab, text='',image=ServersIcon)
     manage_server_tab.bind("<Visibility>", on_tab_visibility(manage_server_tab))
     # Add the Credits tab

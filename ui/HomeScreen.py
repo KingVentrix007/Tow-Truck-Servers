@@ -10,9 +10,11 @@ Usage:
 Dependencies:
     customtkinter
     PIL
+    CTkMessagebox
 Functions:
     - HomeScreen: Entry point for program, creates tab window.
     - display_servers: Displays a list of servers
+    - manage_server: Gos to the server manager-
 
 Classes:
     - None
@@ -26,33 +28,39 @@ import tkinter as tk
 import customtkinter as ctk
 from PIL import Image, ImageTk
 import os
-
+from CTkMessagebox import CTkMessagebox
+from ui.ManageServerFunction import ManageServerFunction
 made_home_screen = False
 home_screen_ext = None
-
-def HomeScreen(tab_view, servers):
+def HomeScreen(tab_view, servers,manage_server_tab):
     global made_home_screen, home_screen_ext
     if not made_home_screen:
         home_screen = ctk.CTkFrame(tab_view)
         home_screen.pack(fill="both", expand=True)
         home_screen_ext = home_screen
         made_home_screen = True
-        display_servers(home_screen, servers[:5])
+        display_servers(home_screen, servers[:5],manage_server_tab)
     else:
         # Prevents a new window from being created
         pass
         
-def display_servers(frame, servers):
+def manage_server(server_name,servers,manage_server_tab):
+    print("Handling server: " + server_name)
+    print("Server data: ", servers)
+    print(manage_server_tab)
+    # CTkMessagebox(title="Error",message="Currently this function is not supported",icon="cancel",sound="./assets/sound/error.mp3")
+    ManageServerFunction(manage_server_tab)
+def display_servers(frame, servers,manage_server_tab):
     for i, server in enumerate(servers):
         server_frame = ctk.CTkFrame(frame)
         server_frame.grid(row=0, column=i, padx=10, pady=5)
 
         if server["modloader"] == "forge":
-            backup_path = "./img/forge.png"
+            backup_path = "./assets/images/forge.png"
         elif server["modloader"] == "fabric":
-            backup_path = "./img/fabric.png"
+            backup_path = "./assets/images/fabric.png"
         else:
-            backup_path = "./img/package.png"
+            backup_path = "./assets/images/package.png"
         img_path = server["image"] if os.path.isfile(server["image"]) else backup_path
 
         # Load and resize image
@@ -64,17 +72,14 @@ def display_servers(frame, servers):
         img_label.pack()
 
         # Display name and version
-        name_version_label = ctk.CTkLabel(server_frame, text=f"{server['displayName']} - {server['gameVersion']}", font=("Arial", 16))
+        name_version_label = ctk.CTkLabel(server_frame, text=f"{server['displayName']}", font=("Arial", 16))
         name_version_label.pack()
 
         # Add button
-        button = ctk.CTkButton(server_frame, text="Launch")
+        # button = ctk.CTkButton(server_frame, text="Manage")
+        button = ctk.CTkButton(server_frame, text="Manage", command=lambda server_name=server['displayName'], server_data=server: manage_server(server_name, server_data,manage_server_tab))
         button.pack()
 
         # Display description
-        description_label = ctk.CTkLabel(server_frame, text=server['description'], font=("Arial", 12))
-        description_label.pack()
-
-        # Display java version and ram in small letters
-        details_label = ctk.CTkLabel(server_frame, text=f"Java: {server['javaVersion']} | RAM: {server['ram']}", font=("Arial", 10))
-        details_label.pack()
+        modloader = ctk.CTkLabel(server_frame, text=f"{server['modloader']} {server['gameVersion']}", font=("Arial", 12))
+        modloader.pack()
