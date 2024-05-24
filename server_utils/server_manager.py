@@ -1,3 +1,37 @@
+"""
+Filename: your_script_name.py
+Author: Tristan Kuhn
+Date Created: 2024-05-24
+License: TOW TRUCK SERVER LICENSE AGREEMENT
+Description: This script provides functionalities for managing game servers, including adding and removing server entries, loading and saving server properties, and retrieving all servers from the configuration.
+
+Usage:
+    Import the code into the necessary code
+
+Dependencies:
+    - json
+    - shutil
+    - server_utils.create_server (custom module)
+    - subprocess
+    - os
+    - psutil
+    - tkinter
+    - tkinter.messagebox
+
+Functions:
+    - remove_server_by_display_name: Removes a server from the configuration by its display name.
+    - get_all_servers: Retrieves all servers from the configuration.
+    - load_properties: Loads server properties from a file.
+    - save_properties: Saves server properties to a file.
+    - del_server: Deletes a server by its name.
+    - add_entry: Adds a new server entry to the configuration.
+
+Classes:
+    None
+
+Notes:
+    Ensure that the custom module server_utils.create_server is available in the project.
+"""
 import json
 import shutil
 from server_utils.create_server import get_server

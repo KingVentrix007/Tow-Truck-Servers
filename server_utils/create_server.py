@@ -1,4 +1,40 @@
+"""
+Filename: your_script_name.py
+Author: Tristan Kuhn
+Date Created: 2024-05-24
+License: TOW TRUCK SERVER LICENSE AGREEMENT
+Description: This script manages the creation and configuration of game servers. It includes functionalities to add server entries, retrieve server details, and handle server installation with specified modloaders.
 
+Usage:
+    Import into needed code
+
+Dependencies:
+    - os
+    - tkinter
+    - customtkinter
+    - threading
+    - mods.modloader (custom module)
+    - mods.fabric (custom module)
+    - mods.forge (custom module)
+    - file_utils.path_management (custom module)
+    - json
+    - re
+    - subprocess
+    - psutil
+    - tkinter.ttk
+
+Functions:
+    - add_entry: Adds a new server entry to the configuration.
+    - get_server: Retrieves server details from the configuration.
+    - install_server: Installs the specified server with the given modloader.
+    - make_server: Manages the complete process of setting up a new server, including downloading and installing.
+
+Classes:
+    None
+
+Notes:
+    Ensure that all custom modules (mods.modloader, mods.fabric, mods.forge, file_utils.path_management) are available in the project.
+"""
 
 
 import os

@@ -1,3 +1,27 @@
+"""
+Filename: ModeMenu.py
+Author: Tristan Kuhn
+Date Created: 2024-05-24
+License: TOW TRUCK SERVER LICENSE AGREEMENT
+Description: This script provides a graphical user interface for managing mods in a game server. It allows users to enable or disable mods by toggling switches for each mod. The script scans the "mods" directory within the server directory and displays all ".jar" and ".disabled" files as available mods.
+
+Usage:
+    This script is typically imported and used in conjunction with a GUI application for managing game servers.
+
+Dependencies:
+    - customtkinter
+    - os
+
+Functions:
+    - mod_menu: Creates a mod management window with GUI components for toggling mods.
+
+Classes:
+    None
+
+Notes:
+    - This script relies on the customtkinter module for GUI components.
+    - Mods are expected to be stored in the "mods" directory within the server directory.
+"""
 import customtkinter as ctk
 import os
 def mod_menu(path):

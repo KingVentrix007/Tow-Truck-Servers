@@ -1,3 +1,29 @@
+"""
+Filename: Credits.py
+Author: Tristan Kuhn
+Date Created: 2024-05-24
+License: TOW TRUCK SERVER LICENSE AGREEMENT
+Description: This script displays credits for the Tow Truck Servers application, including clickable links to external sources for icons and resources used in the application.
+
+Usage:
+    Import ONLY into main.py
+
+Dependencies:
+    - tkinter
+    - customtkinter
+    - webbrowser
+
+Functions:
+    - ShowCredits: Displays credits for the Tow Truck Servers application with clickable links to external sources.
+    - open_link: Opens the provided URL in the default web browser.
+
+Classes:
+    - CreditsScreen: A tkinter application for displaying credits.
+
+Notes:
+    This script relies on the customtkinter module for GUI components.
+"""
+
 import tkinter as tk
 import customtkinter as ctk
 import webbrowser

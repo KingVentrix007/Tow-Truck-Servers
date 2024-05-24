@@ -1,3 +1,41 @@
+"""
+Filename: ManageServerFunction.py
+Author: Tristan Kuhn
+Date Created: 2024-05-24
+License: TOW TRUCK SERVER LICENSE AGREEMENT
+Description: This script provides functions for managing game servers including running, stopping, deleting, and accessing server settings. It includes GUI components for displaying server output, sending commands to servers, and interacting with server settings.
+
+Usage:
+    Import ONLY into main.py
+
+Dependencies:
+    - tkinter
+    - tkinter.scrolledtext
+    - customtkinter
+    - server_utils.server_manager (custom module)
+    - ui.settings (custom module)
+    - ui.ModMenu (custom module)
+    - server_utils.server (custom module)
+    - file_utils.path_management (custom module)
+    - config.globals (custom module)
+    - config.errors (custom module)
+    - os
+
+Functions:
+    - open_settings: Opens the settings window for a specified server.
+    - send_command: Sends a command to the specified server.
+    - run_server_callback: Callback function to run a server.
+    - on_server_complete: Callback function called when a server stops running.
+    - del_server_callback: Callback function to delete a server.
+    - create_server_tab: Creates a new tab for a server in the GUI.
+    - ManageServerFunction: Main function for managing game servers.
+
+Classes:
+    None
+
+Notes:
+    - This script relies on various custom modules for server management and GUI components.
+"""
 import tkinter as tk
 from tkinter import messagebox
 from tkinter.scrolledtext import ScrolledText

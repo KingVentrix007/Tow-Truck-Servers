@@ -1,4 +1,34 @@
+"""
+Filename: your_script_name.py
+Author: Tristan Kuhn
+Date Created: 2024-05-24
+License: TOW TRUCK SERVER LICENSE AGREEMENT
+Description: This script provides functionalities for creating and configuring game servers. It includes a GUI for adding a new server with customizable options such as server name, description, game version, mod loader, and image.
 
+Usage:
+    Import ONLY into main.py
+
+Dependencies:
+    - tkinter
+    - customtkinter
+    - ui.general (custom module)
+    - minecraft.minecraft_versions (custom module)
+    - minecraft.generation (custom module)
+    - server_utils.create_server (custom module)
+    - mods.modloader (custom module)
+    - libs.CTkScrollableDropdown (custom module)
+    - os
+
+Functions:
+    - update_seed_label: Updates the label with a random seed.
+    - AddServerScreen: Displays a GUI for adding a new server with various options.
+
+Classes:
+    None
+
+Notes:
+    Ensure that the required custom modules are available in the project.
+"""
 #TODO Images for servers must be transferred into the servers folders
 import tkinter as tk
 from tkinter import filedialog
