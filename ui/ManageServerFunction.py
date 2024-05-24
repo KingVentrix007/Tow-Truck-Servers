@@ -56,6 +56,7 @@ made_servers = []
 made_tab_view = False
 global tabview
 created_tabs = {}  # Dictionary to store created tabs by their names
+Safe_mode = True
 def open_settings(server_info):
             adjust_path()
             path = server_info.get('path', "/fake/")
@@ -105,7 +106,8 @@ def on_server_complete(server_data,server_output):
             server_output.insert(tk.END, "Server has stopped, you are free to start another server or edit the configuration of this server. Keep Trucking ")
 def del_server_callback(server_info):
             messagebox.showerror("Error", "Until further notice, this feature is disabled")
-            return -1
+            if(Safe_mode == True):
+                return -1
             # This is temporary
             server_name = server_info.get('displayName', default_server_name)
             del_server(server_info.get('displayName', default_server_name))
