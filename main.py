@@ -16,7 +16,7 @@ app = ctk.CTk()
 app.geometry("720x480")
 app.title("Tow Truck Server")
 
-if os.name == 'nta':
+if os.name == 'nt':
 
     app.iconbitmap("./assets/images/window_icon.ico") # Remove ./clean when finished
 else:
