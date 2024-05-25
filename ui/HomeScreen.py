@@ -35,7 +35,7 @@ home_screen_ext = None
 def HomeScreen(tab_view, servers,manage_server_tab):
     global made_home_screen, home_screen_ext
     if not made_home_screen:
-        home_screen = ctk.CTkFrame(tab_view)
+        home_screen = ctk.CTkFrame(tab_view,bg_color="red",fg_color="#2b2b2b")
         home_screen.pack(fill="both", expand=True)
         home_screen_ext = home_screen
         made_home_screen = True
@@ -52,7 +52,7 @@ def manage_server(server_name,servers,manage_server_tab):
     ManageServerFunction(manage_server_tab)
 def display_servers(frame, servers,manage_server_tab):
     for i, server in enumerate(servers):
-        server_frame = ctk.CTkFrame(frame)
+        server_frame = ctk.CTkFrame(frame,fg_color="#2b2b22")
         server_frame.grid(row=0, column=i, padx=10, pady=5)
 
         if server["modloader"] == "forge":
@@ -72,7 +72,7 @@ def display_servers(frame, servers,manage_server_tab):
         img_label.pack()
 
         # Display name and version
-        name_version_label = ctk.CTkLabel(server_frame, text=f"{server['displayName']}", font=("Arial", 16))
+        name_version_label = ctk.CTkLabel(server_frame, text_color="cyan",text=f"{server['displayName']}", font=("Arial", 16))
         name_version_label.pack()
 
         # Add button

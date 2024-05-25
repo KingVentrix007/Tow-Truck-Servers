@@ -1,0 +1,7 @@
+sv_ttk
+pywinstyles
+CTkMessagebox
+customtkinter
+requests
+pillow
+psutil

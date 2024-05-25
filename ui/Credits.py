@@ -34,14 +34,15 @@ credits_frame_ext = None
 made_credits = False
 def ShowCredits(tab_view):
     global credits_frame_ext,made_credits
+    # tab_view.config(bg_color="#2b2b2b")
     if(credits_frame_ext is None):
-        credits_frame = ctk.CTkFrame(tab_view)
+        credits_frame = ctk.CTkFrame(tab_view,bg_color="#2b2b2b",fg_color="#2b2b2b")
         credits_frame_ext = credits_frame
     else:
         credits_frame = credits_frame_ext
     if(made_credits == False):
         credits_frame.pack(expand=True)
-        ctk_label = ctk.CTkLabel(credits_frame, text="Thank you for using Tow Truck Servers", font=("Helvetica", 20), fg_color="#2b2b2b", cursor="hand2")
+        ctk_label = ctk.CTkLabel(credits_frame, text="Thank you for using Tow Truck Servers", font=("Helvetica", 20), text_color="#2b2b2b",bg_color="#2b2b2b", cursor="hand2")
         ctk_label.pack()
         # Define the credits
         credits_list = [
@@ -53,7 +54,7 @@ def ShowCredits(tab_view):
 
     # Display the credits as labels with clickable links
     
-        ctk_label = ctk.CTkLabel(credits_frame, text="Credits", font=("Helvetica", 20, "bold"))
+        ctk_label = ctk.CTkLabel(credits_frame, text="Credits",bg_color="#2b2b2b", font=("Helvetica", 20, "bold"))
         ctk_label.pack(pady=10)
 
         ctk_label = ctk.CTkLabel(credits_frame, text="Thank you to Icons8 for", font=("Helvetica", 12))

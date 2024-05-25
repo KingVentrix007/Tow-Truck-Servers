@@ -1,6 +1,7 @@
 # Main.py
 
 import tkinter as tk
+import customtkinter as ctk
 from tkinter import ttk,messagebox
 from PIL import Image, ImageTk
 import sv_ttk
@@ -13,15 +14,16 @@ if os.name == 'nt':
     import pywinstyles
 from config.globals import tab_icon_width,tab_icon_hight
 from server_utils.server_manager import get_all_servers
-app = tk.Tk()
+app = ctk.CTk()
 app.geometry("720x480")
 app.title("Tow Truck Server")
+
 if os.name == 'nt':
 
     app.iconbitmap("./assets/images/window_icon.ico") # Remove ./clean when finished
 
 
-    pywinstyles.apply_style(app, 'mica')
+    # pywinstyles.apply_style(app, 'mica')
 else:
     messagebox.showwarning("OS not supported", "None windows OS are not officially supported, please proceed with caution")
 def on_tab_visibility(tab_window,other_window=None):
@@ -57,7 +59,10 @@ HomeIcon = Image.open("./assets/images/home-100.png").resize((tab_icon_width, ta
 HomeIcon = ImageTk.PhotoImage(HomeIcon)
 
 def main_screen():
-    global manage_server_tab
+    style = ttk.Style()
+    style.configure("Vertical.TNotebook", tabposition="wn")
+    style.configure("Red.TFrame", background='#2b2b2b')  # Custom style for red background
+    global manage_server_tab, home_tab, add_server_tab, credits_tab
     
     # Create a style for the notebook with vertical tabs
     style = ttk.Style()
@@ -67,26 +72,26 @@ def main_screen():
     global notebook
     notebook = ttk.Notebook(app, style="Vertical.TNotebook")
     notebook.pack(fill='both', expand=True)
-    manage_server_tab = ttk.Frame(notebook)
+    
+    manage_server_tab = ttk.Frame(notebook, style="Red.TFrame")
 
-    global home_tab
-    home_tab = ttk.Frame(notebook)
-    notebook.add(home_tab, text='',image=HomeIcon)
-    home_tab.bind("<Visibility>", on_tab_visibility(home_tab,manage_server_tab))
+    home_tab = ttk.Frame(notebook, style="Red.TFrame")
+    notebook.add(home_tab, text='', image=HomeIcon)
+    home_tab.bind("<Visibility>", on_tab_visibility(home_tab, manage_server_tab))
 
-    # Create the Add Server tab
-    global add_server_tab
-    add_server_tab = ttk.Frame(notebook)
-    notebook.add(add_server_tab, text='',image=AddServer_icon)
+    add_server_tab = ttk.Frame(notebook, style="Red.TFrame")
+    notebook.add(add_server_tab, text='', image=AddServer_icon)
     add_server_tab.bind("<Visibility>", on_tab_visibility(add_server_tab))
-    notebook.add(manage_server_tab, text='',image=ServersIcon)
+    
+    notebook.add(manage_server_tab, text='', image=ServersIcon)
     manage_server_tab.bind("<Visibility>", on_tab_visibility(manage_server_tab))
-    # Add the Credits tab
-    global credits_tab
-    credits_tab = ttk.Frame(notebook)
+    
+    credits_tab = ttk.Frame(notebook, style="Red.TFrame")
     notebook.add(credits_tab, text='Credits')
     credits_tab.bind("<Visibility>", on_tab_visibility(credits_tab))
+
 sv_ttk.set_theme("dark")
+
 
 main_screen()
 app.mainloop()
