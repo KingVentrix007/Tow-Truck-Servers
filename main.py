@@ -10,22 +10,17 @@ from ui.ManageServerFunction import ManageServerFunction
 from ui.Credits import ShowCredits
 from ui.HomeScreen import HomeScreen
 import os
-if os.name == 'nt':
-    import pywinstyles
 from config.globals import tab_icon_width,tab_icon_hight
 from server_utils.server_manager import get_all_servers
 app = ctk.CTk()
 app.geometry("720x480")
 app.title("Tow Truck Server")
 
-if os.name == 'nt':
+if os.name == 'nta':
 
     app.iconbitmap("./assets/images/window_icon.ico") # Remove ./clean when finished
-
-
-    # pywinstyles.apply_style(app, 'mica')
 else:
-    messagebox.showwarning("OS not supported", "None windows OS are not officially supported, please proceed with caution")
+    messagebox.showwarning("OS not supported", "Non windows OS are not officially supported, please proceed with caution\nSee NonWindows.md for more information")
 def on_tab_visibility(tab_window,other_window=None):
     def inner(event):
         # Get the notebook widget
