@@ -30,12 +30,14 @@ from PIL import Image, ImageTk
 import os
 from CTkMessagebox import CTkMessagebox
 from ui.ManageServerFunction import ManageServerFunction
+from config.ui_config import default_color
+
 made_home_screen = False
 home_screen_ext = None
 def HomeScreen(tab_view, servers,manage_server_tab):
     global made_home_screen, home_screen_ext
     if not made_home_screen:
-        home_screen = ctk.CTkFrame(tab_view,bg_color="red",fg_color="#2b2b2b")
+        home_screen = ctk.CTkFrame(tab_view,bg_color=default_color,fg_color=default_color)
         home_screen.pack(fill="both", expand=True)
         home_screen_ext = home_screen
         made_home_screen = True

@@ -40,6 +40,8 @@ from server_utils.create_server import make_server
 from mods.modloader import valid_mod_loaders
 from libs.CTkScrollableDropdown import *
 import os
+from config.ui_config import default_color
+
 file_path = ""
 
 def update_seed_label(seed_label):
@@ -49,29 +51,29 @@ def AddServerScreen(window):
     # clear_window(window)
     # file_path = ""
     # Server Name input
-    server_name_label = customtkinter.CTkLabel(window, text="Server Name:",text_color="#00FFFF",bg_color="#2b2b2b")
+    server_name_label = customtkinter.CTkLabel(window, text="Server Name:",text_color="#00FFFF",bg_color=default_color)
     server_name_label.place(relx=0.3, rely=0.2, anchor=customtkinter.E)
     server_name_entry = customtkinter.CTkEntry(window)
     server_name_entry.place(relx=0.5, rely=0.2, anchor=customtkinter.W)
 
     # Server Description input
-    server_description_label = customtkinter.CTkLabel(window, text="Server Description:",text_color="#00FFFF",bg_color="#2b2b2b")
+    server_description_label = customtkinter.CTkLabel(window, text="Server Description:",text_color="#00FFFF",bg_color=default_color)
     server_description_label.place(relx=0.3, rely=0.3, anchor=customtkinter.E)
     server_description_entry = customtkinter.CTkEntry(window)
     server_description_entry.place(relx=0.5, rely=0.3, anchor=customtkinter.W)
 
     # Game Version dropdown
-    game_version_label = customtkinter.CTkLabel(window, text="Game Version:",text_color="#00FFFF",bg_color="#2b2b2b")
+    game_version_label = customtkinter.CTkLabel(window, text="Game Version:",text_color="#00FFFF",bg_color=default_color)
     game_version_label.place(relx=0.3, rely=0.4, anchor=customtkinter.E)
     game_version_combobox = customtkinter.CTkComboBox(window)
-    CTkScrollableDropdown(game_version_combobox,values=minecraft_versions,button_color="#2b2b2b",text_color="cyan")
+    CTkScrollableDropdown(game_version_combobox,values=minecraft_versions,button_color=default_color,text_color="cyan")
     game_version_combobox.set(minecraft_versions[0])
     game_version_combobox.place(relx=0.5, rely=0.4, anchor=customtkinter.W)
     
-    modloader_label = customtkinter.CTkLabel(window, text="Mod loader:",text_color="#00FFFF",bg_color="#2b2b2b")
+    modloader_label = customtkinter.CTkLabel(window, text="Mod loader:",text_color="#00FFFF",bg_color=default_color)
     modloader_label.place(relx=0.3, rely=0.5, anchor=customtkinter.E)
     modloader_combobox = customtkinter.CTkComboBox(window)
-    CTkScrollableDropdown(modloader_combobox,values=valid_mod_loaders,button_color="#2b2b2b",text_color="cyan")
+    CTkScrollableDropdown(modloader_combobox,values=valid_mod_loaders,button_color=default_color,text_color="cyan")
 
     modloader_combobox.set(valid_mod_loaders[0])
     modloader_combobox.place(relx=0.5, rely=0.5, anchor=customtkinter.W)

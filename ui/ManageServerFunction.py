@@ -48,6 +48,7 @@ from file_utils.path_management import adjust_path
 from config.globals import is_server_running,set_server_running,set_server_stopped,default_server_name
 from config.errors import err_code_process_closed
 import os
+from config.ui_config import default_color
 
 current_Server_data = ""
 processes = {}  # Dictionary to store server processes
@@ -82,8 +83,10 @@ def send_command(command,server_name):
 
 def run_server_callback(text_widget,server_info,on_server_complete):
             server_name = server_info.get("displayName", "server")
-            
-            if(is_server_running() == True):
+            path = server_info.get("path","null")
+            if(os.path.exists(path) == False):
+                  messagebox.showerror("Error", "Server doesn't exist\nMost likely caused by\n\t-Manually changing the server path\n\t-Deleting the server folder manually")
+            elif(is_server_running() == True):
                 messagebox.showerror("Error", f"Running multiple servers simultaneously is not supported. See {err_code_process_closed} for more details.")
             else:
                 set_server_running()
@@ -137,26 +140,26 @@ def create_server_tab(tabview, server_info):
         
         tab_name = server_info.get('displayName', default_server_name)
         server_tab = tabview.add(tab_name)
-        server_tab.configure(bg_color="#2b2b2b",fg_color="#2b2b2b",border_color="green",border_width=0)
+        server_tab.configure(bg_color=default_color,fg_color=default_color,border_color="green",border_width=0)
         # server_tab.configure(bg_color="red")
         created_tabs[server_name] = server_tab  # Add the created tab to the dictionary
         # Create a frame for the top menu bar
-        menu_bar = ctk.CTkFrame(server_tab,bg_color="#2b2b2b",fg_color="#2b2b2b",border_color="blue")
+        menu_bar = ctk.CTkFrame(server_tab,bg_color=default_color,fg_color=default_color,border_color="blue")
         menu_bar.pack(side=tk.TOP, fill=tk.X)
 
-        delete_button = ctk.CTkButton(menu_bar, text="Delete", bg_color="#2b2b2b",command=lambda:del_server_callback(server_info))
+        delete_button = ctk.CTkButton(menu_bar, text="Delete", bg_color=default_color,command=lambda:del_server_callback(server_info))
         delete_button.pack(side=tk.LEFT, padx=5, pady=5)
-        run_button = ctk.CTkButton(menu_bar, text="Run", bg_color="#2b2b2b",command=lambda:run_server_callback(text_widget,server_info,on_server_complete))
+        run_button = ctk.CTkButton(menu_bar, text="Run", bg_color=default_color,command=lambda:run_server_callback(text_widget,server_info,on_server_complete))
         run_button.pack(side=tk.LEFT, padx=5, pady=5)
 
-        settings_button = ctk.CTkButton(menu_bar, text="Settings",bg_color="#2b2b2b", command=lambda: open_settings(server_info))
+        settings_button = ctk.CTkButton(menu_bar, text="Settings",bg_color=default_color, command=lambda: open_settings(server_info))
         settings_button.pack(side=tk.LEFT, padx=5, pady=5)
 
-        mod_btn = ctk.CTkButton(menu_bar, text="Mod Menu",bg_color="#2b2b2b", command=lambda: mod_menu(server_info.get('path', 'null')))
+        mod_btn = ctk.CTkButton(menu_bar, text="Mod Menu",bg_color=default_color, command=lambda: mod_menu(server_info.get('path', 'null')))
         mod_btn.pack(side=tk.LEFT, padx=5, pady=5)
 
         text_widget = ScrolledText(server_tab, wrap=tk.WORD)
-        text_widget.configure(fg="white",bg="#2b2b2b",background="#2b2b2b")
+        text_widget.configure(fg="black",bg="white")
         text_widget.pack(fill=tk.BOTH, expand=True)
 
         if server_name in server_states:
@@ -164,10 +167,10 @@ def create_server_tab(tabview, server_info):
             if server_states[server_name]['is_running']:
                 run_server_callback(text_widget,server_info,on_server_complete)
 
-        command_entry = ctk.CTkEntry(server_tab,bg_color="#2b2b2b")
+        command_entry = ctk.CTkEntry(server_tab,bg_color=default_color)
         command_entry.pack(fill=tk.X, pady=5)
 
-        send_button = ctk.CTkButton(server_tab, text="Send Command",bg_color="#2b2b2b", command=lambda:send_command(command_entry.get(),server_name))
+        send_button = ctk.CTkButton(server_tab, text="Send Command",bg_color=default_color, command=lambda:send_command(command_entry.get(),server_name))
         send_button.pack(pady=5)
 def ManageServerFunction(window):
     # clear_window(window)
@@ -175,7 +178,7 @@ def ManageServerFunction(window):
     global tabview
     servers = get_all_servers()
     if made_tab_view == False:
-        tabview_internal = ctk.CTkTabview(window,bg_color="#2b2b2b",fg_color="#2b2b2b",border_width=0)
+        tabview_internal = ctk.CTkTabview(window,bg_color=default_color,fg_color=default_color,border_width=0)
         tabview_internal.pack(expand=1, fill='both')
         tabview = tabview_internal
     made_tab_view = True

@@ -36,7 +36,7 @@ def mod_menu(path):
     scrollbar = ctk.CTkScrollbar(window, command=canvas.yview)
     scrollbar.pack(side=ctk.RIGHT, fill=ctk.Y)
 
-    canvas.configure(yscrollcommand=scrollbar.set,background="#2b2b2b",highlightthickness=0)
+    canvas.configure(yscrollcommand=scrollbar.set,background=default_color,highlightthickness=0)
 
     frame = ctk.CTkFrame(canvas)
     canvas.create_window((0, 0), window=frame, anchor=ctk.NW)

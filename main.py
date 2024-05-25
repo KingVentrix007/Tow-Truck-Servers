@@ -11,6 +11,7 @@ from ui.Credits import ShowCredits
 from ui.HomeScreen import HomeScreen
 import os
 from config.globals import tab_icon_width,tab_icon_hight
+from config.ui_config import default_color
 from server_utils.server_manager import get_all_servers
 app = ctk.CTk()
 app.geometry("720x480")

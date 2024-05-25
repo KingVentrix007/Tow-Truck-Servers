@@ -32,8 +32,8 @@ def edit_properties_window(properties, file_path):
 
     main_frame = ctk.CTkFrame(settings_window)
     main_frame.pack(fill=tk.BOTH, expand=True)
-    # main_frame.config(bg="#2b2b2b")
-    canvas = ctk.CTkCanvas(main_frame,bg="#2b2b2b")
+    # main_frame.config(bg=default_color)
+    canvas = ctk.CTkCanvas(main_frame,bg=default_color)
     canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
 
     scrollbar = ctk.CTkScrollbar(main_frame, orientation=tk.VERTICAL, command=canvas.yview)

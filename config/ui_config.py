@@ -23,3 +23,5 @@ Notes:
 """
 main_icons_width = 40
 main_icons_hight = 40
+# The color used by 90% of the widgets 
+default_color = "#2b2b2b"
