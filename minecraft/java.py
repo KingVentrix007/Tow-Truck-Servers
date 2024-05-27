@@ -1,9 +1,12 @@
 import jdk
 import os
 import re
+java_install_dir = "./java/jdk"
 def install_java(version):
+    if(os.path.exists(java_install_dir) == False):
+        os.makedirs(java_install_dir)
     if(type(version) == type('java')):
-        jdk.install(version,path="./java/jdk")
+        jdk.install(version,path=java_install_dir)
     else:
         print("wrong type")
 def extract_java_version(java_path):
@@ -39,7 +42,7 @@ def get_directories(path):
     return directories
 
 def get_java_versions():
-    main_path = "java/jdk"
+    main_path = java_install_dir
     javas = get_directories(main_path)
     java_versions = []
     for i in javas:
@@ -53,5 +56,3 @@ def get_java_dir(version):
     index = java_versions.index(version)
     return(java_paths[index])
     
-    
-get_java_dir('11')
