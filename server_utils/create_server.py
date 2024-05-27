@@ -44,6 +44,8 @@ from threading import Thread
 from mods.modloader import download_server_jar
 from mods.fabric import install_fabric_server
 from mods.forge import install_forge_server
+from minecraft.minecraft_versions import minecraft_version_to_java
+from minecraft.java import install_java,get_java_dir
 from file_utils.path_management import adjust_path
 import json
 import re
@@ -53,23 +55,36 @@ from tkinter import messagebox,ttk
 
 def add_entry(name: str, game_version: str,description,modloader, config_path='config.json',img=None,ram=None):
     display_name = name
-
+    java_override_default = False
     # Retrieve Java version
     try:
         java_version_output = subprocess.check_output(['java', '-version'], stderr=subprocess.STDOUT)
         java_version_output = java_version_output.decode('utf-8')
         java_version = java_version_output.split('\n')[0].split('"')[1]
+        print(java_version)
+        if(str(minecraft_version_to_java(game_version)) != java_version.split(".")[0]):
+            messagebox.showinfo("Install Java","The correct Java version will be installed. This will take some time, please be patient")
+            install_java(str(minecraft_version_to_java(game_version)))
+            java_version = str(minecraft_version_to_java(game_version))
+            java_override_default = True
+            print("error")
     except Exception as e:
         print(f"Error retrieving Java version: {e}")
         return
 
     # Retrieve Java path
     try:
-        if os.name == 'nt':  # Windows
-            java_path_output = subprocess.check_output(['where', 'java'])
-        else:  # Unix-like (Linux, macOS)
-            java_path_output = subprocess.check_output(['which', 'java'])
-        java_path = java_path_output.decode('utf-8').strip()
+        if(java_override_default == False):
+            if os.name == 'nt':  # Windows
+                java_path_output = subprocess.check_output(['where', 'java'])
+            else:  # Unix-like (Linux, macOS)
+                java_path_output = subprocess.check_output(['which', 'java'])
+            java_path = java_path_output.decode('utf-8').strip()
+        else:
+            main_path = "java/jdk"
+            java_sub_dir = get_java_dir(java_version)
+            java_dir = os.path.join(main_path, java_sub_dir)
+            java_path = os.path.join(java_dir, 'bin', 'java')
     except Exception as e:
         print(f"Error retrieving Java path: {e}")
         return

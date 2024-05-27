@@ -35,3 +35,20 @@ minecraft_versions = [
     "1.4.5", "1.4.4", "1.4.2", "1.3.2", "1.3.1", "1.2.5", "1.2.4", "1.2.3", "1.2.2",
     "1.2.1", "1.1", "1.0.1", "1.0.0"
 ]
+
+def minecraft_version_to_java(minecraft_version):
+    
+    major_minor = minecraft_version.split('.')
+    major = int(major_minor[1])
+    try:
+        minor = int(major_minor[2])
+    except IndexError:
+        minor = 0
+    if(major<=16):
+        return 8
+    elif major < 18:
+        return 16
+    elif major <= 20 and minor < 5:
+        return 17
+    else:
+        return 21

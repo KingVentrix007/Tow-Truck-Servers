@@ -3,3 +3,4 @@ servers/Test/server.properties
 __pycache__
 config.json
 .pyc
+java

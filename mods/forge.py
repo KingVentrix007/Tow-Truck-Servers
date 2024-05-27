@@ -92,14 +92,24 @@ def install_forge_server(jar_file,name):
 
 def run_forge_server(server_info,text_widget,on_finish):
     adjust_path()
+    out_p = os.getcwd()
     global process  # Declare process as a global variable
     process = None
     path = server_info.get('path', "/fake/")
     java = server_info.get('javaPath', "java")
+    java = os.path.join(out_p, java)
     os.chdir(path)
+    print(os.getcwd())
     lib = extract_forge_libraries_path("run.bat")
+    jar = ""
+    if(lib is None):
+        game_v = server_info.get('gameVersion', "0.0")
+        lib = f"minecraft_server.{game_v}.jar"
+        print(lib)
+        jar = "-jar"
     ram = server_info.get('ram', "2G")
-    cmd = f"{java} -Xmx{ram} {lib} nogui %*"
+    
+    cmd = f"{java} -Xmx{ram} {jar} {lib} nogui %*"
     def run_command(command):
         global process
         print(command)
