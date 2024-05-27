@@ -125,7 +125,6 @@ def run_fabric_server(server_info,text_widget,on_finish):
     java = os.path.join(b_path,java)
     os.chdir(path)
     print(os.getcwd())
-    # lib = extract_forge_libraries_path("run.bat")
     ram = server_info.get('ram', "2G")
     jar_version = server_info.get("gameVersion","0.0.0")
     jar_file = f"fabric_installer_{jar_version}.jar"
@@ -133,8 +132,6 @@ def run_fabric_server(server_info,text_widget,on_finish):
     global process  # Declare process as a global variable
     process = None
     def run_command(command):
-        # text_widget.tag_config("error", foreground="red")
-        # text_widget.tag_config("normal", foreground="black")
         global process
         print(command)
         process = subprocess.Popen(command, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, universal_newlines=True)
