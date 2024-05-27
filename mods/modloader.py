@@ -27,11 +27,16 @@ from mods.fabric import GetLatestStableFabricServerURL
 from mods.forge import GetRecommendedURL
 from minecraft.minecraft_versions import minecraft_versions
 import requests
+from tkinter import messagebox
 valid_mod_loaders = ["forge","fabric"]
 
 def download_forge(version:str,name:str,progress_var,on_complete):
+    exit_code = 0
     forge_installer_url = GetRecommendedURL(version)
     response = requests.get(forge_installer_url, stream=True)
+    if(response.status_code != 200):
+        messagebox.showerror("Download error",f"Failed to download forge jar for {version}")
+        exit_code = -1
     print(response.headers)
     total_size = int(response.headers.get('content-length', 0))
     block_size = 1024 # 1 Kibibyte
@@ -43,20 +48,23 @@ def download_forge(version:str,name:str,progress_var,on_complete):
             bytes_so_far += len(data)
             progress = int(bytes_so_far * 100 / total_size)
             progress_var.set(progress)
-    on_complete(name, version)
+    on_complete(name, version,exit_code)
 def download_fabric(version:str,name:str,on_complete):
+    exit_code = 0
     fabric_install_url = GetLatestStableFabricServerURL(version)
     print(fabric_install_url)
     response = requests.get(fabric_install_url, stream=True)
     if(response.status_code != 200):
-        print(response.status_code)
-    print(response.headers)
-    block_size = 1024 # 1 Kibibyte
-    use_name = name.replace(" ","")
-    with open(f"./servers/{use_name}/fabric_installer_{version}.jar", "wb") as file:
-        for data in response.iter_content(block_size):
-            file.write(data)
-    on_complete(name, version)
+        messagebox.showerror("Download error","Failed to download fabric server jar file.")
+        exit_code = -1
+    else:
+        print(response.headers)
+        block_size = 1024 # 1 Kibibyte
+        use_name = name.replace(" ","")
+        with open(f"./servers/{use_name}/fabric_installer_{version}.jar", "wb") as file:
+            for data in response.iter_content(block_size):
+                file.write(data)
+    on_complete(name, version,exit_code)
 def download_server_jar(name:str, version:str,progress_var,on_complete,modloader:str):
     if(version not in minecraft_versions):
         return -1

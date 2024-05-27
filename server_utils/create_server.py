@@ -51,7 +51,7 @@ import subprocess
 import psutil
 from tkinter import messagebox,ttk
 
-def add_entry(name: str, game_version: str,description,modloader, config_path='config.json',img=None):
+def add_entry(name: str, game_version: str,description,modloader, config_path='config.json',img=None,ram=None):
     display_name = name
 
     # Retrieve Java version
@@ -76,12 +76,16 @@ def add_entry(name: str, game_version: str,description,modloader, config_path='c
 
     # Determine RAM allocation
     total_memory = psutil.virtual_memory().total / (1024 ** 3)  # Convert bytes to GB
-    if total_memory > 8:
+    if(ram != None):
+        allocated_ram = ram
+    elif total_memory > 8:
         allocated_ram = 4
     elif total_memory >= 4:
         allocated_ram = 3
     else:
         allocated_ram = 2
+    if(ram == None):
+        allocated_ram = f"{allocated_ram}G"
         # Show Tkinter warning
         root = tk.Tk()
         root.withdraw()  # Hide the main window
@@ -98,7 +102,7 @@ def add_entry(name: str, game_version: str,description,modloader, config_path='c
         "modloader": modloader,
         "javaVersion": java_version,
         "javaPath": java_path,
-        "ram": f"{allocated_ram}G",
+        "ram": f"{allocated_ram}",
         "image": f"{img}"
     }
 
@@ -111,6 +115,10 @@ def add_entry(name: str, game_version: str,description,modloader, config_path='c
     except json.JSONDecodeError as e:
         print(f"Error decoding JSON: {e}")
         return
+
+    # Ensure 'servers' section exists in the config
+    if 'servers' not in config:
+        config['servers'] = []
 
     # Add new entry to the config
     config['servers'].append(new_entry)
@@ -151,7 +159,7 @@ def install_server(name,version,modloader):
     else:
         return -1
 
-def make_server(name, description, version,img,modloader):
+def make_server(name, description, version,img,modloader,ram=None):
     valid_server_name = name.replace(" ","")
     if(os.path.exists(f"./servers/{valid_server_name}")):
         print("Server already exists",os.getcwd(),valid_server_name)
@@ -160,14 +168,23 @@ def make_server(name, description, version,img,modloader):
     jar_download_window = ctk.CTk()
     jar_download_window.title("Downloading Server Jar")
     jar_download_window.geometry("30x40")
-    progress_var = tk.DoubleVar(jar_download_window, 0.0)
-    progressbar = ttk.Progressbar(jar_download_window, variable=progress_var, maximum=100)
-    progressbar.pack(pady=10)
-    def on_complete(name, version):
+    if(modloader == "forge"):
+        progress_var = tk.DoubleVar(jar_download_window, 0.0)
+        progressbar = ttk.Progressbar(jar_download_window, variable=progress_var, maximum=100)
+        progressbar.pack(pady=10)
+    else:
+        progress_var = tk.DoubleVar(jar_download_window, 0.0)
+        progressbar = ttk.Label(jar_download_window)
+        progressbar.pack(pady=10)
+    def on_complete(name, version,exit_code):
         jar_download_window.destroy()
-        install_server(name, version, modloader)
-        adjust_path() #TODO: Redo Path handling, way to much os.chdir() and back and forth, look into better solutions
-        add_entry(name=name, game_version=version,description=description,modloader=modloader,img=img)
+
+        if(exit_code == 0):
+            install_server(name, version, modloader)
+            adjust_path() #TODO: Redo Path handling, way to much os.chdir() and back and forth, look into better solutions
+            add_entry(name=name, game_version=version,description=description,modloader=modloader,img=img,ram=ram)
+        else:
+            pass
     
 
     

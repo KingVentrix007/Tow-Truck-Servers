@@ -39,6 +39,7 @@ import subprocess
 from tkinter import messagebox
 from file_utils.path_management import adjust_path
 from config.errors import err_code_process_closed
+from file_utils.path_management import adjust_path
 
 cache_file = "fabric_jar_cache.json"
 
@@ -161,4 +162,5 @@ def run_fabric_server(server_info,text_widget,on_finish):
     while(process == None):
         # Wait for the process to become valid
         pass
+    adjust_path()
     return process

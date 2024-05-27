@@ -40,6 +40,7 @@ from server_utils.create_server import make_server
 from mods.modloader import valid_mod_loaders
 from libs.CTkScrollableDropdown import *
 import os
+import psutil  # to get the total system RAM
 from config.ui_config import default_color
 
 file_path = ""
@@ -48,6 +49,7 @@ def update_seed_label(seed_label):
     new_seed = generate_random_seed()
     seed_label.configure(text=new_seed)
 def AddServerScreen(window):
+    total_ram = psutil.virtual_memory().total // (1024 * 1024)
     # clear_window(window)
     # file_path = ""
     # Server Name input
@@ -74,17 +76,35 @@ def AddServerScreen(window):
     modloader_label.place(relx=0.3, rely=0.5, anchor=customtkinter.E)
     modloader_combobox = customtkinter.CTkComboBox(window)
     CTkScrollableDropdown(modloader_combobox,values=valid_mod_loaders,button_color=default_color,text_color="cyan")
+    def update_ram_label(value):
+        ram_value_label.configure(text=f"{int(value)} MB")
+
 
     modloader_combobox.set(valid_mod_loaders[0])
     modloader_combobox.place(relx=0.5, rely=0.5, anchor=customtkinter.W)
+    ram_label = customtkinter.CTkLabel(window, text="Ram:", text_color="#00FFFF",bg_color=default_color)
+    ram_label.place(relx=0.3, rely=0.6, anchor=customtkinter.E)
 
+    # Create the label to show the current RAM value
+    ram_value_label = customtkinter.CTkLabel(window, text="1 MB",bg_color=default_color,text_color="#00FFFF")
+    ram_value_label.place(relx=0.9, rely=0.6, anchor=customtkinter.E)
+
+    # Create the slider to adjust RAM value
+    ram_slider = customtkinter.CTkSlider(window, from_=1, to=total_ram, command=update_ram_label)
+    ram_slider.place(relx=0.81, rely=0.6, anchor=customtkinter.E)
+
+    # Set the initial value of the slider and update the label
+    ram_slider.set(1024)
+    update_ram_label(1024)
     # Add Server button
     def add_server():
         name = server_name_entry.get()
         description = server_description_entry.get()
         version = game_version_combobox.get()  # Get the selected version from the combobox
         modloader = modloader_combobox.get()
-        make_server(name=name, description=description, version=version,img=file_path,modloader=modloader)  # Call the make_server function with the provided parameters
+        ram_slider_val = ram_slider.get()
+        ram = f"{int(ram_slider_val)}M"
+        make_server(name=name, description=description, version=version,img=file_path,modloader=modloader,ram=ram)  # Call the make_server function with the provided parameters
     
     add_server_button = customtkinter.CTkButton(window, text="Add Server", command=add_server)
     add_server_button.place(relx=0.5, rely=0.7, anchor=customtkinter.CENTER)

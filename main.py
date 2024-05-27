@@ -16,7 +16,7 @@ from server_utils.server_manager import get_all_servers
 app = ctk.CTk()
 app.geometry("720x480")
 app.title("Tow Truck Server")
-
+default_theme = "Default.TFrame"
 if os.name == 'nt':
 
     app.iconbitmap("./assets/images/window_icon.ico") # Remove ./clean when finished
@@ -57,7 +57,7 @@ HomeIcon = ImageTk.PhotoImage(HomeIcon)
 def main_screen():
     style = ttk.Style()
     style.configure("Vertical.TNotebook", tabposition="wn")
-    style.configure("Red.TFrame", background='#2b2b2b')  # Custom style for red background
+    style.configure(default_theme, background='#2b2b2b')  # Custom style for red background
     global manage_server_tab, home_tab, add_server_tab, credits_tab
     
     # Create a style for the notebook with vertical tabs
@@ -69,20 +69,20 @@ def main_screen():
     notebook = ttk.Notebook(app, style="Vertical.TNotebook")
     notebook.pack(fill='both', expand=True)
     
-    manage_server_tab = ttk.Frame(notebook, style="Red.TFrame")
+    manage_server_tab = ttk.Frame(notebook, style=default_theme)
 
-    home_tab = ttk.Frame(notebook, style="Red.TFrame")
+    home_tab = ttk.Frame(notebook, style=default_theme)
     notebook.add(home_tab, text='', image=HomeIcon)
     home_tab.bind("<Visibility>", on_tab_visibility(home_tab, manage_server_tab))
 
-    add_server_tab = ttk.Frame(notebook, style="Red.TFrame")
+    add_server_tab = ttk.Frame(notebook, style=default_theme)
     notebook.add(add_server_tab, text='', image=AddServer_icon)
     add_server_tab.bind("<Visibility>", on_tab_visibility(add_server_tab))
     
     notebook.add(manage_server_tab, text='', image=ServersIcon)
     manage_server_tab.bind("<Visibility>", on_tab_visibility(manage_server_tab))
     
-    credits_tab = ttk.Frame(notebook, style="Red.TFrame")
+    credits_tab = ttk.Frame(notebook, style=default_theme)
     notebook.add(credits_tab, text='Credits')
     credits_tab.bind("<Visibility>", on_tab_visibility(credits_tab))
 

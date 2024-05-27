@@ -48,6 +48,8 @@ from file_utils.path_management import adjust_path
 from config.globals import is_server_running,set_server_running,set_server_stopped,default_server_name
 from config.errors import err_code_process_closed
 import os
+import platform
+import subprocess
 from config.ui_config import default_color
 
 current_Server_data = ""
@@ -58,6 +60,20 @@ made_tab_view = False
 global tabview
 created_tabs = {}  # Dictionary to store created tabs by their names
 Safe_mode = True
+def open_text_document(server_data):
+    eula = "eula.txt"
+    file_path = os.path.join(server_data.get("path",None),eula)
+    file_path = os.path.normpath(file_path)
+    try:
+        if platform.system() == 'Windows':
+            os.startfile(file_path)
+        elif platform.system() == 'Darwin':  # macOS
+            subprocess.call(('open', file_path))
+        else:  # Linux and other Unix-like systems
+            subprocess.call(('xdg-open', file_path))
+        print(f"Opened {file_path} successfully.")
+    except Exception as e:
+        print(f"Failed to open {file_path}. Error: {e}")
 def open_settings(server_info):
             adjust_path()
             path = server_info.get('path', "/fake/")
@@ -107,6 +123,7 @@ def on_server_complete(server_data,server_output):
             print("Server",int_server_name,int_server_name not in processes)
             set_server_stopped()
             server_output.insert(tk.END, "Server has stopped, you are free to start another server or edit the configuration of this server. Keep Trucking ")
+            adjust_path()
 def del_server_callback(server_info):
             messagebox.showerror("Error", "Until further notice, this feature is disabled")
             if(Safe_mode == True):
@@ -158,6 +175,9 @@ def create_server_tab(tabview, server_info):
         mod_btn = ctk.CTkButton(menu_bar, text="Mod Menu",bg_color=default_color, command=lambda: mod_menu(server_info.get('path', 'null')))
         mod_btn.pack(side=tk.LEFT, padx=5, pady=5)
 
+        eula_btn = ctk.CTkButton(menu_bar, text="Eula",bg_color=default_color,command=lambda:open_text_document(server_info))
+        
+        eula_btn.pack(side=tk.LEFT, padx=5, pady=5)
         text_widget = ScrolledText(server_tab, wrap=tk.WORD)
         text_widget.configure(fg="black",bg="white")
         text_widget.pack(fill=tk.BOTH, expand=True)

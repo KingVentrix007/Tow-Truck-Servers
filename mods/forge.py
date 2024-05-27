@@ -12,6 +12,7 @@ import subprocess
 from tkinter import messagebox
 from file_utils.path_management import adjust_path
 from config.errors import err_code_process_closed
+from file_utils.path_management import adjust_path
 import re
 list = []
 
@@ -100,8 +101,6 @@ def run_forge_server(server_info,text_widget,on_finish):
     ram = server_info.get('ram', "2G")
     cmd = f"{java} -Xmx{ram} {lib} nogui %*"
     def run_command(command):
-        # text_widget.tag_config("error", foreground="red")
-        # text_widget.tag_config("normal", foreground="black")
         global process
         print(command)
         process = subprocess.Popen(command, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, universal_newlines=True)
@@ -131,4 +130,5 @@ def run_forge_server(server_info,text_widget,on_finish):
     while(process == None):
         # Wait for the process to become valid
         pass
+    adjust_path()
     return process
