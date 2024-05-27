@@ -119,8 +119,10 @@ def install_fabric_server(version,name):
 
 def run_fabric_server(server_info,text_widget,on_finish):
     adjust_path()
+    b_path = os.getcwd()
     path = server_info.get('path', "/fake/")
     java = server_info.get('javaPath', "java")
+    java = os.path.join(b_path,java)
     os.chdir(path)
     print(os.getcwd())
     # lib = extract_forge_libraries_path("run.bat")
