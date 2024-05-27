@@ -45,7 +45,7 @@ from mods.modloader import download_server_jar
 from mods.fabric import install_fabric_server
 from mods.forge import install_forge_server
 from minecraft.minecraft_versions import minecraft_version_to_java
-from minecraft.java import install_java,get_java_dir
+from minecraft.java import install_java,get_java_dir,get_java_versions
 from file_utils.path_management import adjust_path
 import json
 import re
@@ -63,9 +63,15 @@ def add_entry(name: str, game_version: str,description,modloader, config_path='c
         java_version = java_version_output.split('\n')[0].split('"')[1]
         print(java_version)
         if(str(minecraft_version_to_java(game_version)) != java_version.split(".")[0]):
-            messagebox.showinfo("Install Java","The correct Java version will be installed. This will take some time, please be patient")
-            install_java(str(minecraft_version_to_java(game_version)))
-            java_version = str(minecraft_version_to_java(game_version))
+            needed_version = str(minecraft_version_to_java(game_version))
+            print(needed_version,get_java_versions())
+            if(needed_version not in get_java_versions()[0]):
+                messagebox.showinfo("Install Java","The correct Java version will be installed. This will take some time, please be patient")
+                install_java(needed_version)
+                java_version = str(needed_version)
+            else:
+                java_version = str(needed_version)
+                # pass
             java_override_default = True
             print("error")
     except Exception as e:
