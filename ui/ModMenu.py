@@ -36,7 +36,7 @@ from time import sleep
 import tempfile
 import shutil
 from tkinter import ttk
-import mods.modrinth_mods as modrinth_mods
+import mods.apiv2 as apiv2
 # Define a flag to signal the thread to stop
 stop_search_thread = threading.Event()
 
@@ -71,11 +71,14 @@ def download_mod(mod_data, server_info):
             waiting_root.destroy()
 
     def get_mod_urls():
-        return modrinth_mods.get_download_mod(
-            mod=mod_data, 
-            needed_version=server_info.get("gameVersion", "0.0"), 
-            modloader=server_info.get("modloader", "null")
-        )
+        mod = apiv2.get_download_urls(mod_data["project_id"],server_info.get("gameVersion", "0.0"),server_info.get("modloader", "null"))[0]
+        # print(mod)
+        return mod
+        # return modrinth_mods.get_download_mod(
+        #     mod=mod_data, 
+        #     needed_version=server_info.get("gameVersion", "0.0"), 
+        #     modloader=server_info.get("modloader", "null")
+        # )
 
     waiting_window = show_waiting_window()
     
@@ -83,8 +86,10 @@ def download_mod(mod_data, server_info):
         nonlocal waiting_window
 
         # Get the mod URLs
-        url, deps_url = get_mod_urls()
-
+        urls = get_mod_urls()
+        url = urls["url"]
+        deps_url = urls["dependencies"]
+        # print(deps_url)
         # Close the waiting window once URLs are fetched
         # root.after(0, close_waiting_window, waiting_window)
         close_waiting_window(waiting_window)
@@ -93,15 +98,19 @@ def download_mod(mod_data, server_info):
 
         root = tk.Tk()
         root.title("Download Progress")
-        label = ttk.Label(root, text="Downloading mod...")
+        mod_name = mod_data["title"]
+        label = ttk.Label(root, text=f"Downloading mod {mod_name}...")
         label.pack(pady=10)
         progress = ttk.Progressbar(root, orient="horizontal", length=300, mode="determinate")
         progress.pack(pady=10)
 
         def download_dependencies():
+            label.config(text="Mod download complete! Download dependencies..")
             for dep_url in deps_url:
-                local_dep_filename = os.path.join(mod_folder, os.path.basename(dep_url))
-                download_file(dep_url, local_dep_filename, progress, root, label)
+                if(dep_url is not None):
+                    print(dep_url)
+                    local_dep_filename = os.path.join(mod_folder, os.path.basename(dep_url))
+                    download_file(dep_url, local_dep_filename, progress, root, label)
 
             label.config(text="All downloads complete!")
             print("Downloaded all dependencies.")
@@ -110,7 +119,6 @@ def download_mod(mod_data, server_info):
             local_filename = os.path.join(mod_folder, os.path.basename(url))
             download_file(url, local_filename, progress, root, label, callback=download_dependencies)
             print("Downloaded mod to %s" % local_filename)
-            label.config(text="Mod download complete! Downloading dependencies...")
 
         threading.Thread(target=start_download).start()
         root.mainloop()
@@ -151,7 +159,7 @@ def search_for_mods(server_info, query, canvas, button):
         print("Searching for mods...")
         version = server_info.get("gameVersion", "0.0")
         loader = server_info.get("modloader", "null")
-        mods = modrinth_mods.search_mods(query=query, version=version, modloader=loader)
+        mods = apiv2.search_mods(query=query, version=version, modloader=loader)
         for mod in mods:
             render_mod(canvas=canvas, mod_data=mod, server_info=server_info)
         print(mods)
