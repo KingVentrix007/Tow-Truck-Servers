@@ -121,10 +121,24 @@ def run_fabric_server(server_info,text_widget,on_finish):
     adjust_path()
     b_path = os.getcwd()
     path = server_info.get('path', "/fake/")
-    java = server_info.get('javaPath', "java")
+    java = server_info.get('javaPath', "java.eze")
     java = os.path.join(b_path,java)
     os.chdir(path)
+    java = os.path.normpath(java)
+    if(os.name != "nt"):
+        java = java.replace("\\","/")
+    java = java+".exe"
+    if 'WSL_DISTRO_NAME' in os.environ:
+        # Convert Windows path to WSL path
+        java = java.replace('\\', '/')
+        # java = f'/mnt/{java[0].lower()}/{java[2:]}'
+        java = os.path.normpath(java)
+
+    print("Using java: %s" % java)
     print(os.getcwd())
+    if(os.path.exists(java) != True):
+        print("Java does not exist: %s" % java)
+        exit(1)
     ram = server_info.get('ram', "2G")
     jar_version = server_info.get("gameVersion","0.0.0")
     jar_file = f"fabric_installer_{jar_version}.jar"

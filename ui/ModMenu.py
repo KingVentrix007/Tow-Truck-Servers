@@ -26,7 +26,7 @@ import customtkinter as ctk
 import os
 import tkinter as tk
 from config.ui_config import default_color
-from mods.modrinth_api import search_mods
+# from mods.modrinth_api import search_mods
 import requests
 from io import BytesIO
 from PIL import Image, ImageTk
