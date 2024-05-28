@@ -128,6 +128,8 @@ def get_download_url_and_version_hash(mod, needed_version, modloader):
                 continue
             if cached_version.get('download_url') and modloader in cached_version.get('loader'):
                 # print(version_hash)
+                print("Found cached version url")
+                
                 return cached_version.get('download_url'),version_hash
         else:
             versions_data = get_version_data(version_hash)
@@ -159,6 +161,7 @@ def get_download_url_and_version_hash(mod, needed_version, modloader):
             cache["downloads"] = downloads
             # print("saving cache after URL found:", cache)
             save_cache(cache)
+            print("Found version url")
             
             return url,version_hash
 

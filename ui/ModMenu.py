@@ -58,33 +58,65 @@ def download_file(url, local_filename, progress, root, label, callback=None):
         callback()
 
 def download_mod(mod_data, server_info):
-    url, deps_url = modrinth_mods.get_download_mod(mod=mod_data, needed_version=server_info.get("gameVersion", "0.0"), modloader=server_info.get("modloader", "null"))
-    mod_folder = os.path.normpath(os.path.join(server_info.get("path", None), "mods"))
-    os.makedirs(mod_folder, exist_ok=True)
+    def show_waiting_window():
+        waiting_root = tk.Toplevel()
+        waiting_root.title("Please Wait")
+        name = mod_data.get("title")
+        waiting_label = ttk.Label(waiting_root, text=f"Searching for mod URLs for {name}...")
+        waiting_label.pack(pady=20, padx=20)
+        return waiting_root
 
-    root = tk.Tk()
-    root.title("Download Progress")
-    label = ttk.Label(root, text="Downloading mod...")
-    label.pack(pady=10)
-    progress = ttk.Progressbar(root, orient="horizontal", length=300, mode="determinate")
-    progress.pack(pady=10)
+    def close_waiting_window(waiting_root):
+        if waiting_root:
+            waiting_root.destroy()
 
-    def download_dependencies():
-        for dep_url in deps_url:
-            local_dep_filename = os.path.join(mod_folder, os.path.basename(dep_url))
-            download_file(dep_url, local_dep_filename, progress, root, label)
+    def get_mod_urls():
+        return modrinth_mods.get_download_mod(
+            mod=mod_data, 
+            needed_version=server_info.get("gameVersion", "0.0"), 
+            modloader=server_info.get("modloader", "null")
+        )
 
-        label.config(text="All downloads complete!")
-        print("Downloaded all dependencies.")
+    waiting_window = show_waiting_window()
+    
+    def fetch_and_download():
+        nonlocal waiting_window
 
-    def start_download():
-        local_filename = os.path.join(mod_folder, os.path.basename(url))
-        download_file(url, local_filename, progress, root, label, callback=download_dependencies)
-        print("Downloaded mod to %s" % local_filename)
-        label.config(text="Mod download complete! Downloading dependencies...")
+        # Get the mod URLs
+        url, deps_url = get_mod_urls()
 
-    threading.Thread(target=start_download).start()
-    root.mainloop()
+        # Close the waiting window once URLs are fetched
+        # root.after(0, close_waiting_window, waiting_window)
+        close_waiting_window(waiting_window)
+        mod_folder = os.path.normpath(os.path.join(server_info.get("path", None), "mods"))
+        os.makedirs(mod_folder, exist_ok=True)
+
+        root = tk.Tk()
+        root.title("Download Progress")
+        label = ttk.Label(root, text="Downloading mod...")
+        label.pack(pady=10)
+        progress = ttk.Progressbar(root, orient="horizontal", length=300, mode="determinate")
+        progress.pack(pady=10)
+
+        def download_dependencies():
+            for dep_url in deps_url:
+                local_dep_filename = os.path.join(mod_folder, os.path.basename(dep_url))
+                download_file(dep_url, local_dep_filename, progress, root, label)
+
+            label.config(text="All downloads complete!")
+            print("Downloaded all dependencies.")
+
+        def start_download():
+            local_filename = os.path.join(mod_folder, os.path.basename(url))
+            download_file(url, local_filename, progress, root, label, callback=download_dependencies)
+            print("Downloaded mod to %s" % local_filename)
+            label.config(text="Mod download complete! Downloading dependencies...")
+
+        threading.Thread(target=start_download).start()
+        root.mainloop()
+
+    # Fetch mod URLs and start the download process in a separate thread
+    threading.Thread(target=fetch_and_download).start()
 
 def render_mod(canvas, mod_data, server_info):
     mod_frame = ctk.CTkFrame(canvas, bg_color=default_color)
@@ -110,22 +142,51 @@ def callback_display(moddata, canvas, server_info):
     render_mod(mod_data=moddata, canvas=canvas, server_info=server_info)
 
 def search_for_mods(server_info, query, canvas, button):
-    print("Searching for mods...")
+    # print("Searching for mods...")
+    
+    loading_label = None  # To keep track of the loading animation label
 
     def search_mods_thread():
+        nonlocal loading_label
+        print("Searching for mods...")
         version = server_info.get("gameVersion", "0.0")
         loader = server_info.get("modloader", "null")
-        mods = modrinth_mods.search_mods(query=query,version=version,modloader=loader)#search_mods(query=query, game_version=version, mod_loader=loader, callback=callback_display, canvas=canvas, server_data=server_info)
+        mods = modrinth_mods.search_mods(query=query, version=version, modloader=loader)
         for mod in mods:
-            render_mod(canvas=canvas, mod_data=mod,server_info=server_info)
+            render_mod(canvas=canvas, mod_data=mod, server_info=server_info)
         print(mods)
         button.configure(state=ctk.NORMAL)  # Enable the search button after search completes
+        
+        # Remove the loading animation
+        if loading_label:
+            loading_label.destroy()
+
+    def animate_loading():
+        nonlocal loading_label
+
+        if not loading_label:
+            loading_label = ctk.CTkLabel(canvas, text="Loading")
+            loading_label.pack()
+
+        def update_animation():
+            current_text = loading_label.cget("text")
+            if current_text.endswith("..."):
+                loading_label.configure(text="Loading")
+            else:
+                loading_label.configure(text=current_text + ".")
+
+            if search_thread.is_alive():
+                canvas.after(500, update_animation)
+
+        update_animation()
 
     global search_thread
     search_thread = threading.Thread(target=search_mods_thread)
     search_thread.start()
     button.configure(state=ctk.DISABLED)  # Disable the search button while searching
 
+    # Start the loading animation
+    animate_loading()
 def on_close(window):
     # Signal the search thread to stop
     stop_search_thread.set()

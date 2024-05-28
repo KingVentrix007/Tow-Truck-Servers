@@ -127,7 +127,7 @@ def run_fabric_server(server_info,text_widget,on_finish):
     java = os.path.normpath(java)
     if(os.name != "nt"):
         java = java.replace("\\","/")
-    java = java+".exe"
+    # java = java+".exe"
     if 'WSL_DISTRO_NAME' in os.environ:
         # Convert Windows path to WSL path
         java = java.replace('\\', '/')
