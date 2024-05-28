@@ -78,10 +78,12 @@ def get_dependencies_url(version_id):
         for dep_file in dep_files:
             if(dep_file['primary'] == True):
                 dep_url = dep_file["url"]
+                dep_id = dep_data["project_id"]
+                print(dep_id)
                 # print()
-                return dep_url
+                return dep_url,dep_id
     print("No dependencies")
-    return None
+    return None,None
             # print(dep_file)
         # print("\n================================\n")
 def get_download_urls(project_id,version,modloader,first_mod=False):
@@ -101,11 +103,16 @@ def get_download_urls(project_id,version,modloader,first_mod=False):
         dep_error = False
         for dependency in dependencies:
             print(dependency["dependency_type"])
-            dep_url = get_dependencies_url(dependency["version_id"])
+            dep_url,dep_id = get_dependencies_url(dependency["version_id"])
             if(dep_url == None and dependency["dependency_type"] == "required"):
                 dep_error = True
             if(dep_url != None):
-                dep_urls_api_internal.append(dep_url)
+                # dep_urls_api_internal.append(dep_url)
+                dep = {
+                    "url":dep_url,
+                    "id":dep_id
+                }
+                dep_urls_api_internal.append(dep)
                 print("dep_url == " + str(dep_url))
             else:
                 print("continue")
@@ -119,6 +126,7 @@ def get_download_urls(project_id,version,modloader,first_mod=False):
                 # print("dep_urls_api_internal=",dep_urls_api_internal)
                 mod_data = {
                     "filename": filename,
+                    "project_id":project_id,
                     "url": file_url,
                     "primary": is_primary,
                     "version_type":version_type,

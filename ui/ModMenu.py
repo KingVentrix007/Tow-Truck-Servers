@@ -26,7 +26,7 @@ import customtkinter as ctk
 import os
 import tkinter as tk
 from config.ui_config import default_color
-# from mods.modrinth_api import search_mods
+import json
 import requests
 from io import BytesIO
 from PIL import Image, ImageTk
@@ -58,6 +58,24 @@ def download_file(url, local_filename, progress, root, label, callback=None):
         callback()
 
 def download_mod(mod_data, server_info):
+    server_folder = server_info.get("path")
+    config_path = os.path.join(server_folder, 'towtruckconfig.json')
+    mod_id = mod_data["project_id"]
+    
+    # Ensure the configuration file exists
+    if not os.path.exists(config_path):
+        with open(config_path, 'w') as config_file:
+            json.dump({"mods": []}, config_file)
+
+    # Load the configuration file
+    with open(config_path, 'r') as config_file:
+        config = json.load(config_file)
+    
+    # Check if the main mod is already installed
+    if mod_id in config["mods"]:
+        print(f"Mod {mod_id} is already installed, skipping download.")
+        return
+    
     def show_waiting_window():
         waiting_root = tk.Toplevel()
         waiting_root.title("Please Wait")
@@ -71,27 +89,18 @@ def download_mod(mod_data, server_info):
             waiting_root.destroy()
 
     def get_mod_urls():
-        mod = apiv2.get_download_urls(mod_data["project_id"],server_info.get("gameVersion", "0.0"),server_info.get("modloader", "null"))[0]
-        # print(mod)
+        mod = apiv2.get_download_urls(mod_data["project_id"], server_info.get("gameVersion", "0.0"), server_info.get("modloader", "null"))[0]
         return mod
-        # return modrinth_mods.get_download_mod(
-        #     mod=mod_data, 
-        #     needed_version=server_info.get("gameVersion", "0.0"), 
-        #     modloader=server_info.get("modloader", "null")
-        # )
 
     waiting_window = show_waiting_window()
-    
+
     def fetch_and_download():
         nonlocal waiting_window
 
         # Get the mod URLs
         urls = get_mod_urls()
         url = urls["url"]
-        deps_url = urls["dependencies"]
-        # print(deps_url)
-        # Close the waiting window once URLs are fetched
-        # root.after(0, close_waiting_window, waiting_window)
+        dependencies = urls["dependencies"]
         close_waiting_window(waiting_window)
         mod_folder = os.path.normpath(os.path.join(server_info.get("path", None), "mods"))
         os.makedirs(mod_folder, exist_ok=True)
@@ -105,12 +114,19 @@ def download_mod(mod_data, server_info):
         progress.pack(pady=10)
 
         def download_dependencies():
-            label.config(text="Mod download complete! Download dependencies..")
-            for dep_url in deps_url:
-                if(dep_url is not None):
-                    print(dep_url)
-                    local_dep_filename = os.path.join(mod_folder, os.path.basename(dep_url))
-                    download_file(dep_url, local_dep_filename, progress, root, label)
+            label.config(text="Mod download complete! Downloading dependencies...")
+            for dep in dependencies:
+                dep_id = dep["id"]
+                dep_url = dep["url"]
+                if dep_id not in config["mods"]:
+                    if dep_url is not None:
+                        local_dep_filename = os.path.join(mod_folder, os.path.basename(dep_url))
+                        download_file(dep_url, local_dep_filename, progress, root, label)
+                        config["mods"].append(dep_id)  # Add the dependency ID to the config
+                        with open(config_path, 'w') as config_file:
+                            json.dump(config, config_file, indent=4)
+                else:
+                    print(f"Dependency {dep_id} already exists, skipping download.")
 
             label.config(text="All downloads complete!")
             print("Downloaded all dependencies.")
@@ -118,7 +134,10 @@ def download_mod(mod_data, server_info):
         def start_download():
             local_filename = os.path.join(mod_folder, os.path.basename(url))
             download_file(url, local_filename, progress, root, label, callback=download_dependencies)
-            print("Downloaded mod to %s" % local_filename)
+            config["mods"].append(mod_id)  # Add the main mod ID to the config
+            with open(config_path, 'w') as config_file:
+                json.dump(config, config_file, indent=4)
+            print(f"Downloaded mod to {local_filename}")
 
         threading.Thread(target=start_download).start()
         root.mainloop()
@@ -138,7 +157,6 @@ def render_mod(canvas, mod_data, server_info):
 
     mod_button_frame = ctk.CTkFrame(mod_frame, bg_color="white")
     mod_button_frame.pack(side=ctk.RIGHT)
-    # mod_url = modrinth_mods.get_download_url(mod=mod_data,needed_version=server_info.get("gameVersion", "0.0"),modloader=server_info.get("modloader", "null"))
     mod_button = ctk.CTkButton(mod_button_frame, text="Get", command=lambda: download_mod(mod_data=mod_data, server_info=server_info), fg_color="green")
     mod_button.pack(side=ctk.TOP)
 
