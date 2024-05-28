@@ -1,0 +1,5545 @@
+{
+    "downloads": {
+        "Create Fabric": {
+            "mRXoRTy0": {
+                "game_versions": [
+                    "1.18.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric",
+                    "quilt"
+                ]
+            },
+            "ce9nGr3a": {
+                "game_versions": [
+                    "1.18.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric",
+                    "quilt"
+                ]
+            },
+            "eq17R2hD": {
+                "game_versions": [
+                    "1.18.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric",
+                    "quilt"
+                ]
+            },
+            "bGga7Elj": {
+                "game_versions": [
+                    "1.18.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric",
+                    "quilt"
+                ]
+            },
+            "yFEFFnx0": {
+                "game_versions": [
+                    "1.18.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric",
+                    "quilt"
+                ]
+            },
+            "LQns5RQ4": {
+                "game_versions": [
+                    "1.18.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric",
+                    "quilt"
+                ]
+            },
+            "OYqqVNgO": {
+                "game_versions": [
+                    "1.18.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric",
+                    "quilt"
+                ]
+            },
+            "5nlKopWj": {
+                "game_versions": [
+                    "1.18.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric",
+                    "quilt"
+                ]
+            },
+            "eNCMQaKl": {
+                "game_versions": [
+                    "1.18.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric",
+                    "quilt"
+                ]
+            },
+            "CDGw3zSe": {
+                "game_versions": [
+                    "1.18.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric",
+                    "quilt"
+                ]
+            },
+            "claJcl5F": {
+                "game_versions": [
+                    "1.18.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric",
+                    "quilt"
+                ]
+            },
+            "bJKtTI8y": {
+                "game_versions": [
+                    "1.18.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric",
+                    "quilt"
+                ]
+            },
+            "TMePrzvw": {
+                "game_versions": [
+                    "1.18.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric",
+                    "quilt"
+                ]
+            },
+            "kTNqWWMa": {
+                "game_versions": [
+                    "1.18.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric",
+                    "quilt"
+                ]
+            },
+            "j7rLltXv": {
+                "game_versions": [
+                    "1.18.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric",
+                    "quilt"
+                ]
+            },
+            "uAheUy8q": {
+                "game_versions": [
+                    "1.18.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric",
+                    "quilt"
+                ]
+            },
+            "mEHNMQS7": {
+                "game_versions": [
+                    "1.18.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric",
+                    "quilt"
+                ]
+            },
+            "l66YzGBK": {
+                "game_versions": [
+                    "1.18.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric",
+                    "quilt"
+                ]
+            },
+            "AUnWONBr": {
+                "game_versions": [
+                    "1.18.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric",
+                    "quilt"
+                ]
+            },
+            "5QkKPfWg": {
+                "game_versions": [
+                    "1.19.2"
+                ],
+                "download_url": "https://cdn.modrinth.com/data/Xbc0uyRg/versions/5QkKPfWg/create-fabric-1.19.2-0.5.0f-776.jar",
+                "loader": [
+                    "fabric",
+                    "quilt"
+                ]
+            }
+        },
+        "Create: Steam 'n' Rails": {
+            "BBbN1SjT": {
+                "game_versions": [
+                    "1.18.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "forge"
+                ]
+            },
+            "xBnBLkOZ": {
+                "game_versions": [
+                    "1.18.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "VXh9CeGE": {
+                "game_versions": [
+                    "1.19.2"
+                ],
+                "download_url": "https://cdn.modrinth.com/data/ZzjhlDgM/versions/VXh9CeGE/Steam_Rails-1.2.6%2Bfabric-mc1.19.2.jar",
+                "loader": [
+                    "fabric"
+                ]
+            }
+        },
+        "Create Crafts & Additions": {
+            "STJRMuTj": {
+                "game_versions": [
+                    "1.19.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "forge"
+                ]
+            },
+            "xJD8lq0O": {
+                "game_versions": [
+                    "1.18.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "forge"
+                ]
+            },
+            "wvzuaLOF": {
+                "game_versions": [
+                    "1.19.2"
+                ],
+                "download_url": "https://cdn.modrinth.com/data/kU1G12Nn/versions/wvzuaLOF/createaddition-fabric%2B1.19.2-20230211a.jar",
+                "loader": [
+                    "fabric"
+                ]
+            }
+        },
+        "Create Slice & Dice": {
+            "UJTc0pk2": {
+                "game_versions": [
+                    "1.18.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "forge"
+                ]
+            },
+            "1wP6CNfI": {
+                "game_versions": [
+                    "1.18.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "forge"
+                ]
+            },
+            "Nk2dO6Go": {
+                "game_versions": [
+                    "1.18.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "forge"
+                ]
+            },
+            "KriL1JFW": {
+                "game_versions": [
+                    "1.18.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "forge"
+                ]
+            },
+            "r4yDHtFN": {
+                "game_versions": [
+                    "1.18.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "forge"
+                ]
+            },
+            "tA385l8n": {
+                "game_versions": [
+                    "1.18.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "forge"
+                ]
+            },
+            "JH33REuT": {
+                "game_versions": [
+                    "1.19.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "forge"
+                ]
+            },
+            "tZZRCOac": {
+                "game_versions": [
+                    "1.18.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "forge"
+                ]
+            },
+            "lXNFlrvW": {
+                "game_versions": [
+                    "1.19.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "forge"
+                ]
+            },
+            "OIhe0uO4": {
+                "game_versions": [
+                    "1.18.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "forge"
+                ]
+            },
+            "ZmhTpjLR": {
+                "game_versions": [
+                    "1.19.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "forge"
+                ]
+            },
+            "pRwBOCJc": {
+                "game_versions": [
+                    "1.18.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "forge"
+                ]
+            },
+            "gCGCFJis": {
+                "game_versions": [
+                    "1.19.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "forge"
+                ]
+            },
+            "hPDyRNw3": {
+                "game_versions": [
+                    "1.19.2"
+                ],
+                "download_url": "https://cdn.modrinth.com/data/GmjmRQ0A/versions/hPDyRNw3/sliceanddice-fabric-2.1.0.jar",
+                "loader": [
+                    "fabric"
+                ]
+            }
+        },
+        "Create Goggles": {
+            "Mo3zondk": {
+                "game_versions": [
+                    "1.19.2"
+                ],
+                "download_url": "https://cdn.modrinth.com/data/L1RT5SJc/versions/Mo3zondk/creategoggles-0.5.4%5BFABRIC%5D.jar",
+                "loader": [
+                    "fabric"
+                ]
+            }
+        },
+        "Create: Structures": {
+            "e9v4MIpX": {
+                "game_versions": [
+                    "1.19.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "datapack"
+                ]
+            },
+            "T6pIYgOM": {
+                "game_versions": [
+                    "1.19.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "forge"
+                ]
+            },
+            "GHYR6eCT": {
+                "game_versions": [
+                    "1.20.1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "datapack"
+                ]
+            },
+            "XALEBs0a": {
+                "game_versions": [
+                    "1.20.1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "forge"
+                ]
+            },
+            "nqsTHZwx": {
+                "game_versions": [
+                    "1.20.1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            }
+        },
+        "Create Enchantment Industry Fabric": {
+            "bDpS2jAc": {
+                "game_versions": [
+                    "1.19.2"
+                ],
+                "download_url": "https://cdn.modrinth.com/data/AEZO385x/versions/bDpS2jAc/create_enchantment_industry-beta-0.1.2.jar",
+                "loader": [
+                    "fabric",
+                    "quilt"
+                ]
+            }
+        },
+        "Fabric API": {
+            "KZS9tylY": {
+                "game_versions": [
+                    "18w49a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "EW33COvi": {
+                "game_versions": [
+                    "18w49a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "Vz2fCyj1": {
+                "game_versions": [
+                    "18w49a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "TiRfiHCC": {
+                "game_versions": [
+                    "18w50a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "3auffiOJ": {
+                "game_versions": [
+                    "18w50a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "yKxt6vQd": {
+                "game_versions": [
+                    "18w50a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "mzWtLKwY": {
+                "game_versions": [
+                    "18w50a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "I5uJBxv3": {
+                "game_versions": [
+                    "18w50a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "NB6ZFJFw": {
+                "game_versions": [
+                    "18w50a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "PRBzeeTW": {
+                "game_versions": [
+                    "18w50a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "SX46NK1K": {
+                "game_versions": [
+                    "18w50a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "C3VkBnFi": {
+                "game_versions": [
+                    "18w50a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "APdJVxfY": {
+                "game_versions": [
+                    "18w50a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "WNbTdkLS": {
+                "game_versions": [
+                    "18w50a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "PfY0kOEk": {
+                "game_versions": [
+                    "18w50a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "R1AfzdaQ": {
+                "game_versions": [
+                    "18w50a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "7g9p2881": {
+                "game_versions": [
+                    "18w50a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "qrEy5YGE": {
+                "game_versions": [
+                    "18w50a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "BabMEX3f": {
+                "game_versions": [
+                    "18w50a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "WSJOUdKs": {
+                "game_versions": [
+                    "18w50a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "1chh3gx2": {
+                "game_versions": [
+                    "18w50a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "yOnIEotM": {
+                "game_versions": [
+                    "18w50a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "ePwgymTJ": {
+                "game_versions": [
+                    "18w50a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "fC5RTD55": {
+                "game_versions": [
+                    "19w02a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "Y3EXNN7S": {
+                "game_versions": [
+                    "19w02a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "IFHFSVDc": {
+                "game_versions": [
+                    "19w02a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "aRmkQPrs": {
+                "game_versions": [
+                    "19w03a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "7hZJzidC": {
+                "game_versions": [
+                    "19w03a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "AB1fvWV8": {
+                "game_versions": [
+                    "19w03a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "aqfJ1ZuZ": {
+                "game_versions": [
+                    "19w03a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "bXYTGKvj": {
+                "game_versions": [
+                    "19w03c"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "JicWt7qw": {
+                "game_versions": [
+                    "19w04a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "LWAYx3hL": {
+                "game_versions": [
+                    "19w04b"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "ai7D22n3": {
+                "game_versions": [
+                    "19w04b"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "VFSs6Ujy": {
+                "game_versions": [
+                    "19w04b"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "1v932ZMY": {
+                "game_versions": [
+                    "19w04b"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "y4zn8BT1": {
+                "game_versions": [
+                    "19w05a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "oKPs1SgF": {
+                "game_versions": [
+                    "19w05a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "BGFFpdzl": {
+                "game_versions": [
+                    "19w05a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "3OPzLHVJ": {
+                "game_versions": [
+                    "19w05a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "HMBgn02e": {
+                "game_versions": [
+                    "19w05a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "jYJIwG4c": {
+                "game_versions": [
+                    "19w06a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "zqUXAY4L": {
+                "game_versions": [
+                    "19w06a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "GmcSmmPF": {
+                "game_versions": [
+                    "19w06a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "pO03bZZA": {
+                "game_versions": [
+                    "19w06a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "ZNI3l5o3": {
+                "game_versions": [
+                    "19w07a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "fupc7s32": {
+                "game_versions": [
+                    "19w07a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "BzWRlGLN": {
+                "game_versions": [
+                    "19w07a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "52Zx3vLX": {
+                "game_versions": [
+                    "19w07a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "Tbl6vl8j": {
+                "game_versions": [
+                    "19w07a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "sv0yIUjC": {
+                "game_versions": [
+                    "19w07a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "nAbEPgYx": {
+                "game_versions": [
+                    "19w07a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "v8I9HEA4": {
+                "game_versions": [
+                    "19w08a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "QVDJylQ7": {
+                "game_versions": [
+                    "19w08a",
+                    "19w08b"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "9albznND": {
+                "game_versions": [
+                    "19w08b"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "7nKP4yUa": {
+                "game_versions": [
+                    "19w08b"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "YwHHPNVI": {
+                "game_versions": [
+                    "19w08b"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "tZqJpmCW": {
+                "game_versions": [
+                    "19w08b"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "crBXiDCW": {
+                "game_versions": [
+                    "19w08b"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "lnkOzZ0b": {
+                "game_versions": [
+                    "19w11a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "iF0q9SQK": {
+                "game_versions": [
+                    "19w11b"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "aa7GjDs9": {
+                "game_versions": [
+                    "19w12a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "7UNh2PBF": {
+                "game_versions": [
+                    "19w12b"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "IothiuUB": {
+                "game_versions": [
+                    "19w13a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "7RI2g67e": {
+                "game_versions": [
+                    "19w13a",
+                    "19w13b"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "JysUXOMs": {
+                "game_versions": [
+                    "19w14a",
+                    "19w14b"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "rNfaRTfl": {
+                "game_versions": [
+                    "19w14b"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "f2Y3vhQu": {
+                "game_versions": [
+                    "19w14b"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "5XLBQVFI": {
+                "game_versions": [
+                    "1.14-pre1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "wmUvwv00": {
+                "game_versions": [
+                    "1.14-pre3"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "jifaWih8": {
+                "game_versions": [
+                    "1.14-pre3"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "nPHDYMfc": {
+                "game_versions": [
+                    "1.14-pre3"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "tkaL7rcq": {
+                "game_versions": [
+                    "1.14-pre3"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "gmvBfE4x": {
+                "game_versions": [
+                    "1.14"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "exn4lPJ8": {
+                "game_versions": [
+                    "1.14.1-pre2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "bNe2h4sb": {
+                "game_versions": [
+                    "1.14.1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "BUu5qPlZ": {
+                "game_versions": [
+                    "1.14.1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "JBCGfIWh": {
+                "game_versions": [
+                    "1.14.2-pre2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "XnQSD5Ie": {
+                "game_versions": [
+                    "1.14.2-pre2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "GcaiauBc": {
+                "game_versions": [
+                    "1.14.2-pre2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "n9VMDfcg": {
+                "game_versions": [
+                    "1.14.1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "XYe2MNMi": {
+                "game_versions": [
+                    "1.14.2-pre2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "bTnRtObn": {
+                "game_versions": [
+                    "1.14.2-pre2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "LfUdA4Sf": {
+                "game_versions": [
+                    "1.14.2-pre2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "CW216TFl": {
+                "game_versions": [
+                    "1.14.2-pre2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "hFzTbYRu": {
+                "game_versions": [
+                    "1.14.2-pre2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "x9ZqLRwc": {
+                "game_versions": [
+                    "1.14.2-pre4"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "Y7X8Hhka": {
+                "game_versions": [
+                    "1.14.2-pre4"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "FgmJUe3S": {
+                "game_versions": [
+                    "1.14.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "qkvl3xDD": {
+                "game_versions": [
+                    "1.14.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "51YGaK6m": {
+                "game_versions": [
+                    "1.14.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "PgLQbTH9": {
+                "game_versions": [
+                    "1.14.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "2EyE2SxG": {
+                "game_versions": [
+                    "1.14.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "iPJqMlJy": {
+                "game_versions": [
+                    "1.14.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "mQsw49fV": {
+                "game_versions": [
+                    "1.14.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "7NCd11cy": {
+                "game_versions": [
+                    "1.14.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "EWwPPL6y": {
+                "game_versions": [
+                    "1.14.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "9E3POSah": {
+                "game_versions": [
+                    "1.14.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "QyoYoS1L": {
+                "game_versions": [
+                    "1.14.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "6PjGUXft": {
+                "game_versions": [
+                    "1.14.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "q3B57giZ": {
+                "game_versions": [
+                    "1.14.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "duXtu7Mv": {
+                "game_versions": [
+                    "1.14.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "ct54kLn6": {
+                "game_versions": [
+                    "1.14.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "UW9fZnIN": {
+                "game_versions": [
+                    "1.14.3"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "XTHo3Zv2": {
+                "game_versions": [
+                    "1.14.3"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "LnDlY6qD": {
+                "game_versions": [
+                    "1.14.3"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "E43TEQUr": {
+                "game_versions": [
+                    "1.14.3"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "GQvJGWo8": {
+                "game_versions": [
+                    "1.14.3"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "no2tybzZ": {
+                "game_versions": [
+                    "1.14.4-pre5"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "TqJCrZRc": {
+                "game_versions": [
+                    "1.14.4-pre5"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "Ih6Z2LPA": {
+                "game_versions": [
+                    "1.14.3"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "epLznJvj": {
+                "game_versions": [
+                    "1.14.3"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "3WigUN4i": {
+                "game_versions": [
+                    "1.14.4"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "TrIel4SO": {
+                "game_versions": [
+                    "1.14.4"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "JG3trBMB": {
+                "game_versions": [
+                    "1.14.4"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "iGsZlV1Z": {
+                "game_versions": [
+                    "1.14.4"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "w1hoJyvR": {
+                "game_versions": [
+                    "19w34a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "aaxysYSr": {
+                "game_versions": [
+                    "19w35a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "P4dVOjdB": {
+                "game_versions": [
+                    "19w35a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "2crJecHK": {
+                "game_versions": [
+                    "19w35a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "g6dqlhZA": {
+                "game_versions": [
+                    "1.14.4"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "Sk17Arv8": {
+                "game_versions": [
+                    "19w35a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "LDBk6Gkw": {
+                "game_versions": [
+                    "1.14.4"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "w04KtwfS": {
+                "game_versions": [
+                    "19w36a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "AXjFPkGO": {
+                "game_versions": [
+                    "1.14.4"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "w7WYHFXQ": {
+                "game_versions": [
+                    "19w36a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "wI5SUVrP": {
+                "game_versions": [
+                    "19w36a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "oIkwUl43": {
+                "game_versions": [
+                    "1.14.4"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "zy7W9w8D": {
+                "game_versions": [
+                    "19w37a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "6xwSUlAN": {
+                "game_versions": [
+                    "1.14.4"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "kGajkc8S": {
+                "game_versions": [
+                    "19w37a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "SfYgWJcE": {
+                "game_versions": [
+                    "19w37a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "gpl4Fj6D": {
+                "game_versions": [
+                    "19w37a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "jDDozYmj": {
+                "game_versions": [
+                    "19w38b"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "hW7nEpTZ": {
+                "game_versions": [
+                    "1.14.4"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "WySSeVkG": {
+                "game_versions": [
+                    "1.14.4"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "XwTuWbpO": {
+                "game_versions": [
+                    "19w38b"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "Ua4lc5tg": {
+                "game_versions": [
+                    "19w38b"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "HVDOfdmY": {
+                "game_versions": [
+                    "19w38b"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "eWxc51hM": {
+                "game_versions": [
+                    "19w38b"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "kpHh05FP": {
+                "game_versions": [
+                    "19w39a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "1Clf5dTa": {
+                "game_versions": [
+                    "1.14.4"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "U1MW7MAt": {
+                "game_versions": [
+                    "19w39a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "hyFOWGxi": {
+                "game_versions": [
+                    "19w39a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "XuINwA4Z": {
+                "game_versions": [
+                    "19w39a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "fs6Evior": {
+                "game_versions": [
+                    "19w40a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "caAUQUkM": {
+                "game_versions": [
+                    "19w41a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "RmrI7aQl": {
+                "game_versions": [
+                    "19w42a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "bIivV1Nw": {
+                "game_versions": [
+                    "1.14.4"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "QV7vnKKc": {
+                "game_versions": [
+                    "19w42a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "FGedIovs": {
+                "game_versions": [
+                    "19w42a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "NvpxBurp": {
+                "game_versions": [
+                    "19w42a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "38hxkT6t": {
+                "game_versions": [
+                    "19w44a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "IIqfpBaC": {
+                "game_versions": [
+                    "19w45a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "nNKIpQi1": {
+                "game_versions": [
+                    "19w45b"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "KugUHHeo": {
+                "game_versions": [
+                    "19w46a",
+                    "19w46b"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "levT8TBv": {
+                "game_versions": [
+                    "1.15-pre1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "ELyTc2mR": {
+                "game_versions": [
+                    "1.15-pre1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "3s09jk3z": {
+                "game_versions": [
+                    "1.15-pre2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "ERBf7VT3": {
+                "game_versions": [
+                    "1.15-pre2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "dbfSq8gn": {
+                "game_versions": [
+                    "1.15-pre2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "T4me78o3": {
+                "game_versions": [
+                    "1.15-pre2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "iRrnCNpj": {
+                "game_versions": [
+                    "1.15-pre3"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "F5kyXfQb": {
+                "game_versions": [
+                    "1.15-pre4"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "5u1C2PFE": {
+                "game_versions": [
+                    "1.15-pre5",
+                    "1.15-pre6",
+                    "1.15-pre7"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "lO97gbkP": {
+                "game_versions": [
+                    "1.15"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "fJLeal0h": {
+                "game_versions": [
+                    "1.14.4"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "ELM4vP2I": {
+                "game_versions": [
+                    "1.15"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "foukWeKL": {
+                "game_versions": [
+                    "1.15.1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "DV6pvooZ": {
+                "game_versions": [
+                    "1.15.1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "qXBnqLRc": {
+                "game_versions": [
+                    "1.15.1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "fHPZAS6s": {
+                "game_versions": [
+                    "1.15.2-pre1",
+                    "1.15.2-pre2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "a8f8UOYM": {
+                "game_versions": [
+                    "1.15.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "cYqIQo6h": {
+                "game_versions": [
+                    "20w06a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "8Q9AiNzI": {
+                "game_versions": [
+                    "1.15.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "yZHVE5uS": {
+                "game_versions": [
+                    "20w06a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "476bZqxy": {
+                "game_versions": [
+                    "20w06a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "PsMx4chP": {
+                "game_versions": [
+                    "1.15.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "HqAMsbpy": {
+                "game_versions": [
+                    "20w07a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "5ddKSVe9": {
+                "game_versions": [
+                    "20w07a",
+                    "20w08a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "LTcOldqW": {
+                "game_versions": [
+                    "20w09a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "sf5KQYnF": {
+                "game_versions": [
+                    "20w10a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "xypy8s9d": {
+                "game_versions": [
+                    "1.15.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "RlLMBaqw": {
+                "game_versions": [
+                    "20w10a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "LoB1lXAQ": {
+                "game_versions": [
+                    "20w10a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "X74E54Pq": {
+                "game_versions": [
+                    "1.14.4"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "Gb8k1YeO": {
+                "game_versions": [
+                    "1.15.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "h3AFkvAF": {
+                "game_versions": [
+                    "20w10a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "fV3kAyxg": {
+                "game_versions": [
+                    "20w11a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "RLzY3ZyY": {
+                "game_versions": [
+                    "20w12a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "XwvTqkqr": {
+                "game_versions": [
+                    "20w12a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "LrJRgLWV": {
+                "game_versions": [
+                    "20w13a",
+                    "20w13b"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "uvA4N5rC": {
+                "game_versions": [
+                    "20w14infinite"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "2YoDvysd": {
+                "game_versions": [
+                    "20w14a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "Qnv15UTu": {
+                "game_versions": [
+                    "20w14a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "MeLFgiB0": {
+                "game_versions": [
+                    "20w15a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "eQrQQE1p": {
+                "game_versions": [
+                    "20w15a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "XRQRuLgk": {
+                "game_versions": [
+                    "20w16a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "Lx1AX1td": {
+                "game_versions": [
+                    "1.14.4"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "NI4JkISw": {
+                "game_versions": [
+                    "1.15.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "L0wmxvVG": {
+                "game_versions": [
+                    "20w16a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "ynl2hvIH": {
+                "game_versions": [
+                    "20w16a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "5OBoG05F": {
+                "game_versions": [
+                    "1.15.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "jhX16Zcz": {
+                "game_versions": [
+                    "1.15.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "i2mlXS4U": {
+                "game_versions": [
+                    "20w16a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "vwTV4Agb": {
+                "game_versions": [
+                    "20w17a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "Fvd4Zkyo": {
+                "game_versions": [
+                    "1.15.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "W6IAFO72": {
+                "game_versions": [
+                    "20w17a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "CQRo7bxt": {
+                "game_versions": [
+                    "20w18a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "U7YDQZjA": {
+                "game_versions": [
+                    "1.14.4"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "rVazA1wF": {
+                "game_versions": [
+                    "1.15.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "ti8dGWwg": {
+                "game_versions": [
+                    "20w18a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "GS00Csiv": {
+                "game_versions": [
+                    "1.15.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "44wTrwmg": {
+                "game_versions": [
+                    "20w18a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "6zAqUmO0": {
+                "game_versions": [
+                    "1.15.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "n1BGDH9X": {
+                "game_versions": [
+                    "20w18a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "O2qc6nsy": {
+                "game_versions": [
+                    "20w18a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "FRg18j3a": {
+                "game_versions": [
+                    "1.14.4"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "Z92GEPU2": {
+                "game_versions": [
+                    "1.15.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "fSPo6UtM": {
+                "game_versions": [
+                    "20w18a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "N9qZdjt3": {
+                "game_versions": [
+                    "1.14.4"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "ljGdqEqS": {
+                "game_versions": [
+                    "1.15.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "qQC5klDH": {
+                "game_versions": [
+                    "20w18a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "2q6Dmb8u": {
+                "game_versions": [
+                    "20w18a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "XqodfB4f": {
+                "game_versions": [
+                    "20w19a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "wF33uVr9": {
+                "game_versions": [
+                    "20w19a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "8TLEIaci": {
+                "game_versions": [
+                    "1.15.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "io0wt4Ai": {
+                "game_versions": [
+                    "20w19a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "1dB65ppH": {
+                "game_versions": [
+                    "1.15.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "GbZ13YI1": {
+                "game_versions": [
+                    "20w19a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "ALjNbsdy": {
+                "game_versions": [
+                    "20w20a",
+                    "20w20b"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "kZ8Z5Xwx": {
+                "game_versions": [
+                    "20w21a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "roD21Eou": {
+                "game_versions": [
+                    "20w22a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "KCmSPU8b": {
+                "game_versions": [
+                    "1.15.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "XYuF5hfV": {
+                "game_versions": [
+                    "20w22a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "jvr2zzlL": {
+                "game_versions": [
+                    "20w22a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "8eKkyfGa": {
+                "game_versions": [
+                    "1.15.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "1bgrYcMk": {
+                "game_versions": [
+                    "20w22a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "k6xnp0Hz": {
+                "game_versions": [
+                    "1.16-pre1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "JM6MJue5": {
+                "game_versions": [
+                    "1.16-pre1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "4wIURb45": {
+                "game_versions": [
+                    "1.16-pre1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "81uX9Q66": {
+                "game_versions": [
+                    "1.16-pre2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "kJMpYKrv": {
+                "game_versions": [
+                    "1.16-pre2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "zpmtKxfV": {
+                "game_versions": [
+                    "1.16-pre3"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "pAdwyjJP": {
+                "game_versions": [
+                    "1.16-pre3"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "iW7F3Rkl": {
+                "game_versions": [
+                    "1.16-pre4"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "eNDeMswm": {
+                "game_versions": [
+                    "1.14.4"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "suesdaHb": {
+                "game_versions": [
+                    "1.15.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "cGdCXkjZ": {
+                "game_versions": [
+                    "1.16-pre4"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "ruet8er8": {
+                "game_versions": [
+                    "1.16-pre5"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "lIsi9TdU": {
+                "game_versions": [
+                    "1.16-pre6"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "L6oNo6Hx": {
+                "game_versions": [
+                    "1.16-pre6"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "RNDPXNQg": {
+                "game_versions": [
+                    "1.16-pre7",
+                    "1.16-pre8",
+                    "1.16-rc1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "rrnLvsbL": {
+                "game_versions": [
+                    "1.16-rc1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "AGabiBYy": {
+                "game_versions": [
+                    "1.14.4"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "MR89IvfQ": {
+                "game_versions": [
+                    "1.15.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "RtAjPwHu": {
+                "game_versions": [
+                    "1.16",
+                    "1.16.1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "rjQkRuiu": {
+                "game_versions": [
+                    "1.14.4"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "TGB25RLi": {
+                "game_versions": [
+                    "1.15.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "34iyRwzB": {
+                "game_versions": [
+                    "1.16.1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "vuHWOQsB": {
+                "game_versions": [
+                    "1.16.1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "jy6ehlNe": {
+                "game_versions": [
+                    "20w27a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "qgqitIMI": {
+                "game_versions": [
+                    "20w28a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "25waSV2L": {
+                "game_versions": [
+                    "20w28a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "5gPmK81C": {
+                "game_versions": [
+                    "20w28a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "d21cnfln": {
+                "game_versions": [
+                    "20w29a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "J5JHDJKa": {
+                "game_versions": [
+                    "1.14.4"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "HnCisPYp": {
+                "game_versions": [
+                    "1.15.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "D2fqWC01": {
+                "game_versions": [
+                    "1.16.1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "QF33F6to": {
+                "game_versions": [
+                    "20w29a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "hlEg3Ozs": {
+                "game_versions": [
+                    "1.14.4"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "hcZrl16R": {
+                "game_versions": [
+                    "1.15.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "1gnEwdMi": {
+                "game_versions": [
+                    "1.16.1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "1n6nGkCj": {
+                "game_versions": [
+                    "20w29a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "WcqtO6g6": {
+                "game_versions": [
+                    "20w30a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "KXNNWSBt": {
+                "game_versions": [
+                    "1.15.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "Abp6x34K": {
+                "game_versions": [
+                    "1.16.1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "q7i31UcD": {
+                "game_versions": [
+                    "20w30a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "jewlv99C": {
+                "game_versions": [
+                    "1.16.2-pre1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "Rc4DKtpu": {
+                "game_versions": [
+                    "1.14.4"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "iOvG1Rif": {
+                "game_versions": [
+                    "1.15.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "sJHVkrRE": {
+                "game_versions": [
+                    "1.16.1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "WzEfKGJu": {
+                "game_versions": [
+                    "1.16.2-pre1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "1TOAhSZW": {
+                "game_versions": [
+                    "1.16.2-pre2",
+                    "1.16.2-pre3"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "fiMbeNUu": {
+                "game_versions": [
+                    "1.15.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "cO903CY4": {
+                "game_versions": [
+                    "1.16.1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "2jFjAUSt": {
+                "game_versions": [
+                    "1.16.2-rc1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "DP0Ius6z": {
+                "game_versions": [
+                    "1.16.2-rc1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "Ys8c8itO": {
+                "game_versions": [
+                    "1.16.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "rU0jh5Rv": {
+                "game_versions": [
+                    "1.15.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "4Zmxh5NU": {
+                "game_versions": [
+                    "1.16.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "GkKh6DGq": {
+                "game_versions": [
+                    "1.14.4"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "lEthR8FU": {
+                "game_versions": [
+                    "1.15.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "wkID6YQU": {
+                "game_versions": [
+                    "1.16.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "qPNxv5qZ": {
+                "game_versions": [
+                    "1.16.1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "YyI4A4tt": {
+                "game_versions": [
+                    "1.16.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "ybc5Fjql": {
+                "game_versions": [
+                    "1.16.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "PsJFXTI2": {
+                "game_versions": [
+                    "1.16.3"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "cw07UNpY": {
+                "game_versions": [
+                    "1.15.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "xSa6h9gv": {
+                "game_versions": [
+                    "1.16.3"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "gBLh1BAK": {
+                "game_versions": [
+                    "1.16.3"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "7lA83Whn": {
+                "game_versions": [
+                    "1.15.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "7zjdfV3v": {
+                "game_versions": [
+                    "1.16.3"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "BIUjYtXO": {
+                "game_versions": [
+                    "1.14.4"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "9RTllJIs": {
+                "game_versions": [
+                    "1.15.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "N5hYQpLP": {
+                "game_versions": [
+                    "1.16.3"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "zcpbyWSH": {
+                "game_versions": [
+                    "1.16.3"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "1bDn0oLI": {
+                "game_versions": [
+                    "1.16.3"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "ZCRPU7zu": {
+                "game_versions": [
+                    "1.16.3"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "qaApHOxA": {
+                "game_versions": [
+                    "1.16.3"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "ClXHxfOV": {
+                "game_versions": [
+                    "1.16.3"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "Vp6ARkhq": {
+                "game_versions": [
+                    "1.16.4"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "aP6jwPyA": {
+                "game_versions": [
+                    "20w45a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "yGfXqDYu": {
+                "game_versions": [
+                    "1.14.4"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "TcdLJQkj": {
+                "game_versions": [
+                    "1.15.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "4TrYrOhI": {
+                "game_versions": [
+                    "1.16.4"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "5NTTynba": {
+                "game_versions": [
+                    "20w45a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "UxiJdq3q": {
+                "game_versions": [
+                    "20w45a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "Vh55Sosk": {
+                "game_versions": [
+                    "20w46a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "DCqjhIiP": {
+                "game_versions": [
+                    "1.14.4"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "RLPbgBGP": {
+                "game_versions": [
+                    "1.16.4"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "ScMraOCG": {
+                "game_versions": [
+                    "20w46a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "ic9HilAb": {
+                "game_versions": [
+                    "1.16.4"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "xw5YrDHt": {
+                "game_versions": [
+                    "20w46a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "3dK7BAmw": {
+                "game_versions": [
+                    "1.16.4"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "RiOE32Re": {
+                "game_versions": [
+                    "20w46a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "g2QSvr4g": {
+                "game_versions": [
+                    "1.16.4"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "B9qTR9oh": {
+                "game_versions": [
+                    "20w46a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "i6yKzgtO": {
+                "game_versions": [
+                    "1.16.4"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "L55bHtC9": {
+                "game_versions": [
+                    "20w46a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "5qwmtjaP": {
+                "game_versions": [
+                    "20w48a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "nFK910wv": {
+                "game_versions": [
+                    "1.16.4"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "23nCK0zM": {
+                "game_versions": [
+                    "20w48a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "qmeurUwp": {
+                "game_versions": [
+                    "1.16.4"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "RljeA1em": {
+                "game_versions": [
+                    "20w48a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "Hw9K1dUH": {
+                "game_versions": [
+                    "20w49a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "DViguGBA": {
+                "game_versions": [
+                    "20w49a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "tAqtfwEb": {
+                "game_versions": [
+                    "1.16.4"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "6qikX5Zw": {
+                "game_versions": [
+                    "20w49a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "vD9PxKZt": {
+                "game_versions": [
+                    "1.16.4"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "CHkbQuNz": {
+                "game_versions": [
+                    "20w49a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "nR3Lb75e": {
+                "game_versions": [
+                    "20w51a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "HkwJBiOP": {
+                "game_versions": [
+                    "1.16.4"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "mHW3ZSDH": {
+                "game_versions": [
+                    "20w51a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "uNHA8hFl": {
+                "game_versions": [
+                    "1.14.4"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "IOVsvUHu": {
+                "game_versions": [
+                    "1.15.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "Xivipob5": {
+                "game_versions": [
+                    "1.16.4"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "VqmivTIF": {
+                "game_versions": [
+                    "20w51a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "SQ4CPyrs": {
+                "game_versions": [
+                    "1.16.4"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "qGPfVyPw": {
+                "game_versions": [
+                    "20w51a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "pZTsfuSa": {
+                "game_versions": [
+                    "1.16.4"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "TNF6hDpc": {
+                "game_versions": [
+                    "20w51a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "gtUkBmSy": {
+                "game_versions": [
+                    "1.16.4"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "SI4Cri3X": {
+                "game_versions": [
+                    "20w51a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "YC7ealNj": {
+                "game_versions": [
+                    "1.16.4"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "7jVcrYVZ": {
+                "game_versions": [
+                    "20w51a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "FvApKY5i": {
+                "game_versions": [
+                    "1.14.4"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "pKzU4NF4": {
+                "game_versions": [
+                    "1.15.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "St6VBaEb": {
+                "game_versions": [
+                    "1.16.5"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "GWhMfYFJ": {
+                "game_versions": [
+                    "20w51a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "ct7BsEJ1": {
+                "game_versions": [
+                    "21w03a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "ZR9hBADo": {
+                "game_versions": [
+                    "1.16.5"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "WkR4r28V": {
+                "game_versions": [
+                    "21w03a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "3NQwzj0b": {
+                "game_versions": [
+                    "21w05a",
+                    "21w05b"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "LCbP8k6I": {
+                "game_versions": [
+                    "21w06a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "KvmAjA9G": {
+                "game_versions": [
+                    "1.16.5"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "odx4vw2k": {
+                "game_versions": [
+                    "21w06a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "g5y6g6Oq": {
+                "game_versions": [
+                    "21w06a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "Fb66M9rQ": {
+                "game_versions": [
+                    "21w07a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "ClUU6TVG": {
+                "game_versions": [
+                    "1.16.5"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "X6LKWJUx": {
+                "game_versions": [
+                    "21w07a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "9B6jUUyL": {
+                "game_versions": [
+                    "21w08a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "VDl94Lx0": {
+                "game_versions": [
+                    "21w08a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "gtgzO8r7": {
+                "game_versions": [
+                    "1.16.5"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "EuJENaAz": {
+                "game_versions": [
+                    "21w08a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "XgS3g0uq": {
+                "game_versions": [
+                    "21w10a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "fjsrOLR7": {
+                "game_versions": [
+                    "21w10a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "vM5SpVPC": {
+                "game_versions": [
+                    "21w11a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "SbrYJtHJ": {
+                "game_versions": [
+                    "1.16.5"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "rQOQL6nC": {
+                "game_versions": [
+                    "21w11a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "ef3DimVt": {
+                "game_versions": [
+                    "21w13a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "zihmTu83": {
+                "game_versions": [
+                    "21w14a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "zPS1p5ul": {
+                "game_versions": [
+                    "21w15a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "CI09738V": {
+                "game_versions": [
+                    "1.16.5"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "3XrQEeEu": {
+                "game_versions": [
+                    "21w15a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "zd2RW4Xi": {
+                "game_versions": [
+                    "1.16.5"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "Bnw2XweM": {
+                "game_versions": [
+                    "21w15a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "qgTkxcag": {
+                "game_versions": [
+                    "1.16.5"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "X6NzLlSk": {
+                "game_versions": [
+                    "21w16a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "eGAKaHl7": {
+                "game_versions": [
+                    "21w16a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "eq9NNGcv": {
+                "game_versions": [
+                    "21w17a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "t8gxHRxl": {
+                "game_versions": [
+                    "1.16.5"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "DCcAtmIm": {
+                "game_versions": [
+                    "21w17a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "nfZMS1GK": {
+                "game_versions": [
+                    "1.16.5"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "wNjT7tOI": {
+                "game_versions": [
+                    "21w17a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "BBBRpjOG": {
+                "game_versions": [
+                    "21w18a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "nV2Cc214": {
+                "game_versions": [
+                    "21w18a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "LoZHv9Ac": {
+                "game_versions": [
+                    "1.16.5"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "8w6BMMkH": {
+                "game_versions": [
+                    "21w19a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "yfzhMeRZ": {
+                "game_versions": [
+                    "21w20a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "J6yPQoBy": {
+                "game_versions": [
+                    "1.16.5"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "2aTn2k1M": {
+                "game_versions": [
+                    "21w20a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "inQsbwtD": {
+                "game_versions": [
+                    "21w20a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "bVa5NyiC": {
+                "game_versions": [
+                    "1.17-pre1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "g8jHG8t2": {
+                "game_versions": [
+                    "1.17-rc1",
+                    "1.17"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "DxWH1HyN": {
+                "game_versions": [
+                    "1.16.5"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "V0Yx8gzI": {
+                "game_versions": [
+                    "1.17"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "4JKJwzcT": {
+                "game_versions": [
+                    "1.16.5"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "2kDcV5Rp": {
+                "game_versions": [
+                    "1.17"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "EepWkllY": {
+                "game_versions": [
+                    "1.17"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "cdPFdaZ4": {
+                "game_versions": [
+                    "1.16.5"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "VKwiy2Fm": {
+                "game_versions": [
+                    "1.17"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "oAVHz54U": {
+                "game_versions": [
+                    "1.16.5"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "nSk00F5M": {
+                "game_versions": [
+                    "1.17"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "o68l3pK3": {
+                "game_versions": [
+                    "1.17.1-rc2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "II8sVuAK": {
+                "game_versions": [
+                    "1.16.5"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "b3GuijTJ": {
+                "game_versions": [
+                    "1.17.1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "wNNNnSQB": {
+                "game_versions": [
+                    "1.17-pre1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "JXjDyWqh": {
+                "game_versions": [
+                    "1.16.5"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "Fk7dLlzZ": {
+                "game_versions": [
+                    "1.17.1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "KXxIfJ4K": {
+                "game_versions": [
+                    "1.16.5"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "avb6CBpt": {
+                "game_versions": [
+                    "1.17.1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "aXrklWT4": {
+                "game_versions": [
+                    "1.16.5"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "AqFdVh6X": {
+                "game_versions": [
+                    "1.17.1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "5LO7hoyJ": {
+                "game_versions": [
+                    "1.16.5"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "xgzl8S6m": {
+                "game_versions": [
+                    "1.17.1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "Vr6Eq12L": {
+                "game_versions": [
+                    "1.16.5"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "h0HoxKBz": {
+                "game_versions": [
+                    "1.17.1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "NScgrIrE": {
+                "game_versions": [
+                    "1.16.5"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "fpveFNDq": {
+                "game_versions": [
+                    "1.17.1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "iTTMUPdd": {
+                "game_versions": [
+                    "1.16.5"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "GzcQEsBn": {
+                "game_versions": [
+                    "1.17.1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "2Q9R2Z5W": {
+                "game_versions": [
+                    "1.16.5"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "gjN9CB30": {
+                "game_versions": [
+                    "1.17.1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "zdAac4ij": {
+                "game_versions": [
+                    "1.16.5"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "owCnLYun": {
+                "game_versions": [
+                    "1.17.1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "6mslMyea": {
+                "game_versions": [
+                    "1.17-pre1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "QtAVpmoX": {
+                "game_versions": [
+                    "1.16.5"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "c1p9mmFg": {
+                "game_versions": [
+                    "1.17.1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "dX8yiqT6": {
+                "game_versions": [
+                    "1.17-pre1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "oLjJzxjk": {
+                "game_versions": [
+                    "21w37a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "iEU93RnX": {
+                "game_versions": [
+                    "21w37a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "uHo75xmS": {
+                "game_versions": [
+                    "21w38a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "im91Yq9s": {
+                "game_versions": [
+                    "21w39a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "PrZIpVLI": {
+                "game_versions": [
+                    "1.16.5"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "UZCSOkHS": {
+                "game_versions": [
+                    "1.17.1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "oAi2pJFx": {
+                "game_versions": [
+                    "21w39a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "gMpobWLJ": {
+                "game_versions": [
+                    "21w40a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "xU3d1ArH": {
+                "game_versions": [
+                    "1.17.1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "OeX96oTd": {
+                "game_versions": [
+                    "21w40a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "lyaaKFpp": {
+                "game_versions": [
+                    "21w41a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "5b23omah": {
+                "game_versions": [
+                    "1.17.1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "XT25p2RV": {
+                "game_versions": [
+                    "21w41a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "QlWozpGb": {
+                "game_versions": [
+                    "21w42a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "lSNmBh6P": {
+                "game_versions": [
+                    "21w43a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "mBOaVuXE": {
+                "game_versions": [
+                    "1.16.5"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "8JmQ2bVs": {
+                "game_versions": [
+                    "1.17.1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "QNXr6ta7": {
+                "game_versions": [
+                    "21w43a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "9N0AONyO": {
+                "game_versions": [
+                    "21w44a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "IQ3UGSc2": {
+                "game_versions": [
+                    "1.16.5"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "cCwCSFzJ": {
+                "game_versions": [
+                    "1.17.1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "7PoSQfpH": {
+                "game_versions": [
+                    "21w44a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "gK5r4m48": {
+                "game_versions": [
+                    "1.17.1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "z5eIXbzz": {
+                "game_versions": [
+                    "21w44a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "LwU7RcOt": {
+                "game_versions": [
+                    "1.18-pre1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "rwtrPdHf": {
+                "game_versions": [
+                    "1.18-pre2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "LbPFAxci": {
+                "game_versions": [
+                    "1.18-pre2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "imV7tC6t": {
+                "game_versions": [
+                    "1.18-pre3"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "RLIPEHHI": {
+                "game_versions": [
+                    "1.18-pre4"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "v2e6feGG": {
+                "game_versions": [
+                    "1.18-pre5"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "5mzrfkuD": {
+                "game_versions": [
+                    "1.18-pre6"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "2ZVOAfTp": {
+                "game_versions": [
+                    "1.17.1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "Mp3ilM3K": {
+                "game_versions": [
+                    "1.18-pre7"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "ONHLJRj5": {
+                "game_versions": [
+                    "1.17.1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "5eX37YdU": {
+                "game_versions": [
+                    "1.18-rc1",
+                    "1.18-rc2",
+                    "1.18-rc3",
+                    "1.18-rc4",
+                    "1.18"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "ruKoLG2a": {
+                "game_versions": [
+                    "1.17.1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "RSZHmY2f": {
+                "game_versions": [
+                    "1.18",
+                    "1.18.1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "1rPtAM25": {
+                "game_versions": [
+                    "1.17.1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "qh9BpS0Q": {
+                "game_versions": [
+                    "1.18.1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "rrB1aFl6": {
+                "game_versions": [
+                    "1.17.1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "qN4IdGPY": {
+                "game_versions": [
+                    "1.18.1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "ucX1SrPo": {
+                "game_versions": [
+                    "1.17.1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "n5KmwVUC": {
+                "game_versions": [
+                    "1.18.1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "o2TrD6Eo": {
+                "game_versions": [
+                    "1.17.1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "a1Bgv73y": {
+                "game_versions": [
+                    "1.18.1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "31ES0yWr": {
+                "game_versions": [
+                    "1.17.1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "Y7dZDIq6": {
+                "game_versions": [
+                    "1.18.1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "ZXFuyLm4": {
+                "game_versions": [
+                    "22w03a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "xzPDsj4Y": {
+                "game_versions": [
+                    "22w03a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "gKz1DWWR": {
+                "game_versions": [
+                    "1.18.1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "PUNMV5UU": {
+                "game_versions": [
+                    "22w06a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "2veYst24": {
+                "game_versions": [
+                    "22w06a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "YuaoI45J": {
+                "game_versions": [
+                    "22w07a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "qR6UgeLi": {
+                "game_versions": [
+                    "1.18.2-pre1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "4R7v9Sf6": {
+                "game_versions": [
+                    "1.18.2-pre1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "8rCmUasd": {
+                "game_versions": [
+                    "1.18.2-pre1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "jQNYE4m1": {
+                "game_versions": [
+                    "1.18.2-pre1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "jv9slnyk": {
+                "game_versions": [
+                    "1.18.2-pre2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "tOJMtumY": {
+                "game_versions": [
+                    "1.18.2-pre3"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "mNuoiBpM": {
+                "game_versions": [
+                    "1.18.2-pre3",
+                    "1.18.2-rc1",
+                    "1.18.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "kbtdliUm": {
+                "game_versions": [
+                    "1.18.1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "KKt1P7YW": {
+                "game_versions": [
+                    "1.18.2-pre1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "mGIxWbTy": {
+                "game_versions": [
+                    "1.18.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "7BiQSUvg": {
+                "game_versions": [
+                    "1.18.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "EaJiKt73": {
+                "game_versions": [
+                    "1.18.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "B5ukNuTY": {
+                "game_versions": [
+                    "22w11a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "ptyffaeX": {
+                "game_versions": [
+                    "22w11a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "Rm5XIX2N": {
+                "game_versions": [
+                    "22w11a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "E7uu0uCd": {
+                "game_versions": [
+                    "22w11a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "PmzPicLN": {
+                "game_versions": [
+                    "22w12a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "pGXtbsj1": {
+                "game_versions": [
+                    "22w13a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "BMFJwerO": {
+                "game_versions": [
+                    "22w13oneblockatatime"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "Bg5KcCr6": {
+                "game_versions": [
+                    "22w14a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "5csZv4Dd": {
+                "game_versions": [
+                    "1.18.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "4NpVpLMY": {
+                "game_versions": [
+                    "22w14a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "INRZVF8u": {
+                "game_versions": [
+                    "22w15a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "GxqbUxtc": {
+                "game_versions": [
+                    "1.18.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "BpTF8BtN": {
+                "game_versions": [
+                    "22w15a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "VO0pdfjT": {
+                "game_versions": [
+                    "1.18.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "tWv6sqTb": {
+                "game_versions": [
+                    "22w15a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "UWMXoG0K": {
+                "game_versions": [
+                    "22w16b"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "yLERB0ld": {
+                "game_versions": [
+                    "22w17a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "ujdG5zAV": {
+                "game_versions": [
+                    "22w17a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "e2jFn9b5": {
+                "game_versions": [
+                    "22w18a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "O3Hx0v9e": {
+                "game_versions": [
+                    "22w19a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "RS6s817x": {
+                "game_versions": [
+                    "22w19a"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "MfJTZ2gj": {
+                "game_versions": [
+                    "1.19-pre1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "UxKTFgii": {
+                "game_versions": [
+                    "1.18.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "Pi1d5Ub1": {
+                "game_versions": [
+                    "1.19-pre1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "HoO8uHlA": {
+                "game_versions": [
+                    "1.19-pre1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "AuDVe22s": {
+                "game_versions": [
+                    "1.19-pre1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "kNiwhB71": {
+                "game_versions": [
+                    "1.18.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "PXC4DUqw": {
+                "game_versions": [
+                    "1.19-pre1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "AnCs0z08": {
+                "game_versions": [
+                    "1.18.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "qwFMzWsq": {
+                "game_versions": [
+                    "1.19-pre2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "pT09syaU": {
+                "game_versions": [
+                    "1.18.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "6woB9qxm": {
+                "game_versions": [
+                    "1.19-pre4"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "OGjjpVM3": {
+                "game_versions": [
+                    "1.19-rc1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "wIj7jjb3": {
+                "game_versions": [
+                    "1.18.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "lWMN0I1E": {
+                "game_versions": [
+                    "1.19"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "pBYk3WbR": {
+                "game_versions": [
+                    "1.19"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "64nlF7yO": {
+                "game_versions": [
+                    "1.19"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "jqrQwxen": {
+                "game_versions": [
+                    "1.18.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "3NXSq101": {
+                "game_versions": [
+                    "1.19"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "gFSJzMSV": {
+                "game_versions": [
+                    "1.18.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "sHhBYUuX": {
+                "game_versions": [
+                    "1.19"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "eLL0jpsb": {
+                "game_versions": [
+                    "1.19"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "s9txaq7F": {
+                "game_versions": [
+                    "1.19"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "U2sut1z2": {
+                "game_versions": [
+                    "1.18.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "Zp275COe": {
+                "game_versions": [
+                    "1.19"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "IuzkNe9N": {
+                "game_versions": [
+                    "1.19.1-pre2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "hUwPVCw8": {
+                "game_versions": [
+                    "1.19.1-pre4"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "e04JMV6V": {
+                "game_versions": [
+                    "1.19.1-pre6"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "4XRtXhtL": {
+                "game_versions": [
+                    "1.18.2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "3KmOcp6b": {
+                "game_versions": [
+                    "1.19"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "a0U5nQcV": {
+                "game_versions": [
+                    "1.19.1-rc2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "Zl4LIQbN": {
+                "game_versions": [
+                    "1.19.1-rc2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "p6L5EWXf": {
+                "game_versions": [
+                    "1.19.1-rc2"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "XG2HDjDi": {
+                "game_versions": [
+                    "1.19.1-rc3"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "JYx8wTgt": {
+                "game_versions": [
+                    "1.19.1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "3fY6NddT": {
+                "game_versions": [
+                    "1.19.1"
+                ],
+                "download_url": null,
+                "loader": [
+                    "fabric"
+                ]
+            },
+            "6Iv0Y14L": {
+                "game_versions": [
+                    "1.19.2"
+                ],
+                "download_url": "https://cdn.modrinth.com/data/P7dR8mSH/versions/0.58.6%2B1.19.2/fabric-api-0.58.6%2B1.19.2.jar",
+                "loader": [
+                    "fabric"
+                ]
+            }
+        }
+    }
+}

@@ -36,15 +36,31 @@ from time import sleep
 import tempfile
 import shutil
 from tkinter import ttk
-
+import mods.modrinth_mods as modrinth_mods
 # Define a flag to signal the thread to stop
 stop_search_thread = threading.Event()
 
-# Define a function to download an image to a temporary directory
-def download_mod(url, server_info):
+def download_file(url, local_filename, progress, root, label, callback=None):
+    with requests.get(url, stream=True) as response:
+        response.raise_for_status()
+        total_length = int(response.headers.get('content-length', 0))
+        downloaded = 0
+
+        with open(local_filename, 'wb') as out_file:
+            for chunk in response.iter_content(chunk_size=8192):
+                if chunk:
+                    out_file.write(chunk)
+                    downloaded += len(chunk)
+                    progress["value"] = (downloaded / total_length) * 100
+                    root.update_idletasks()
+
+    if callback:
+        callback()
+
+def download_mod(mod_data, server_info):
+    url, deps_url = modrinth_mods.get_download_mod(mod=mod_data, needed_version=server_info.get("gameVersion", "0.0"), modloader=server_info.get("modloader", "null"))
     mod_folder = os.path.normpath(os.path.join(server_info.get("path", None), "mods"))
     os.makedirs(mod_folder, exist_ok=True)
-    local_filename = os.path.join(mod_folder, os.path.basename(url))
 
     root = tk.Tk()
     root.title("Download Progress")
@@ -53,22 +69,19 @@ def download_mod(url, server_info):
     progress = ttk.Progressbar(root, orient="horizontal", length=300, mode="determinate")
     progress.pack(pady=10)
 
+    def download_dependencies():
+        for dep_url in deps_url:
+            local_dep_filename = os.path.join(mod_folder, os.path.basename(dep_url))
+            download_file(dep_url, local_dep_filename, progress, root, label)
+
+        label.config(text="All downloads complete!")
+        print("Downloaded all dependencies.")
+
     def start_download():
-        with requests.get(url, stream=True) as response:
-            response.raise_for_status()
-            total_length = int(response.headers.get('content-length', 0))
-            downloaded = 0
-
-            with open(local_filename, 'wb') as out_file:
-                for chunk in response.iter_content(chunk_size=8192):
-                    if chunk:
-                        out_file.write(chunk)
-                        downloaded += len(chunk)
-                        progress["value"] = (downloaded / total_length) * 100
-                        root.update_idletasks()
-
+        local_filename = os.path.join(mod_folder, os.path.basename(url))
+        download_file(url, local_filename, progress, root, label, callback=download_dependencies)
         print("Downloaded mod to %s" % local_filename)
-        label.config(text="Download complete!")
+        label.config(text="Mod download complete! Downloading dependencies...")
 
     threading.Thread(target=start_download).start()
     root.mainloop()
@@ -80,13 +93,13 @@ def render_mod(canvas, mod_data, server_info):
     mod_info_frame = ctk.CTkFrame(mod_frame, bg_color=default_color)
     mod_info_frame.pack(side=ctk.LEFT)
 
-    mod_label = ctk.CTkLabel(mod_info_frame, text=mod_data['title'] + " by " + str(mod_data.get("user", "None")), fg_color=default_color, bg_color=default_color)
+    mod_label = ctk.CTkLabel(mod_info_frame, text=mod_data['title'] + " by " + str(mod_data.get("author", "None")), fg_color=default_color, bg_color=default_color)
     mod_label.pack(side=ctk.TOP, anchor=ctk.W)
 
     mod_button_frame = ctk.CTkFrame(mod_frame, bg_color="white")
     mod_button_frame.pack(side=ctk.RIGHT)
-
-    mod_button = ctk.CTkButton(mod_button_frame, text="Get", command=lambda: download_mod(mod_data['url'], server_info), fg_color="green")
+    # mod_url = modrinth_mods.get_download_url(mod=mod_data,needed_version=server_info.get("gameVersion", "0.0"),modloader=server_info.get("modloader", "null"))
+    mod_button = ctk.CTkButton(mod_button_frame, text="Get", command=lambda: download_mod(mod_data=mod_data, server_info=server_info), fg_color="green")
     mod_button.pack(side=ctk.TOP)
 
     canvas.update_idletasks()
@@ -102,7 +115,9 @@ def search_for_mods(server_info, query, canvas, button):
     def search_mods_thread():
         version = server_info.get("gameVersion", "0.0")
         loader = server_info.get("modloader", "null")
-        mods = search_mods(query=query, game_version=version, mod_loader=loader, callback=callback_display, canvas=canvas, server_data=server_info)
+        mods = modrinth_mods.search_mods(query=query,version=version,modloader=loader)#search_mods(query=query, game_version=version, mod_loader=loader, callback=callback_display, canvas=canvas, server_data=server_info)
+        for mod in mods:
+            render_mod(canvas=canvas, mod_data=mod,server_info=server_info)
         print(mods)
         button.configure(state=ctk.NORMAL)  # Enable the search button after search completes
 
