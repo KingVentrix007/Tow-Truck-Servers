@@ -6,7 +6,7 @@ from tkinter import messagebox
 import customtkinter as ctk
 from ui.general import clear_window
 from server_utils.server_manager import save_properties
-
+from config.ui_config import default_color
 def validate_int_input(P):
     if P.isdigit() or P == "":
         return True

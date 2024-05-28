@@ -3,6 +3,7 @@ import time
 import os
 import json
 import urllib.request
+max_recursion = 10
 def modrinth_search(query,limit,offest):
     url = "https://api.modrinth.com/v2/search"
     params = {
@@ -21,12 +22,13 @@ def search_mods(query,version,modloader):
     found_mods = []
     offest = 0
     count = 0
-    while count < 10:
+    rec_count = 0
+    while count < 10 and rec_count < max_recursion:
         try:
             response = modrinth_search(query,10,offest)
             if response.status_code == 200:
                 data = response.json()
-                # print(data["hits"][0])
+                print("Got hit")
                 for hit in data["hits"]:
                     supported_game_versions = hit["versions"]
                     if(version not in supported_game_versions or modloader not in hit['display_categories']):
@@ -40,6 +42,8 @@ def search_mods(query,version,modloader):
                     if(count == 10):
                         break
                 offest+=10
+                rec_count+=1
+                
             else:
                 print("Search failed: %s" % response.status_code)
         except requests.exceptions.RequestException as e:

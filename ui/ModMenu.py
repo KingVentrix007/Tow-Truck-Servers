@@ -227,31 +227,53 @@ def mod_menu(path, server_info):
     window.title("Mod Menu")
     window.geometry("800x600")
 
-    canvas = ctk.CTkCanvas(window)
+    # Create the outer frame to hold all other frames
+    outer_frame = ctk.CTkFrame(window)
+    outer_frame.pack(fill=ctk.BOTH, expand=True)
+
+    # Create the mod list frame first
+    mod_list_frame = ctk.CTkFrame(outer_frame, fg_color=default_color)
+    mod_list_frame.pack(side=ctk.LEFT, fill=ctk.Y, padx=10, pady=10)
+
+    # Create the canvas and main frame next
+    canvas = ctk.CTkCanvas(outer_frame)
     canvas.pack(side=ctk.LEFT, fill=ctk.BOTH, expand=True)
 
-    scrollbar = ctk.CTkScrollbar(window, command=canvas.yview)
+    scrollbar = ctk.CTkScrollbar(outer_frame, command=canvas.yview)
     scrollbar.pack(side=ctk.RIGHT, fill=ctk.Y)
 
     canvas.configure(yscrollcommand=scrollbar.set, background=default_color, highlightthickness=0)
 
     frame = ctk.CTkFrame(canvas, fg_color=default_color)
     canvas.create_window((0, 0), window=frame, anchor=ctk.NW)
-    search_frame = ctk.CTkFrame(canvas, fg_color=default_color)
-    canvas.create_window((0, 0), window=search_frame, anchor=ctk.NW)
+
+    # Create the search frame
+    search_frame = ctk.CTkFrame(outer_frame, fg_color=default_color,width=300000)
+    search_frame.pack(side=ctk.TOP, fill=ctk.BOTH, padx=10, pady=10)
+
     mod_path = os.path.normpath(os.path.join(path, "mods"))
-    search_bar = ctk.CTkEntry(search_frame)
+    search_bar = ctk.CTkEntry(search_frame,width=200)
     search_button = ctk.CTkButton(search_frame, text="Search", command=lambda: search_for_mods(server_info, search_bar.get(), frame, search_button))
+
+    search_bar.pack(side=ctk.TOP, fill=ctk.X, padx=5, pady=5,expand=True)
+    search_button.pack(side=ctk.TOP, padx=5, pady=5)
 
     def on_configure(event):
         canvas.configure(scrollregion=canvas.bbox('all'))
 
     frame.bind('<Configure>', on_configure)
 
-    frame.pack(side=ctk.LEFT, fill=ctk.Y)
-    search_frame.pack(side=ctk.LEFT, fill=ctk.Y)
-    search_bar.pack(side=ctk.TOP, fill=ctk.X)
-    search_button.pack(side=ctk.TOP, fill=ctk.X)
+    # Function to display mod files
+    def display_mod_files():
+        for widget in mod_list_frame.winfo_children():
+            widget.destroy()
+        
+        mod_files = [f for f in os.listdir(mod_path) if f.endswith('.jar') or f.endswith('.disabled')]
+        for mod in mod_files:
+            label = ctk.CTkLabel(mod_list_frame, text=mod,text_color="cyan",bg_color=default_color,fg_color=default_color)
+            label.pack(anchor='w', padx=10, pady=2)
 
-    window.protocol("WM_DELETE_WINDOW", lambda: on_close(window))
+    display_mod_files()
+
+    window.protocol("WM_DELETE_WINDOW", window.destroy)
     window.mainloop()
