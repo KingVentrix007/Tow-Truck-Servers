@@ -6,3 +6,5 @@ config.json
 java
 cache.json
 temp_image.png
+*.log
+logs/
