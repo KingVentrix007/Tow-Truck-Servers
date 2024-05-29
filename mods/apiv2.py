@@ -9,7 +9,7 @@ def modrinth_search(query,limit,offest):
     params = {
         'query': query,
         'limit':limit,
-        "offest":offest
+        "offset":offest
     }
     try:
         response = requests.get(url, params=params)
@@ -18,37 +18,49 @@ def modrinth_search(query,limit,offest):
         print("Error: %s" % e)
 
 def search_mods(query,version,modloader):
+    return search_mods_internal(query,version,modloader)[0]
+
+
+def search_mods_internal(query,version,modloader,initial_offset=0,found_mods_start=[]):
     results = []
-    found_mods = []
-    offest = 0
+    found_mods = found_mods_start
+    offset_int = initial_offset
     count = 0
-    rec_count = 0
-    while count < 10 and rec_count < max_recursion:
+    hits = initial_offset
+    while count < 20:
         try:
-            response = modrinth_search(query,10,offest)
+            response = modrinth_search(query,20,offset_int)
             if response.status_code == 200:
                 data = response.json()
-                print("Got hit")
+                # print(data["hits"][0])
+                # print(data['total_hits'],data["offset"])
+                total_hits = data['total_hits']
                 for hit in data["hits"]:
+                    hits+=1
+                    if(hits >= total_hits):
+                        return results,offset_int
                     supported_game_versions = hit["versions"]
-                    if(version not in supported_game_versions or modloader not in hit['display_categories']):
+                    print(hit["display_categories"])
+                    if(version not in supported_game_versions or modloader not in hit["display_categories"]):
+                        print("Skipped mod",hit["title"])
                         continue
-                    if(hit['project_id'] not in found_mods):
+                    elif(hit['project_id'] not in found_mods):
                         found_mods.append(hit['project_id'])
                         results.append(hit)
                         count+=1
-                    else:
-                        count+=1
-                    if(count == 10):
+                        # print(count)
+                    # else:
+                    #     # print("Got duplicate mods",hit["title"])
+                    if(count == 20):
                         break
-                offest+=10
-                rec_count+=1
-                
+                offset_int+=10
+                # print("offset_int == %d" % offset_int)
             else:
                 print("Search failed: %s" % response.status_code)
         except requests.exceptions.RequestException as e:
             print("Error: %s" % e)
-    return results
+    return results,offset_int
+
 def find_correct_versions(results, version):
     correct_items = []
     print(results[0]['dependencies'])
@@ -67,6 +79,10 @@ def search_project_by_version_and_modloader(project_id, modloader):
     else:
         return None
 
+def id_to_name(project_id):
+    url = f"https://api.modrinth.com/v2/project/{project_id}"
+    data = requests.get(url).json()
+    return data["title"]
 
 def get_version_data(version):
     if(version == None):
