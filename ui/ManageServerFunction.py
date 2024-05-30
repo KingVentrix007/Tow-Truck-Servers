@@ -51,6 +51,7 @@ import os
 import platform
 import subprocess
 from config.ui_config import default_color
+from config.debug import log
 
 current_Server_data = ""
 processes = {}  # Dictionary to store server processes
@@ -71,15 +72,15 @@ def open_text_document(server_data):
             subprocess.call(('open', file_path))
         else:  # Linux and other Unix-like systems
             subprocess.call(('xdg-open', file_path))
-        print(f"Opened {file_path} successfully.")
+        log(f"Opened {file_path} successfully.")
     except Exception as e:
-        print(f"Failed to open {file_path}. Error: {e}")
+        log(f"Failed to open {file_path}. Error: {e}")
 def open_settings(server_info):
             adjust_path()
             path = server_info.get('path', "/fake/")
             properties_file = os.path.join(path, "server.properties")
             properties_file = os.path.normpath(properties_file)
-            print("properties_file ==", properties_file)
+            log("properties_file ==", properties_file)
             if os.path.exists(properties_file):
                 properties = load_properties(properties_file)
                 global current_Server_data
@@ -91,7 +92,7 @@ def send_command(command,server_name):
             if server_name in processes and processes[server_name] is not None:
                 # Retrieve the correct process based on the currently selected tab
                 current_process = processes[server_name]
-                print(f"Sending {command} to {current_process} pid {current_process.pid}")
+                log(f"Sending {command} to {current_process} pid {current_process.pid}")
                 current_process.stdin.write(command + "\n")
                 current_process.stdin.flush()
             else:
@@ -113,14 +114,14 @@ def run_server_callback(text_widget,server_info,on_server_complete):
                     if processes[server_name] is None:
                         messagebox.showerror("Error", "Failed to start the server")
                     else:
-                        print(f"Server {server_name} started with pid ",processes[server_name].pid)
+                        log(f"Server {server_name} started with pid ",processes[server_name].pid)
 def on_server_complete(server_data,server_output):
             int_server_name = server_data.get('displayName', default_server_name)
-            print(f"Server {int_server_name} pid {processes[int_server_name].pid} is being stopped")
+            log(f"Server {int_server_name} pid {processes[int_server_name].pid} is being stopped")
             pid = processes[int_server_name].pid
             processes.pop(int_server_name)
-            print(f'Server {int_server_name} has been stopped: PID {pid}')
-            print("Server",int_server_name,int_server_name not in processes)
+            log(f'Server {int_server_name} has been stopped: PID {pid}')
+            log("Server",int_server_name,int_server_name not in processes)
             set_server_stopped()
             server_output.insert(tk.END, "Server has stopped, you are free to start another server or edit the configuration of this server. Keep Trucking ")
             adjust_path()
@@ -193,6 +194,7 @@ def create_server_tab(tabview, server_info):
         send_button = ctk.CTkButton(server_tab, text="Send Command",bg_color=default_color, command=lambda:send_command(command_entry.get(),server_name))
         send_button.pack(pady=5)
 def ManageServerFunction(window):
+    log("Opening Server Function")
     # clear_window(window)
     global made_tab_view
     global tabview

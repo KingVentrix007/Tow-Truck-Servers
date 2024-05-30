@@ -29,7 +29,7 @@ def modrinth_search(query,limit,offest):
         response = requests.get(url, params=params)
         return response
     except requests.exceptions.RequestException as e:
-        print("Error: %s" % e)
+        log("Error: %s" % e)
 def modrinth_search_id(id):
     url = f'https://api.modrinth.com/v2/project/{id}'
     data = requests.get(url).json()
@@ -63,7 +63,7 @@ def search_mods(query,version,modloader):
             response = modrinth_search(query,10,offest)
             if response.status_code == 200:
                 data = response.json()
-                # print(data["hits"][0])
+                # log(data["hits"][0])
                 for hit in data["hits"]:
                     supported_game_versions = hit["versions"]
                     if(version not in supported_game_versions or modloader not in hit['display_categories']):
@@ -78,12 +78,12 @@ def search_mods(query,version,modloader):
                         break
                 offest+=10
             else:
-                print("Search failed: %s" % response.status_code)
+                log("Search failed: %s" % response.status_code)
         except requests.exceptions.RequestException as e:
-            print("Error: %s" % e)
+            log("Error: %s" % e)
     return results
 def extract_download_url(data):
-    # print(data)
+    # log(data)
     # Check if data is a list and contains at least one dictionary
     if isinstance(data, list) and data and isinstance(data[0], dict):
         # Check if the 'url' key is present in the first dictionary
@@ -111,7 +111,7 @@ def get_download_url_and_version_hash(mod, needed_version, modloader):
 
     cache = load_cache()
     downloads = cache.get("downloads", {})
-    # print("downloads before:", downloads)
+    # log("downloads before:", downloads)
     if mod_name not in downloads:
         downloads[mod_name] = {}
 
@@ -127,8 +127,8 @@ def get_download_url_and_version_hash(mod, needed_version, modloader):
             if needed_version not in game_versions:
                 continue
             if cached_version.get('download_url') and modloader in cached_version.get('loader'):
-                # print(version_hash)
-                print("Found cached version url")
+                # log(version_hash)
+                log("Found cached version url")
                 
                 return cached_version.get('download_url'),version_hash
         else:
@@ -144,7 +144,7 @@ def get_download_url_and_version_hash(mod, needed_version, modloader):
             }
             # Update the main cache structure with the modified downloads
             cache["downloads"] = downloads
-            # print("saving cache after new version added:", cache)
+            # log("saving cache after new version added:", cache)
             save_cache(cache)
         
         versions_data = get_version_data(version_hash)
@@ -159,22 +159,22 @@ def get_download_url_and_version_hash(mod, needed_version, modloader):
             downloads[mod_name][version_hash]["loader"] = loader
             # Update the main cache structure with the modified downloads
             cache["downloads"] = downloads
-            # print("saving cache after URL found:", cache)
+            # log("saving cache after URL found:", cache)
             save_cache(cache)
-            print("Found version url")
+            log("Found version url")
             
             return url,version_hash
 
     # Update the main cache structure before returning
     cache["downloads"] = downloads
-    # print("saving cache before returning None:", cache)
+    # log("saving cache before returning None:", cache)
     save_cache(cache)
     return None,None
 def get_mod_name(mod):
     return mod.get("title")           
 
 def get_dependencies_of_version(version):
-    # print(get_version_data(version))
+    # log(get_version_data(version))
     dependencies = get_version_data(version)['dependencies']
     dep_urls = []
     for dep in dependencies:
@@ -184,7 +184,7 @@ def get_dependencies_of_version(version):
             dep_url = extract_download_url(dep_version_data.get("files"))
             dep_urls.append(dep_url)
     return dep_urls
-        # print(f"{project_name} depends on {dep_name} {dep_url}")
+        # log(f"{project_name} depends on {dep_name} {dep_url}")
 def get_dependencies(mod):
     data = get_mod_info(mod)
     project_name = data.get("title")
@@ -197,8 +197,8 @@ def get_dependencies(mod):
         dep_version_data = get_version_data(dep['version_id'])
         dep_url = extract_download_url(dep_version_data.get("files"))
         
-        print(f"{project_name} depends on {dep_name} {dep_url}")
-    # print()
+        log(f"{project_name} depends on {dep_name} {dep_url}")
+    # log()
 
 if __name__ == "__main__":
     search_timer_start = time.time()
@@ -208,19 +208,19 @@ if __name__ == "__main__":
     mod = ret[0]
     download_mod(mod,'1.19.2','fabric',"mods")
 
-    # # print("len(ret) = %d" % len(ret))
+    # # log("len(ret) = %d" % len(ret))
     # download_url_timer_start = time.time()
-    # # print(type(ret[0]))
-    # print(get_download_url(ret[3],'1.19.2','fabric'))
+    # # log(type(ret[0]))
+    # log(get_download_url(ret[3],'1.19.2','fabric'))
     # download_url_timer_end = time.time()
 
-    # print("Search time:",search_timer_end-search_timer_start)
-    # print("Get URL:",download_url_timer_end-download_url_timer_start)
+    # log("Search time:",search_timer_end-search_timer_start)
+    # log("Get URL:",download_url_timer_end-download_url_timer_start)
 # data = get_mod_info(ret[0])
 # versions = data.get("versions")
 # version_1 = versions[0]
 # versions_data = get_version_data(version_1)
-# # print(get_mod_info(ret[0]).keys())
-# print(versions_data)
+# # log(get_mod_info(ret[0]).keys())
+# log(versions_data)
 # for i in ret:
-    # print(i)
+    # log(i)

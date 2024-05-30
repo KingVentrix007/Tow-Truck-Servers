@@ -3,15 +3,9 @@ import time
 import os
 import json
 import urllib.request
-import logging
+from config.debug import log
 max_recursion = 10
-def setup_logging(log_file):
-    """Setup logging configuration."""
-    logging.basicConfig(filename=log_file, level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
-def apiv2log(*args):
-    """Log a message."""
-    message = ' '.join(map(str, args))
-    logging.info(message)
+
 
 
 def modrinth_search(query,limit,offest):
@@ -25,7 +19,7 @@ def modrinth_search(query,limit,offest):
         response = requests.get(url, params=params)
         return response
     except requests.exceptions.RequestException as e:
-        apiv2log("Error: %s" % e)
+        log("Error: %s" % e)
 
 def search_mods(query,version,modloader):
     return search_mods_internal(query,version,modloader)[0]
@@ -42,38 +36,38 @@ def search_mods_internal(query,version,modloader,initial_offset=0,found_mods_sta
             response = modrinth_search(query,20,offset_int)
             if response.status_code == 200:
                 data = response.json()
-                # print(data["hits"][0])
-                # print(data['total_hits'],data["offset"])
+                # log(data["hits"][0])
+                # log(data['total_hits'],data["offset"])
                 total_hits = data['total_hits']
                 for hit in data["hits"]:
                     hits+=1
                     if(hits >= total_hits):
                         return results,offset_int
                     supported_game_versions = hit["versions"]
-                    apiv2log(hit["display_categories"])
+                    log(hit["display_categories"])
                     if(version not in supported_game_versions or modloader not in hit["display_categories"]):
-                        apiv2log("Skipped mod",hit["title"])
+                        log("Skipped mod",hit["title"])
                         continue
                     elif(hit['project_id'] not in found_mods):
                         found_mods.append(hit['project_id'])
                         results.append(hit)
                         count+=1
-                        # print(count)
+                        # log(count)
                     # else:
-                    #     # print("Got duplicate mods",hit["title"])
+                    #     # log("Got duplicate mods",hit["title"])
                     if(count == 20):
                         break
                 offset_int+=10
-                # print("offset_int == %d" % offset_int)
+                # log("offset_int == %d" % offset_int)
             else:
-                apiv2log("Search failed: %s" % response.status_code)
+                log("Search failed: %s" % response.status_code)
         except requests.exceptions.RequestException as e:
-            apiv2log("Error: %s" % e)
+            log("Error: %s" % e)
     return results,offset_int
 
 def find_correct_versions(results, version):
     correct_items = []
-    apiv2log(results[0]['dependencies'])
+    log(results[0]['dependencies'])
     for item in results:
         if version in item['game_versions']:
             correct_items.append(item)
@@ -90,12 +84,12 @@ def search_project_by_version_and_modloader(project_id, modloader):
         return None
 
 def id_to_name(project_id):
-    apiv2log(project_id)
+    log(project_id)
     url = f"https://api.modrinth.com/v2/project/{project_id}"
     data = requests.get(url).json()
     return data["title"]
 def get_project_data_id(project_id):
-    apiv2log(project_id)
+    log(project_id)
     url = f"https://api.modrinth.com/v2/project/{project_id}"
     data = requests.get(url).json()
     return data
@@ -112,16 +106,16 @@ def get_dependencies_url(dependency,version,loader):
     if(version_id != None):
         dep_data = get_version_data(version_id)
         if(dep_data != None):
-            # print("dep_data=",dep_data)
+            # log("dep_data=",dep_data)
             dep_files = dep_data['files']
             for dep_file in dep_files:
                 if(dep_file['primary'] == True):
                     dep_url = dep_file["url"]
                     dep_id = dep_data["project_id"]
-                    apiv2log(dep_id,dep_id)
-                    # print()
+                    log(dep_id,dep_id)
+                    # log()
                     return dep_url,dep_id
-        apiv2log("No dependencies")
+        log("No dependencies")
     elif(dep_project_id != None):
         project_version = search_project_by_version_and_modloader(dep_project_id,"")
         correct_versions = find_correct_versions(project_version,version)
@@ -134,10 +128,10 @@ def get_dependencies_url(dependency,version,loader):
                 dep_url = dep_d_file[0]["url"]
 
                 return dep_url,ver_id
-            # apiv2log("ver == ",ver)
+            # log("ver == ",ver)
     return None,None
-            # print(dep_file)
-        # print("\n================================\n")
+            # log(dep_file)
+        # log("\n================================\n")
 def get_download_urls(project_id,version,modloader,first_mod=False):
     urls = []
     data = search_project_by_version_and_modloader(project_id,modloader)
@@ -154,7 +148,7 @@ def get_download_urls(project_id,version,modloader,first_mod=False):
         dep_urls_api_internal = []
         dep_error = False
         for dependency in dependencies:
-            apiv2log(dependency["dependency_type"])
+            log(dependency["dependency_type"])
             dep_url,dep_id = get_dependencies_url(dependency,version,modloader)
             if(dep_url == None and dependency["dependency_type"] == "required"):
                 dep_error = True
@@ -165,17 +159,17 @@ def get_download_urls(project_id,version,modloader,first_mod=False):
                     "id":dep_id
                 }
                 dep_urls_api_internal.append(dep)
-                apiv2log("dep_url == " + str(dep_url))
+                log("dep_url == " + str(dep_url))
             else:
-                apiv2log("continue")
-        # print(dependencies)
-        # print("File: "+version_name,"status: "+str(status),"date: "+date)
+                log("continue")
+        # log(dependencies)
+        # log("File: "+version_name,"status: "+str(status),"date: "+date)
         if(dep_error == False):
             for file in file_data:
                 filename = file["filename"]
                 file_url = file["url"]
                 is_primary = file["primary"]
-                # print("dep_urls_api_internal=",dep_urls_api_internal)
+                # log("dep_urls_api_internal=",dep_urls_api_internal)
                 mod_data = {
                     "filename": filename,
                     "project_id":project_id,
@@ -191,6 +185,6 @@ def get_download_urls(project_id,version,modloader,first_mod=False):
                 #     return mod_data
         
     return urls
-            # print(f"\tFound {msg} file {filename} at url {file_url}")
+            # log(f"\tFound {msg} file {filename} at url {file_url}")
 
-setup_logging("logs/apiv2.log")
+# setup_logging("logs/apiv2.log")

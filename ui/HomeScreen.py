@@ -47,11 +47,12 @@ def HomeScreen(tab_view, servers,manage_server_tab):
         pass
         
 def manage_server(server_name,servers,manage_server_tab):
-    print("Handling server: " + server_name)
-    print("Server data: ", servers)
-    print(manage_server_tab)
+    log("Handling server: " + server_name)
+    log("Server data: ", servers)
+    log(manage_server_tab)
     # CTkMessagebox(title="Error",message="Currently this function is not supported",icon="cancel",sound="./assets/sound/error.mp3")
-    ManageServerFunction(manage_server_tab)
+    manage_server_tab()
+    # ManageServerFunction(manage_server_tab)
 def display_servers(frame, servers,manage_server_tab):
     for i, server in enumerate(servers):
         server_frame = ctk.CTkFrame(frame,fg_color="#2b2b22")

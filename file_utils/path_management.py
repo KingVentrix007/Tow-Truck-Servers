@@ -26,7 +26,7 @@ Notes:
 import os
 def adjust_path():
     current_path = os.getcwd()
-    print(f"Current path: {current_path}")
+    log(f"Current path: {current_path}")
 
     if 'servers' in current_path:
         path_parts = current_path.split(os.sep)
@@ -39,8 +39,8 @@ def adjust_path():
         
         if new_path:
             os.chdir(new_path)
-            print(f"Adjusted path: {new_path}")
+            log(f"Adjusted path: {new_path}")
         else:
-            print("New path is empty. Path adjustment failed.")
+            log("New path is empty. Path adjustment failed.")
     else:
-        print("The current path does not contain 'servers'.")
+        log("The current path does not contain 'servers'.")

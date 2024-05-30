@@ -45,10 +45,10 @@ def remove_server_by_display_name(display_name: str, config_path='config.json'):
         with open(config_path, 'r') as file:
             config = json.load(file)
     except FileNotFoundError:
-        print("Config file not found.")
+        log("Config file not found.")
         return False
     except json.JSONDecodeError as e:
-        print(f"Error decoding JSON: {e}")
+        log(f"Error decoding JSON: {e}")
         return False
 
     servers = config.get('servers', [])
@@ -60,20 +60,20 @@ def remove_server_by_display_name(display_name: str, config_path='config.json'):
     try:
         with open(config_path, 'w') as file:
             json.dump(config, file, indent=4)
-        print(f"Server with display name '{display_name}' removed successfully.")
+        log(f"Server with display name '{display_name}' removed successfully.")
         return True
     except Exception as e:
-        print(f"Error writing to config file: {e}")
+        log(f"Error writing to config file: {e}")
         return False
 def get_all_servers(config_path='config.json'):
     try:
         with open(config_path, 'r') as file:
             config = json.load(file)
     except FileNotFoundError:
-        print("Config file not found.")
+        log("Config file not found.")
         return []
     except json.JSONDecodeError as e:
-        print(f"Error decoding JSON: {e}")
+        log(f"Error decoding JSON: {e}")
         return []
 
     return config.get('servers', [])
@@ -105,7 +105,7 @@ def add_entry(name: str, game_version: str, modloader,description,img,config_pat
         java_version_output = java_version_output.decode('utf-8')
         java_version = java_version_output.split('\n')[0].split('"')[1]
     except Exception as e:
-        print(f"Error retrieving Java version: {e}")
+        log(f"Error retrieving Java version: {e}")
         return
 
     # Retrieve Java path
@@ -116,7 +116,7 @@ def add_entry(name: str, game_version: str, modloader,description,img,config_pat
             java_path_output = subprocess.check_output(['which', 'java'])
         java_path = java_path_output.decode('utf-8').strip()
     except Exception as e:
-        print(f"Error retrieving Java path: {e}")
+        log(f"Error retrieving Java path: {e}")
         return
 
     # Determine RAM allocation
@@ -154,7 +154,7 @@ def add_entry(name: str, game_version: str, modloader,description,img,config_pat
     except FileNotFoundError:
         config = {"servers": []}
     except json.JSONDecodeError as e:
-        print(f"Error decoding JSON: {e}")
+        log(f"Error decoding JSON: {e}")
         return
 
     # Add new entry to the config
@@ -164,6 +164,6 @@ def add_entry(name: str, game_version: str, modloader,description,img,config_pat
     try:
         with open(config_path, 'w') as file:
             json.dump(config, file, indent=4)
-        print("New entry added successfully.")
+        log("New entry added successfully.")
     except Exception as e:
-        print(f"Error writing to config file: {e}")
+        log(f"Error writing to config file: {e}")

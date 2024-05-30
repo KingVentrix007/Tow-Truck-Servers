@@ -113,7 +113,7 @@ def AddServerScreen(window):
     def add_image():
         global file_path
         file_path = filedialog.askopenfilename(filetypes=[("Image files", "*.png;*.jpg;*.jpeg")])
-        print(os.getcwd(), file_path)
+        log(os.getcwd(), file_path)
     add_image_button = customtkinter.CTkButton(window, text="Add Image", command=lambda: add_image())
 
     add_image_button.place(relx=0.5, rely=0.8, anchor=customtkinter.CENTER)

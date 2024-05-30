@@ -63,7 +63,7 @@ def run_command(command, output_widget):
                 output_widget.see(tk.END)
                 messagebox.showinfo("Installation complete","The installation is complete. You must close the window to continue")
                 # if root and root.winfo_exists():  # Check if root window exists
-                    # print("ROOT")
+                    # log("ROOT")
                 
         process.stdout.close()
         process.wait()
@@ -75,7 +75,7 @@ def GetLatestStableFabricServerURL(version):
     if version in cache:
         cached_data = cache[version]
         if cached_data.get('url') and cached_data.get('fabric_version'):
-            print(f'Using cached URL for version {version}')
+            log(f'Using cached URL for version {version}')
             return cached_data['url']
 
     # If not in cache or cache is invalid, fetch from the Fabric API
@@ -95,10 +95,10 @@ def GetLatestStableFabricServerURL(version):
             save_cache(cache)
             return download_url
         else:
-            print('No stable versions found in the response.')
+            log('No stable versions found in the response.')
             return -2
     else:
-        print('Failed to fetch the loader version information.')
+        log('Failed to fetch the loader version information.')
         return -3
 
 def install_fabric_server(version,name):
@@ -134,10 +134,10 @@ def run_fabric_server(server_info,text_widget,on_finish):
         # java = f'/mnt/{java[0].lower()}/{java[2:]}'
         java = os.path.normpath(java)
 
-    print("Using java: %s" % java)
-    print(os.getcwd())
+    log("Using java: %s" % java)
+    log(os.getcwd())
     if(os.path.exists(java) != True):
-        print("Java does not exist: %s" % java)
+        log("Java does not exist: %s" % java)
         exit(1)
     ram = server_info.get('ram', "2G")
     jar_version = server_info.get("gameVersion","0.0.0")
@@ -147,24 +147,24 @@ def run_fabric_server(server_info,text_widget,on_finish):
     process = None
     def run_command(command):
         global process
-        print(command)
+        log(command)
         process = subprocess.Popen(command, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, universal_newlines=True)
         try:
             for line in iter(process.stdout.readline, ""):
-                # print(line)
+                # log(line)
                 formatted_output,color = format_output_as_html(line)
                 try:
                     text_widget.insert(tk.END, formatted_output,color)
                     text_widget.see(tk.END)  # Auto-scroll to the end
                 except Exception as e:
-                    print(e)
+                    log(e)
             process.stdout.close()
             process.wait()
             process.pid
             on_finish(server_info,text_widget)
         except ValueError:
             name = server_info.get("displayName",'None')
-            print(f"{err_code_process_closed}:Server{name} tried to read from stdout when stdout was closed")
+            log(f"{err_code_process_closed}:Server{name} tried to read from stdout when stdout was closed")
             # on_finish(server_info)
 
     def format_output_as_html(output):

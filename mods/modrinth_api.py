@@ -41,7 +41,7 @@
 #         mod_versions_hash = project.versions
 #         for mod_version in mod_versions_hash:
 #             version = project.getVersion(mod_version)
-#             print(project.name, ":", version.gameVersions)
+#             log(project.name, ":", version.gameVersions)
 #             if mod_loader in version.loaders and game_version in version.gameVersions:
 #                 try:
 #                     primary_file = version.getPrimaryFile()
@@ -74,7 +74,7 @@
 #                 break
 #     return mods
 # def search_mods(query, game_version, mod_loader,callback,canvas,server_data):
-#     print(game_version,mod_loader)
+#     log(game_version,mod_loader)
 #     projects_search = modrinth.Projects.Search(query=query,versions=[game_version])
 #     mods = []
 #     for hit in projects_search.hits:
@@ -83,7 +83,7 @@
 #             mod_versions_hash = project.versions
 #             for mod_version in mod_versions_hash:
 #                 version = project.getVersion(mod_version)
-#                 print(project.name,":",version.gameVersions)
+#                 log(project.name,":",version.gameVersions)
 #                 if mod_loader in version.loaders and game_version in version.gameVersions:
 #                     try:
                         

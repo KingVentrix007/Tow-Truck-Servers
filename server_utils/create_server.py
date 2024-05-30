@@ -61,10 +61,10 @@ def add_entry(name: str, game_version: str,description,modloader, config_path='c
         java_version_output = subprocess.check_output(['java', '-version'], stderr=subprocess.STDOUT)
         java_version_output = java_version_output.decode('utf-8')
         java_version = java_version_output.split('\n')[0].split('"')[1]
-        print(java_version)
+        log(java_version)
         if(str(minecraft_version_to_java(game_version)) != java_version.split(".")[0]):
             needed_version = str(minecraft_version_to_java(game_version))
-            print(needed_version,get_java_versions())
+            log(needed_version,get_java_versions())
             if(needed_version not in get_java_versions()[0]):
                 messagebox.showinfo("Install Java","The correct Java version will be installed. This will take some time, please be patient")
                 install_java(needed_version)
@@ -73,9 +73,9 @@ def add_entry(name: str, game_version: str,description,modloader, config_path='c
                 java_version = str(needed_version)
                 # pass
             java_override_default = True
-            print("error")
+            log("error")
     except Exception as e:
-        print(f"Error retrieving Java version: {e}")
+        log(f"Error retrieving Java version: {e}")
         return
 
     # Retrieve Java path
@@ -92,7 +92,7 @@ def add_entry(name: str, game_version: str,description,modloader, config_path='c
             java_dir = os.path.join(main_path, java_sub_dir)
             java_path = os.path.join(java_dir, 'bin', 'java')
     except Exception as e:
-        print(f"Error retrieving Java path: {e}")
+        log(f"Error retrieving Java path: {e}")
         return
 
     # Determine RAM allocation
@@ -134,7 +134,7 @@ def add_entry(name: str, game_version: str,description,modloader, config_path='c
     except FileNotFoundError:
         config = {"servers": []}
     except json.JSONDecodeError as e:
-        print(f"Error decoding JSON: {e}")
+        log(f"Error decoding JSON: {e}")
         return
 
     # Ensure 'servers' section exists in the config
@@ -148,9 +148,9 @@ def add_entry(name: str, game_version: str,description,modloader, config_path='c
     try:
         with open(config_path, 'w') as file:
             json.dump(config, file, indent=4)
-        print("New entry added successfully.")
+        log("New entry added successfully.")
     except Exception as e:
-        print(f"Error writing to config file: {e}")
+        log(f"Error writing to config file: {e}")
 
 def get_server(display_name: str, config_path='config.json'):
     # Load existing config
@@ -158,10 +158,10 @@ def get_server(display_name: str, config_path='config.json'):
         with open(config_path, 'r') as file:
             config = json.load(file)
     except FileNotFoundError:
-        print("Config file not found.")
+        log("Config file not found.")
         return None
     except json.JSONDecodeError as e:
-        print(f"Error decoding JSON: {e}")
+        log(f"Error decoding JSON: {e}")
         return None
 
     # Search for the server with the specified display name
@@ -169,7 +169,7 @@ def get_server(display_name: str, config_path='config.json'):
         if server.get('displayName') == display_name:
             return server
     
-    print(f"Server with display name '{display_name}' not found.")
+    log(f"Server with display name '{display_name}' not found.")
     return None
 def install_server(name,version,modloader):
     if(modloader == "fabric"):
@@ -183,7 +183,7 @@ def install_server(name,version,modloader):
 def make_server(name, description, version,img,modloader,ram=None):
     valid_server_name = name.replace(" ","")
     if(os.path.exists(f"./servers/{valid_server_name}")):
-        print("Server already exists",os.getcwd(),valid_server_name)
+        log("Server already exists",os.getcwd(),valid_server_name)
         return -1
     os.makedirs(f"./servers/{valid_server_name}", exist_ok=True)
     jar_download_window = ctk.CTk()

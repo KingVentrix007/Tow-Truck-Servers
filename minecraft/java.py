@@ -8,7 +8,7 @@ def install_java(version):
     if(type(version) == type('java')):
         jdk.install(version,path=java_install_dir)
     else:
-        print("wrong type")
+        log("wrong type")
 def extract_java_version(java_path):
     java_path = os.path.normpath(java_path)
     # Split the path using directory separator

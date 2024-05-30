@@ -50,17 +50,17 @@ def extract_forge_libraries_path(file_path: str):
                     libraries_path = match.group(0)
                     return libraries_path
 
-        print("No @libraries path found in the file.")
+        log("No @libraries path found in the file.")
         return None
 
     except FileNotFoundError:
-        print(f"File {file_path} not found.")
+        log(f"File {file_path} not found.")
         return None
     except Exception as e:
-        print(f"An error occurred: {e}")
+        log(f"An error occurred: {e}")
         return None
 def run_command(command, output_widget):
-        print(command)
+        log(command)
         process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, universal_newlines=True)
         for line in iter(process.stdout.readline, ""):
             output_widget.insert(tk.END, line)
@@ -70,7 +70,7 @@ def run_command(command, output_widget):
                 output_widget.see(tk.END)
                 messagebox.showinfo("Installation complete","The installation is complete. You must close the window to continue")
                 # if root and root.winfo_exists():  # Check if root window exists
-                    # print("ROOT")
+                    # log("ROOT")
                 
         process.stdout.close()
         process.wait()
@@ -99,37 +99,37 @@ def run_forge_server(server_info,text_widget,on_finish):
     java = server_info.get('javaPath', "java")
     java = os.path.join(out_p, java)
     os.chdir(path)
-    print(os.getcwd())
+    log(os.getcwd())
     lib = extract_forge_libraries_path("run.bat")
     jar = ""
     if(lib is None):
         game_v = server_info.get('gameVersion', "0.0")
         lib = f"minecraft_server.{game_v}.jar"
-        print(lib)
+        log(lib)
         jar = "-jar"
     ram = server_info.get('ram', "2G")
     
     cmd = f"{java} -Xmx{ram} {jar} {lib} nogui %*"
     def run_command(command):
         global process
-        print(command)
+        log(command)
         process = subprocess.Popen(command, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, universal_newlines=True)
         try:
             for line in iter(process.stdout.readline, ""):
-                # print(line)
+                # log(line)
                 formatted_output,color = format_output_as_html(line)
                 try:
                     text_widget.insert(tk.END, formatted_output,color)
                     text_widget.see(tk.END)  # Auto-scroll to the end
                 except Exception as e:
-                    print(e)
+                    log(e)
             process.stdout.close()
             process.wait()
             process.pid
             on_finish(server_info,text_widget)
         except ValueError:
             name = server_info.get("displayName",'None')
-            print(f"{err_code_process_closed}:Server{name} tried to read from stdout when stdout was closed")
+            log(f"{err_code_process_closed}:Server{name} tried to read from stdout when stdout was closed")
             # on_finish(server_info)
 
     def format_output_as_html(output):
