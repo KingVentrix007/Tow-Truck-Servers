@@ -24,6 +24,7 @@ Notes:
     
 """
 import os
+from config.debug import log
 def adjust_path():
     current_path = os.getcwd()
     log(f"Current path: {current_path}")

@@ -173,7 +173,7 @@ def create_server_tab(tabview, server_info):
         settings_button = ctk.CTkButton(menu_bar, text="Settings",bg_color=default_color, command=lambda: open_settings(server_info))
         settings_button.pack(side=tk.LEFT, padx=5, pady=5)
 
-        mod_btn = ctk.CTkButton(menu_bar, text="Mod Menu",bg_color=default_color, command=lambda: mod_menu(server_info.get('path', 'null'),server_info))
+        mod_btn = ctk.CTkButton(menu_bar, text="Mod Menu",bg_color=default_color, command=lambda: mod_menu(server_info))
         mod_btn.pack(side=tk.LEFT, padx=5, pady=5)
 
         eula_btn = ctk.CTkButton(menu_bar, text="Eula",bg_color=default_color,command=lambda:open_text_document(server_info))

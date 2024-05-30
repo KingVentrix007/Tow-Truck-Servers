@@ -84,10 +84,13 @@ def search_project_by_version_and_modloader(project_id, modloader):
         return None
 
 def id_to_name(project_id):
-    log(project_id)
-    url = f"https://api.modrinth.com/v2/project/{project_id}"
-    data = requests.get(url).json()
-    return data["title"]
+    try:
+        log(project_id)
+        url = f"https://api.modrinth.com/v2/project/{project_id}"
+        data = requests.get(url).json()
+        return data["title"]
+    except Exception as e:
+        return None
 def get_project_data_id(project_id):
     log(project_id)
     url = f"https://api.modrinth.com/v2/project/{project_id}"

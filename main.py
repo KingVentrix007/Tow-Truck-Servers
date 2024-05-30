@@ -27,7 +27,6 @@ def log(*args):
     """Log a message."""
     message = ' '.join(map(str, args))
     logging.info(message)
-setup_logging("main.log")
 if os.name == 'nt':
 
     app.iconbitmap("./assets/images/window_icon.ico") # Remove ./clean when finished
