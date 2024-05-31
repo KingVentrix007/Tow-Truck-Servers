@@ -69,37 +69,34 @@ def fetch_mod_urls(mod_data, server_info):
     return None 
 def find_mod_id(json_path, filename):
     if(json_path == None):
-        return None
+        return None,None
     try:
         
         with open(json_path, 'r') as file:
             json_data = file.read()
     except FileNotFoundError:
         log(f"Error: JSON file '{json_path}' not found.")
-        return None
+        return None,None
 
     try:
         mods = json.loads(json_data)["mods"]
         log("mods = json.loads(json_data)['mods']",mods)
     except json.JSONDecodeError:
         log(f"Error: Invalid JSON format in file '{json_path}'.")
-        return None
+        return None,None
 
     for mod in mods:
         log("for mod in mods:",mod)
-        for mod_id, mod_file in mod.items():
-            try:
-                decoded_filename = urllib.parse.unquote(mod_file)
-                filename = urllib.parse.unquote(filename)
-                # log(decoded_filename,filename)
-                if filename == decoded_filename:
-                    return mod_id
-            except Exception as e:
-                print(mod[mod_id])
-                # print(mods[mod_id])
-                return None
+        for mod_id, mod_data in mod.items():
+            mod_file = mod_data["filename"]
+            image = mod_data["icon"]
+            decoded_filename = urllib.parse.unquote(mod_file)
+            filename = urllib.parse.unquote(filename)
+            # log(decoded_filename,filename)
+            if filename == decoded_filename:
+                return mod_id,image
     log(f"No mod found for filename '{filename}' in the provided JSON data.")
-    return None
+    return None,None
 
 
 
@@ -248,7 +245,7 @@ def download_dependencies(dependencies, config, config_path, mod_folder, progres
             dep_file_name = os.path.basename(dep_url)
             local_dep_filename = os.path.join(mod_folder, dep_file_name)
             download_file(dep_url, local_dep_filename, progress, root, label)
-            dep_info = {"filename":dep_file_name,"icon_url":None}
+            dep_info = {"filename":dep_file_name,"icon":None}
             config["mods"].append({dep_id: dep_info})
             save_config(config_path, config)
         else:
@@ -271,25 +268,55 @@ def clear_canvas(canvas):
     # Iterate through all children of the canvas and destroy them
     for widget in canvas.winfo_children():
         widget.destroy()
-def display_mod_files(mod_list_frame,mod_path,json_path):
-        for widget in mod_list_frame.winfo_children():
-            widget.destroy()
+
+def display_mod_files(mod_list_frame, mod_path, json_path):
+    for widget in mod_list_frame.winfo_children():
+        widget.destroy()
+    
+    mod_files = [f for f in os.listdir(mod_path) if f.endswith('.jar') or f.endswith('.disabled')]
+    log(mod_files)
+    for mod in mod_files:
+        internal_frame = ctk.CTkFrame(mod_list_frame)
+        mod_id, icon_url = find_mod_id(json_path, mod)
+        if mod_id is not None:
+            name = apiv2.id_to_name(mod_id)
+        else:
+            name = None
+        log(mod)
         
-        mod_files = [f for f in os.listdir(mod_path) if f.endswith('.jar') or f.endswith('.disabled')]
-        log(mod_files)
-        for mod in mod_files:
-            mod_id = find_mod_id(json_path, mod)
-            log("mod_id",mod_id)
-            if mod_id != None:
-                name = apiv2.id_to_name(mod_id)
+        if name is not None:
+            # print("mod_id", icon_url)
+            # print("mod_files", icon_url)
+            
+            label = ctk.CTkLabel(internal_frame, text=name, text_color="cyan", bg_color=default_color, fg_color=default_color)
+            
+            if icon_url is not None:
+                try:
+                    response = requests.get(icon_url, stream=True)
+                    response.raise_for_status()
+                    image = Image.open(response.raw)
+                    image = image.resize((100, 100))
+                    photo = ImageTk.PhotoImage(image)
+                    
+                    icon_label = ctk.CTkLabel(internal_frame, image=photo,text="")
+                    icon_label.image = photo  # Keep a reference to avoid garbage collection
+                    icon_label.pack(anchor='w', padx=10, pady=2,side="left")
+                except Exception as e:
+                    print(f"Failed to load image from {icon_url}: {e}")
             else:
-                name = None
-            log(mod)
-            if(name != None ):
-                label = ctk.CTkLabel(mod_list_frame, text=name,text_color="cyan",bg_color=default_color,fg_color=default_color)
-            else:
-                label = ctk.CTkLabel(mod_list_frame, text=mod,text_color="cyan",bg_color=default_color,fg_color=default_color)
-            label.pack(anchor='w', padx=10, pady=2)
+                image = Image.open("./assets/images/package.png")
+                image = image.resize((100, 100))
+                photo = ImageTk.PhotoImage(image)
+                
+                icon_label = ctk.CTkLabel(internal_frame, image=photo,text="")
+                icon_label.image = photo  # Keep a reference to avoid garbage collection
+                icon_label.pack(anchor='w', padx=10, pady=2,side="left")
+        else:
+            label = ctk.CTkLabel(internal_frame, text=mod, text_color="cyan", bg_color=default_color, fg_color=default_color)
+        
+        label.pack(anchor='w', padx=10, pady=2,side="right")
+        internal_frame.pack()
+
 class ModFetcherApp(ctk.CTkToplevel):
     def __init__(self, loader, version, server_info):
         super().__init__()
