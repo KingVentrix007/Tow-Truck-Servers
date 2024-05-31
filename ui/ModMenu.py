@@ -12,6 +12,8 @@ import json
 from tkinter import messagebox
 from config.ui_config import default_color,make_mods_pretty
 import urllib.request
+import markdown
+from tkhtmlview import HTMLLabel
 def download_image(url, size=(150, 150)):
     response = requests.get(url)
     response.raise_for_status()  # Check if the request was successful
@@ -94,13 +96,16 @@ def find_mod_id(json_path, filename):
     log(f"No mod found for filename '{filename}' in the provided JSON data.")
     return None
 
+
+
 def mod_clicked(mod_data, frame):
     # Clear the frame
     for widget in frame.winfo_children():
         widget.destroy()
     
-    print("Clicked mod " + str(mod_data.keys()))
-    
+    body_data = apiv2.get_project_data_id(mod_data["project_id"])
+    print("Clicked mod " + str(body_data))
+    html_body = None#body_data.get("body", None)
     mod_name = mod_data["title"]
     mod_icon_url = mod_data["icon_url"]
     author = mod_data["author"]
@@ -133,23 +138,42 @@ def mod_clicked(mod_data, frame):
     description_label = ctk.CTkLabel(frame, text=description, font=("Helvetica", 12), wraplength=400, justify="left")
     description_label.grid(row=3, column=0, columnspan=2, padx=10, pady=10, sticky="w")
     
-    # Gallery
-    if gallery:
-        gallery_frame = ctk.CTkFrame(frame)
-        gallery_frame.grid(row=4, column=0, columnspan=2, padx=10, pady=10, sticky="w")
+    # Display Markdown Body
+    if html_body:
+        # Convert Markdown to HTML
+        html_content = markdown.markdown(html_body)
         
+        # Display HTML content
+        html_frame = ctk.CTkFrame(frame)
+        html_frame.grid(row=4, column=0, columnspan=2, padx=10, pady=10, sticky="w")
+        html_label = HTMLLabel(html_frame, html=html_content)
+        html_label.grid(row=0, column=0, padx=10, pady=10, sticky="w")
+    
+    # Gallery
+    gallery_frame = ctk.CTkFrame(frame)
+    gallery_frame.grid(row=5, column=0, columnspan=2, padx=10, pady=10, sticky="w")
+
+    def load_and_render_image(image_url, row, col):
+        try:
+            gallery_image = download_image(image_url, size=(200, 200))
+            gallery_label = ctk.CTkLabel(gallery_frame, text="", image=gallery_image)
+            gallery_label.image = gallery_image  # Keep a reference to avoid garbage collection
+            gallery_label.grid(row=row, column=col, padx=5, pady=5)
+        except Exception as e:
+            print(f"Failed to load image from {image_url}: {e}")
+
+    def load_gallery_images():
         for i, image_url in enumerate(gallery):
-            try:
-                gallery_image = download_image(image_url, size=(200, 200))
-                gallery_label = ctk.CTkLabel(gallery_frame, text="", image=gallery_image)
-                gallery_label.image = gallery_image  # Keep a reference to avoid garbage collection
-                gallery_label.grid(row=i//3, column=i%3, padx=5, pady=5)  # Display in a grid, 3 images per row
-            except Exception as e:
-                print(f"Failed to load image from {image_url}: {e}")
+            # print("image_url == ",image_url)
+            Thread(target=load_and_render_image, args=(image_url, i//3, i%3)).start()
+    
+    if gallery:
+        load_gallery_images()
     
     # Adjust column weights for better spacing
     frame.grid_columnconfigure(0, weight=1)
     frame.grid_columnconfigure(1, weight=1)
+
 def download_mod(mod_data, server_info):
     print("Downloading mod")
     server_folder = server_info.get("path")
@@ -248,6 +272,8 @@ def get_mod_data(query=None,loaders="forge",version="1.19.2"):
     ]
     # if query:
         # mod_data = [mod for mod in mod_data if query.lower() in mod["mod_name"].lower()]
+    if(len(mod_data) <= 0):
+        return None
     return mod_data_info
 
 # def download_mod(server_data,mod_data):
@@ -331,8 +357,8 @@ class ModFetcherApp(ctk.CTkToplevel):
         
         # Dictionary to store image data
         self.image_data = {}
-        self.status_label = ctk.CTkLabel(self.search_frame, text="")
-        self.status_label.pack(side=ctk.TOP)
+        # self.status_label = ctk.CTkLabel(self.search_frame, text="")
+        # self.status_label.pack(side=ctk.TOP)
         
         mod_path = os.path.normpath(os.path.join(server_info["path"], "mods"))
         json_path = os.path.join(server_info["path"], "towtruckconfig.json")
@@ -350,6 +376,8 @@ class ModFetcherApp(ctk.CTkToplevel):
         thread.start()
         
     def fetch_mod_data(self, query=None):
+        self.status_label = ctk.CTkLabel(self.search_frame, text="")
+        self.status_label.pack(side=ctk.TOP)        
         self.status_label.configure(text="Searching for mods...")
         mod_data = get_mod_data(query, self.mod_loader, self.game_version)
         self.update_ui(mod_data)
@@ -362,42 +390,44 @@ class ModFetcherApp(ctk.CTkToplevel):
             self.image_data[url] = Image.open(image_data).resize((100, 100))
         
     def update_ui(self, mod_data):
-        if make_mods_pretty:
-            self.status_label.configure(text="Prettifying output...")
-            self.fetch_image_data(mod_data)
-        
-        for widget in self.search_frame.winfo_children():
-            widget.destroy()
-        
-        for mod in mod_data:
-            mod_frame = ctk.CTkFrame(self.search_frame, border_width=2, border_color="grey")
-            mod_frame.pack(padx=10, pady=5, fill=ctk.BOTH, expand=True)  # Expands vertically to fill extra space
-            
-            mod_name = mod['title']
-            author = mod['author']
+        if(mod_data != None):
             if make_mods_pretty:
-                icon_url = mod['icon_url']
-                image = self.image_data[icon_url]
-                photo = ImageTk.PhotoImage(image)
-                image_label = ctk.CTkLabel(mod_frame, text="", image=photo)
-                image_label.image = photo  # Keep a reference to avoid garbage collection
-                image_label.pack(side="top")  # Align at the top of the frame
+                self.status_label.configure(text="Prettifying output...")
+                self.fetch_image_data(mod_data)
             
-            mod_name_label = ctk.CTkLabel(mod_frame, text=f"Mod Name: {mod_name}", font=('Arial', 12, 'bold'))
-            mod_name_label.pack(side="top")  # Align at the top of the frame
+            for widget in self.search_frame.winfo_children():
+                widget.destroy()
             
-            author_label = ctk.CTkLabel(mod_frame, text=f"Author: {author}", font=('Arial', 10, 'italic'))
-            author_label.pack(side="top")  # Align at the top of the frame
-            
-            download_button = ctk.CTkButton(
-                mod_frame,
-                text="Download",
-                font=('Arial', 10, 'bold'),
-                command=lambda m=mod: download_mod(mod_data=m, server_info=self.server_data)
-            )
-            download_button.pack(side="top")  # Align at the top of the frame
-            mod_frame.bind("<Button-1>", lambda event, m=mod: mod_clicked(mod_data=m,frame=self.mod_view_frame))
-        
+            for mod in mod_data:
+                mod_frame = ctk.CTkFrame(self.search_frame, border_width=2, border_color="grey")
+                mod_frame.pack(padx=10, pady=5, fill=ctk.BOTH, expand=True)  # Expands vertically to fill extra space
+                
+                mod_name = mod['title']
+                author = mod['author']
+                if make_mods_pretty:
+                    icon_url = mod['icon_url']
+                    image = self.image_data[icon_url]
+                    photo = ImageTk.PhotoImage(image)
+                    image_label = ctk.CTkLabel(mod_frame, text="", image=photo)
+                    image_label.image = photo  # Keep a reference to avoid garbage collection
+                    image_label.pack(side="top")  # Align at the top of the frame
+                
+                mod_name_label = ctk.CTkLabel(mod_frame, text=f"Mod Name: {mod_name}", font=('Arial', 12, 'bold'))
+                mod_name_label.pack(side="top")  # Align at the top of the frame
+                
+                author_label = ctk.CTkLabel(mod_frame, text=f"Author: {author}", font=('Arial', 10, 'italic'))
+                author_label.pack(side="top")  # Align at the top of the frame
+                
+                download_button = ctk.CTkButton(
+                    mod_frame,
+                    text="Download",
+                    font=('Arial', 10, 'bold'),
+                    command=lambda m=mod: download_mod(mod_data=m, server_info=self.server_data)
+                )
+                download_button.pack(side="top")  # Align at the top of the frame
+                mod_frame.bind("<Button-1>", lambda event, m=mod: mod_clicked(mod_data=m,frame=self.mod_view_frame))
+        else:
+            self.status_label.configure(text="No results found")
         self.search_canvas.configure(scrollregion=self.search_canvas.bbox("all"))
         self.search_button.configure(state="normal")
         self.search_entry.configure(state="normal")

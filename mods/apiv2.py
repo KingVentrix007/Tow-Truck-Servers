@@ -6,9 +6,33 @@ import urllib.request
 from config.debug import log
 max_recursion = 10
 
+number_of_requests_left = -1
+total_requests = -1
 
+def limit_update(response):
+    global number_of_requests_left
+    global total_requests
+    x_rate_limit = int(response.headers.get("x-ratelimit-limit",0))
+    x_ratelimit_remaining = int(response.headers.get("x-ratelimit-remaining",0))
+    number_of_requests_left = x_ratelimit_remaining
+    total_requests = x_rate_limit
 
+def in_limit():
+    global number_of_requests_left
+    if(number_of_requests_left <= 2 and number_of_requests_left != -1):
+        return False
+    return number_of_requests_left
+def isServerSide(mod_data) -> bool:
+            '''
+            Check if the project is server side.
+            '''
+            if mod_data['server_side'] == 'optional' or mod_data['server_side'] == 'required':
+                return True
+            else:
+                return False
 def modrinth_search(query,limit,offest):
+    if(in_limit() == False):
+        return None
     url = "https://api.modrinth.com/v2/search"
     params = {
         'query': query,
@@ -17,9 +41,11 @@ def modrinth_search(query,limit,offest):
     }
     try:
         response = requests.get(url, params=params)
+        limit_update(response)
         return response
     except requests.exceptions.RequestException as e:
         log("Error: %s" % e)
+        return None
 
 def search_mods(query,version,modloader):
     return search_mods_internal(query,version,modloader)[0]
@@ -48,7 +74,8 @@ def search_mods_internal(query,version,modloader,initial_offset=0,found_mods_sta
                     if(version not in supported_game_versions or modloader not in hit["display_categories"]):
                         log("Skipped mod",hit["title"])
                         continue
-                    elif(hit['project_id'] not in found_mods):
+                    elif(hit['project_id'] not in found_mods and isServerSide(hit) == True):
+
                         found_mods.append(hit['project_id'])
                         results.append(hit)
                         count+=1
@@ -73,34 +100,49 @@ def find_correct_versions(results, version):
             correct_items.append(item)
     return correct_items
 def search_project_by_version_and_modloader(project_id, modloader):
+    if(in_limit() == False):
+        return None
     url = f"https://api.modrinth.com/v2/project/{project_id}/version"
     params = {
         "modloader": modloader,
     }
     response = requests.get(url, params=params)
     if response.status_code == 200:
+        limit_update(response)
         return response.json()
     else:
         return None
 
 def id_to_name(project_id):
+    if(in_limit() == False):
+        return None
     try:
         log(project_id)
         url = f"https://api.modrinth.com/v2/project/{project_id}"
-        data = requests.get(url).json()
+        data = requests.get(url)
+        limit_update(data)
+        data = data.json()
         return data["title"]
     except Exception as e:
         return None
 def get_project_data_id(project_id):
+    if(in_limit() == False):
+        return None
     log(project_id)
     url = f"https://api.modrinth.com/v2/project/{project_id}"
-    data = requests.get(url).json()
+    data = requests.get(url)
+    limit_update(data)
+    data = data.json()
     return data
 def get_version_data(version):
+    if(in_limit() == False):
+        return None
     if(version == None):
         return None
     url = f'https://api.modrinth.com/v2/version/{version}'
-    data = requests.get(url).json()
+    data = requests.get(url)
+    limit_update(data)
+    data.json()
     return data
 
 def get_dependencies_url(dependency,version,loader):
