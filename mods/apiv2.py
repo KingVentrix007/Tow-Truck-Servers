@@ -142,7 +142,7 @@ def get_version_data(version):
     url = f'https://api.modrinth.com/v2/version/{version}'
     data = requests.get(url)
     limit_update(data)
-    data.json()
+    data = data.json()
     return data
 
 def get_dependencies_url(dependency,version,loader):
@@ -152,6 +152,7 @@ def get_dependencies_url(dependency,version,loader):
         dep_data = get_version_data(version_id)
         if(dep_data != None):
             # log("dep_data=",dep_data)
+            print( dep_data)
             dep_files = dep_data['files']
             for dep_file in dep_files:
                 if(dep_file['primary'] == True):

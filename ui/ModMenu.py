@@ -88,11 +88,16 @@ def find_mod_id(json_path, filename):
     for mod in mods:
         log("for mod in mods:",mod)
         for mod_id, mod_file in mod.items():
-            decoded_filename = urllib.parse.unquote(mod_file)
-            filename = urllib.parse.unquote(filename)
-            # log(decoded_filename,filename)
-            if filename == decoded_filename:
-                return mod_id
+            try:
+                decoded_filename = urllib.parse.unquote(mod_file)
+                filename = urllib.parse.unquote(filename)
+                # log(decoded_filename,filename)
+                if filename == decoded_filename:
+                    return mod_id
+            except Exception as e:
+                print(mod[mod_id])
+                # print(mods[mod_id])
+                return None
     log(f"No mod found for filename '{filename}' in the provided JSON data.")
     return None
 
@@ -187,6 +192,7 @@ def download_mod(mod_data, server_info):
         pass
     else:
         log(f"Mod {mod_id} is already installed, skipping download.")
+        print(f"Mod {mod_id} is already installed, skipping download.")
         return
 
     waiting_window = show_waiting_window(mod_data.get("title"))
@@ -200,7 +206,8 @@ def download_mod(mod_data, server_info):
         else:
             url = urls["url"]
             mod_file_name = os.path.basename(url)
-            config["mods"].append({mod_id: mod_file_name})
+            mod_info = {"filename": mod_file_name,"icon": mod_data.get("icon_url",None)}
+            config["mods"].append({mod_id: mod_info})
             save_config(config_path, config)
 
             dependencies = urls["dependencies"]
@@ -219,7 +226,8 @@ def download_mod(mod_data, server_info):
             def start_download():
                 local_filename = os.path.join(mod_folder, mod_file_name)
                 download_file(url, local_filename, progress, root, label, callback=lambda: download_dependencies(dependencies, config, config_path, mod_folder, progress, root, label))
-                config["mods"].append({mod_id: mod_file_name})
+                mod_info = {"filename": mod_file_name,"icon": mod_data.get("icon_url",None)}
+                config["mods"].append({mod_id: mod_info})
                 log("config45 = ",config)
                 save_config(config_path, config)
                 log(f"Downloaded mod to {local_filename}")
@@ -240,7 +248,8 @@ def download_dependencies(dependencies, config, config_path, mod_folder, progres
             dep_file_name = os.path.basename(dep_url)
             local_dep_filename = os.path.join(mod_folder, dep_file_name)
             download_file(dep_url, local_dep_filename, progress, root, label)
-            config["mods"].append({dep_id: dep_file_name})
+            dep_info = {"filename":dep_file_name,"icon_url":None}
+            config["mods"].append({dep_id: dep_info})
             save_config(config_path, config)
         else:
             log(f"Dependency {dep_id} already exists, skipping download.")
@@ -251,28 +260,7 @@ def get_mod_data(query=None,loaders="forge",version="1.19.2"):
     print("Searching,,,")
     # Simulate retrieving data based on the query
     mod_data_info,ids = apiv2.search_mods_internal(query=query,modloader=loaders,version=version)
-    mod_data = []
-    for mod in mod_data_info:
-        mod_name = mod["title"]
-        mod_author = mod["author"]
-        icon_url = mod["icon_url"]
-        entry = {
-            "mod_name":mod_name,
-            "author":mod_author,
-            "icon_url":icon_url
-        }
-        mod_data.append(entry)
-    print(len(mod_data))
-    # import time
-    # time.sleep(4)  # Simulating a delay
-    mod_data_temp = [
-        {"mod_name": "Sample Mod 1", "author": "Author 1", "url": "https://via.placeholder.com/150"},
-        {"mod_name": "Sample Mod 2", "author": "Author 2", "url": "https://via.placeholder.com/150"},
-        {"mod_name": "Sample Mod 3", "author": "Author 3", "url": "https://via.placeholder.com/150"},
-    ]
-    # if query:
-        # mod_data = [mod for mod in mod_data if query.lower() in mod["mod_name"].lower()]
-    if(len(mod_data) <= 0):
+    if(len(mod_data_info) <= 0):
         return None
     return mod_data_info
 
