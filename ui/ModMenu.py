@@ -290,29 +290,22 @@ def display_mod_files(mod_list_frame, mod_path, json_path):
     mod_files = [f for f in os.listdir(mod_path) if f.endswith('.jar') or f.endswith('.disabled')]
     log(mod_files)
     for mod in mod_files:
-        internal_frame = ctk.CTkFrame(mod_list_frame)
-        mod_id, icon_url = find_mod_id(json_path, mod)
-        if mod_id is not None:
-            name = apiv2.id_to_name(mod_id)
-            print("Name from id: %s" % name,"|",mod)
-            
-            # name_from_decode = get_mod_name_from_jar()
-        else:
-            mod_to_decode = os.path.join(mod_path,mod)
-            mod_name,method,match,decoded_file_name  = get_mod_name_from_jar(mod_to_decode)
-            print("Name from jar: %s" % mod_name,"|",method,"|",mod)
-            if(method =="fabric.mod.json"):
-                if(match == True):
-                    name = mod_name
-                    icon_url = apiv2.get_mod_icon(name)
-                elif(decoded_file_name != None):
-                    name = decoded_file_name
-                    print(name)
-                    icon_url = apiv2.get_mod_icon(name)
-                else:
-                    name = mod
-                    icon_url = None
-            
+        internal_frame = ctk.CTkFrame(mod_list_frame,width=400,height=110,border_width=5)
+        mod_to_decode = os.path.join(mod_path,mod)
+        mod_name,method,match,decoded_file_name  = get_mod_name_from_jar(mod_to_decode)
+        print("Name from jar: %s" % mod_name,"|",method,"|",mod)
+        if(1==1):
+            if(match == True):
+                name_to_find = mod_name
+                icon_url,name = apiv2.get_mod_icon(name_to_find)
+            elif(decoded_file_name != None):
+                name_to_find = decoded_file_name
+                print(name_to_find)
+                icon_url,name = apiv2.get_mod_icon(name_to_find)
+            else:
+                name = mod
+                icon_url = None
+        
             # icon_url = None
         log(mod)
         
@@ -320,11 +313,12 @@ def display_mod_files(mod_list_frame, mod_path, json_path):
             # print("mod_id", icon_url)
             # print("mod_files", icon_url)
             
-            label = ctk.CTkLabel(internal_frame, text=name, text_color="cyan", bg_color=default_color, fg_color=default_color)
+            label = ctk.CTkLabel(internal_frame, text=name, text_color="cyan", bg_color=default_color, fg_color=default_color,width=100,height=110)
             
             if icon_url is not None:
                 print("Loading icon url for ",name)
                 try:
+                    print("Image is ",icon_url)
                     response = requests.get(icon_url, stream=True)
                     response.raise_for_status()
                     image = Image.open(response.raw)
@@ -346,7 +340,9 @@ def display_mod_files(mod_list_frame, mod_path, json_path):
                 icon_label.image = photo  # Keep a reference to avoid garbage collection
                 icon_label.pack(anchor='w', padx=10, pady=2,side="left")
         else:
-            label = ctk.CTkLabel(internal_frame, text=mod, text_color="cyan", bg_color=default_color, fg_color=default_color)
+            label = ctk.CTkLabel(internal_frame, text=mod, text_color="cyan", bg_color=default_color, fg_color=default_color,width=100,height=200)
+            
+        label.pack_propagate(False)
         
         label.pack(anchor='w', padx=10, pady=2,side="right")
         internal_frame.pack()

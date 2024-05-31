@@ -237,18 +237,30 @@ def get_download_urls(project_id,version,modloader,first_mod=False):
 
 
 def get_mod_icon(mod_name):
+    print(f"Setting icon for {mod_name}")
     response_int = modrinth_search(mod_name,20,0)
-    if response_int.status_code == 200:
+    try:
+        if response_int.status_code == 200:
+            print(f"Got potential hits for {mod_name}")
+            data_int = response_int.json()
+            # print(data_int)
+            num_hits = data_int['total_hits']
+            print(f"Number of hits for {mod_name} {num_hits}")
+            for hit in data_int["hits"]:
+                name = hit["title"].lower().replace(" ","")
+                print("hit_name: %s" % name)
 
-        data_int = response_int.json()
-        # print(data_int)
-        num_hits = data_int['total_hits']
-        for hit in data_int["hits"]:
-            name = hit["title"].lower()
-            name_to_find = mod_name.lower()
-            if(name_to_find == name):
-                return hit["icon_url"]
-        number_of_loops = int(int(num_hits)/20)
+                name_to_find = mod_name.lower().replace(" ","")
+                print(name_to_find,"||",name)
+                if(name_to_find == name):
+                    return hit["icon_url"],hit["title"]
+            number_of_loops = int(int(num_hits)/20)
+            print(f"Found No hits for{mod_name}")
+            return None,mod_name
+    except Exception as e:
+        print("e")
+        return None,mod_name
+    
 
 
         
