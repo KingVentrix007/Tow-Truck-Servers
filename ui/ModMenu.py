@@ -14,6 +14,9 @@ from config.ui_config import default_color,make_mods_pretty
 import urllib.request
 import markdown
 from tkhtmlview import HTMLLabel
+mod_list_frame_g = None
+file_canvas_g = None
+
 def download_image(url, size=(150, 150)):
     response = requests.get(url)
     response.raise_for_status()  # Check if the request was successful
@@ -100,20 +103,27 @@ def find_mod_id(json_path, filename):
 
 
 
+def mod_clicked_thread(mod_data,frame):
+    # global file_canvas_g
+    # clear_canvas(file_canvas_g)
+    mod_thread =  Thread(target=mod_clicked, args=(mod_data,frame))
+    mod_thread.start()
+
 def mod_clicked(mod_data, frame):
     # Clear the frame
     for widget in frame.winfo_children():
         widget.destroy()
     
     body_data = apiv2.get_project_data_id(mod_data["project_id"])
-    print("Clicked mod " + str(body_data))
+    # print("Clicked mod " + str(body_data))
+    print(body_data["description"])
     html_body = None#body_data.get("body", None)
     mod_name = mod_data["title"]
     mod_icon_url = mod_data["icon_url"]
     author = mod_data["author"]
     description = mod_data.get("description", "None")
     gallery = mod_data.get("gallery", [])
-    
+    # print("Keys",mod_data.keys())
     # Display mod data in frame
     frame.grid_rowconfigure(0, weight=1)
     frame.grid_columnconfigure(0, weight=1)
@@ -172,7 +182,7 @@ def mod_clicked(mod_data, frame):
     if gallery:
         load_gallery_images()
     
-    # Adjust column weights for better spacing
+    # # Adjust column weights for better spacing
     frame.grid_columnconfigure(0, weight=1)
     frame.grid_columnconfigure(1, weight=1)
 
@@ -270,6 +280,9 @@ def clear_canvas(canvas):
         widget.destroy()
 
 def display_mod_files(mod_list_frame, mod_path, json_path):
+    global mod_list_frame_g
+    mod_list_frame_g = mod_list_frame
+
     for widget in mod_list_frame.winfo_children():
         widget.destroy()
     
@@ -320,6 +333,7 @@ def display_mod_files(mod_list_frame, mod_path, json_path):
 class ModFetcherApp(ctk.CTkToplevel):
     def __init__(self, loader, version, server_info):
         super().__init__()
+        global file_canvas_g
         self.title("Mod Fetcher")
         self.geometry("800x400")  # Increased width to accommodate two frames side by side
         self.mod_loader = loader
@@ -336,6 +350,7 @@ class ModFetcherApp(ctk.CTkToplevel):
         # Create two canvases: search_canvas and file_canvas
         self.search_canvas = ctk.CTkCanvas(self)
         self.file_canvas = ctk.CTkCanvas(self)
+        file_canvas_g = self.file_canvas
         self.mod_view_canvas = ctk.CTkCanvas(self)
 
         # Create frames within the canvases
@@ -440,7 +455,7 @@ class ModFetcherApp(ctk.CTkToplevel):
                     command=lambda m=mod: download_mod(mod_data=m, server_info=self.server_data)
                 )
                 download_button.pack(side="top")  # Align at the top of the frame
-                mod_frame.bind("<Button-1>", lambda event, m=mod: mod_clicked(mod_data=m,frame=self.mod_view_frame))
+                mod_frame.bind("<Button-1>", lambda event, m=mod: mod_clicked_thread(mod_data=m,frame=self.mod_view_frame))
         else:
             self.status_label.configure(text="No results found")
         self.search_canvas.configure(scrollregion=self.search_canvas.bbox("all"))
