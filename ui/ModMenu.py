@@ -250,6 +250,8 @@ def download_dependencies(dependencies, config, config_path, mod_folder, progres
     for dep in dependencies:
         dep_id = dep["id"]
         dep_url = dep["url"]
+        dep_file = os.path.basename(dep_url)
+        
         #EEE
         log(f"dependencies {dep_id} url: {dep_url}" )
         if dep_id not in [mod_id for mod in config["mods"] for mod_id in mod.keys()] and dep_url:
@@ -340,12 +342,12 @@ def display_mod_files(mod_list_frame, mod_path, json_path):
                 icon_label.image = photo  # Keep a reference to avoid garbage collection
                 icon_label.pack(anchor='w', padx=10, pady=2,side="left")
         else:
-            label = ctk.CTkLabel(internal_frame, text=mod, text_color="cyan", bg_color=default_color, fg_color=default_color,width=100,height=200)
+            label = ctk.CTkLabel(internal_frame, text=mod, text_color="cyan", bg_color="#333333", fg_color="#333333",width=100,height=200)
             
         label.pack_propagate(False)
         
         label.pack(anchor='w', padx=10, pady=2,side="right")
-        internal_frame.pack()
+        internal_frame.pack(pady=4)
 
 class ModFetcherApp(ctk.CTkToplevel):
     def __init__(self, loader, version, server_info):
