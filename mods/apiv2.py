@@ -234,3 +234,21 @@ def get_download_urls(project_id,version,modloader,first_mod=False):
             # log(f"\tFound {msg} file {filename} at url {file_url}")
 
 # setup_logging("logs/apiv2.log")
+
+
+def get_mod_icon(mod_name):
+    response_int = modrinth_search(mod_name,20,0)
+    if response_int.status_code == 200:
+
+        data_int = response_int.json()
+        # print(data_int)
+        num_hits = data_int['total_hits']
+        for hit in data_int["hits"]:
+            name = hit["title"].lower()
+            name_to_find = mod_name.lower()
+            if(name_to_find == name):
+                return hit["icon_url"]
+        number_of_loops = int(int(num_hits)/20)
+
+
+        

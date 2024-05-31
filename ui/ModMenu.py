@@ -14,6 +14,7 @@ from config.ui_config import default_color,make_mods_pretty
 import urllib.request
 import markdown
 from tkhtmlview import HTMLLabel
+from mods.files import get_mod_name_from_jar
 mod_list_frame_g = None
 file_canvas_g = None
 
@@ -293,8 +294,26 @@ def display_mod_files(mod_list_frame, mod_path, json_path):
         mod_id, icon_url = find_mod_id(json_path, mod)
         if mod_id is not None:
             name = apiv2.id_to_name(mod_id)
+            print("Name from id: %s" % name,"|",mod)
+            
+            # name_from_decode = get_mod_name_from_jar()
         else:
-            name = None
+            mod_to_decode = os.path.join(mod_path,mod)
+            mod_name,method,match,decoded_file_name  = get_mod_name_from_jar(mod_to_decode)
+            print("Name from jar: %s" % mod_name,"|",method,"|",mod)
+            if(method =="fabric.mod.json"):
+                if(match == True):
+                    name = mod_name
+                    icon_url = apiv2.get_mod_icon(name)
+                elif(decoded_file_name != None):
+                    name = decoded_file_name
+                    print(name)
+                    icon_url = apiv2.get_mod_icon(name)
+                else:
+                    name = mod
+                    icon_url = None
+            
+            # icon_url = None
         log(mod)
         
         if name is not None:
@@ -304,6 +323,7 @@ def display_mod_files(mod_list_frame, mod_path, json_path):
             label = ctk.CTkLabel(internal_frame, text=name, text_color="cyan", bg_color=default_color, fg_color=default_color)
             
             if icon_url is not None:
+                print("Loading icon url for ",name)
                 try:
                     response = requests.get(icon_url, stream=True)
                     response.raise_for_status()
@@ -317,6 +337,7 @@ def display_mod_files(mod_list_frame, mod_path, json_path):
                 except Exception as e:
                     print(f"Failed to load image from {icon_url}: {e}")
             else:
+                print("Fallback image")
                 image = Image.open("./assets/images/package.png")
                 image = image.resize((100, 100))
                 photo = ImageTk.PhotoImage(image)
