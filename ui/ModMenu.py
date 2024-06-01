@@ -14,7 +14,7 @@ from config.ui_config import default_color,make_mods_pretty
 import urllib.request
 import markdown
 from tkhtmlview import HTMLLabel
-from mods.files import get_mod_name_from_jar
+from mods.files import get_mod_name_from_jar,mod_already_installed
 mod_list_frame_g = None
 file_canvas_g = None
 
@@ -37,6 +37,7 @@ def download_file(url, local_filename, progress, root, label, callback=None):
                     out_file.write(chunk)
                     downloaded += len(chunk)
                     progress["value"] = (downloaded / total_length) * 100
+                    print( progress["value"] )
                     root.update_idletasks()
 
     if callback:
@@ -152,16 +153,6 @@ def mod_clicked(mod_data, frame):
     description_label.grid(row=3, column=0, columnspan=2, padx=10, pady=10, sticky="w")
     
     # Display Markdown Body
-    if html_body:
-        # Convert Markdown to HTML
-        html_content = markdown.markdown(html_body)
-        
-        # Display HTML content
-        html_frame = ctk.CTkFrame(frame)
-        html_frame.grid(row=4, column=0, columnspan=2, padx=10, pady=10, sticky="w")
-        html_label = HTMLLabel(html_frame, html=html_content)
-        html_label.grid(row=0, column=0, padx=10, pady=10, sticky="w")
-    
     # Gallery
     gallery_frame = ctk.CTkFrame(frame)
     gallery_frame.grid(row=5, column=0, columnspan=2, padx=10, pady=10, sticky="w")
@@ -189,24 +180,21 @@ def mod_clicked(mod_data, frame):
 
 def download_mod(mod_data, server_info):
     print("Downloading mod")
-    server_folder = server_info.get("path")
-    config_path = os.path.join(server_folder, 'towtruckconfig.json')
-    mod_id = mod_data["project_id"]
-    log("MOD_DATA=", mod_data)
-    
-    ensure_config_exists(config_path)
-    config = load_config(config_path)   
-    if mod_id not in [mod_id for mod in config["mods"] for mod_id in mod.keys()]:
-        pass
-    else:
-        log(f"Mod {mod_id} is already installed, skipping download.")
-        print(f"Mod {mod_id} is already installed, skipping download.")
-        return
+    mod_path = os.path.join(server_info["path"], "mods")
+    mod_name = mod_data["title"]
+    # ensure_config_exists(config_path)
+    # config = load_config(config_path)   
+    # if mod_id not in [mod_id for mod in config["mods"] for mod_id in mod.keys()]:
+    #     pass
+    # else:
+    #     log(f"Mod {mod_id} is already installed, skipping download.")
+    #     print(f"Mod {mod_id} is already installed, skipping download.")
+    #     return
 
     waiting_window = show_waiting_window(mod_data.get("title"))
 
     def download_mod_files():
-        nonlocal config
+        # nonlocal config
 
         urls = fetch_mod_urls(mod_data, server_info)
         if(urls == None):
@@ -214,9 +202,13 @@ def download_mod(mod_data, server_info):
         else:
             url = urls["url"]
             mod_file_name = os.path.basename(url)
-            mod_info = {"filename": mod_file_name,"icon": mod_data.get("icon_url",None)}
-            config["mods"].append({mod_id: mod_info})
-            save_config(config_path, config)
+            installed_mods = [f for f in os.listdir(mod_path) if f.endswith('.jar') or f.endswith('.disabled')]
+            if(mod_already_installed(mod_file_name,installed_mods)):
+                print(f"Mod {mod_name} is already installed. Skipping mod")
+                return
+            # mod_info = {"filename": mod_file_name,"icon": mod_data.get("icon_url",None)}
+            # config["mods"].append({mod_id: mod_info})
+            # save_config(config_path, config)
 
             dependencies = urls["dependencies"]
             close_waiting_window(waiting_window)
@@ -225,7 +217,6 @@ def download_mod(mod_data, server_info):
 
             root = tk.Tk()
             root.title("Download Progress")
-            mod_name = mod_data["title"]
             label = ttk.Label(root, text=f"Downloading mod {mod_name}...")
             label.pack(pady=10)
             progress = ttk.Progressbar(root, orient="horizontal", length=300, mode="determinate")
@@ -233,11 +224,7 @@ def download_mod(mod_data, server_info):
 
             def start_download():
                 local_filename = os.path.join(mod_folder, mod_file_name)
-                download_file(url, local_filename, progress, root, label, callback=lambda: download_dependencies(dependencies, config, config_path, mod_folder, progress, root, label))
-                mod_info = {"filename": mod_file_name,"icon": mod_data.get("icon_url",None)}
-                config["mods"].append({mod_id: mod_info})
-                log("config45 = ",config)
-                save_config(config_path, config)
+                download_file(url, local_filename, progress, root, label, callback=lambda: download_dependencies(dependencies, None, None, mod_folder, progress, root, label))
                 log(f"Downloaded mod to {local_filename}")
 
             Thread(target=start_download).start()
@@ -252,17 +239,19 @@ def download_dependencies(dependencies, config, config_path, mod_folder, progres
         dep_url = dep["url"]
         dep_file = os.path.basename(dep_url)
         
-        #EEE
-        log(f"dependencies {dep_id} url: {dep_url}" )
-        if dep_id not in [mod_id for mod in config["mods"] for mod_id in mod.keys()] and dep_url:
+        installed_mods = [f for f in os.listdir(mod_folder) if f.endswith('.jar') or f.endswith('.disabled')]
+        if(mod_already_installed(dep_file,installed_mods)):
+            print(f"Dependencies already installed {dep_file}")
+        else:
+            log(f"dependencies {dep_id} url: {dep_url}" )
             dep_file_name = os.path.basename(dep_url)
             local_dep_filename = os.path.join(mod_folder, dep_file_name)
             download_file(dep_url, local_dep_filename, progress, root, label)
-            dep_info = {"filename":dep_file_name,"icon":None}
-            config["mods"].append({dep_id: dep_info})
-            save_config(config_path, config)
-        else:
-            log(f"Dependency {dep_id} already exists, skipping download.")
+        #     dep_info = {"filename":dep_file_name,"icon":None}
+        #     config["mods"].append({dep_id: dep_info})
+        #     save_config(config_path, config)
+        # # else:
+        #     log(f"Dependency {dep_id} already exists, skipping download.")
     label.config(text="All downloads complete!")
     log("Downloaded all dependencies.")
     root.destroy()
@@ -274,13 +263,20 @@ def get_mod_data(query=None,loaders="forge",version="1.19.2"):
         return None
     return mod_data_info
 
-# def download_mod(server_data,mod_data):
-#     mod_name = mod_data["title"]
-#     print(f"Downloading mod: {mod_name}")
 def clear_canvas(canvas):
     # Iterate through all children of the canvas and destroy them
     for widget in canvas.winfo_children():
         widget.destroy()
+
+def delete_mod_file(mod_file_path,mod_path,json_path):
+    global mod_list_frame_g
+    try:
+        os.remove(mod_file_path)
+        log(f"Deleted {mod_file_path}")
+        # Refresh the mod list after deletion
+        display_mod_files(mod_list_frame_g, mod_path, json_path)
+    except Exception as e:
+        log(f"Failed to delete {mod_file_path}: {e}")
 
 def display_mod_files(mod_list_frame, mod_path, json_path):
     global mod_list_frame_g
@@ -288,67 +284,62 @@ def display_mod_files(mod_list_frame, mod_path, json_path):
 
     for widget in mod_list_frame.winfo_children():
         widget.destroy()
-    
+
     mod_files = [f for f in os.listdir(mod_path) if f.endswith('.jar') or f.endswith('.disabled')]
     log(mod_files)
     for mod in mod_files:
-        internal_frame = ctk.CTkFrame(mod_list_frame,width=400,height=110,border_width=5)
-        mod_to_decode = os.path.join(mod_path,mod)
-        mod_name,method,match,decoded_file_name  = get_mod_name_from_jar(mod_to_decode)
-        print("Name from jar: %s" % mod_name,"|",method,"|",mod)
-        if(1==1):
-            if(match == True):
-                name_to_find = mod_name
-                icon_url,name = apiv2.get_mod_icon(name_to_find)
-            elif(decoded_file_name != None):
-                name_to_find = decoded_file_name
-                print(name_to_find)
-                icon_url,name = apiv2.get_mod_icon(name_to_find)
-            else:
-                name = mod
-                icon_url = None
+        mod_to_decode = os.path.join(mod_path, mod)
+        mod_name, method, match, decoded_file_name = get_mod_name_from_jar(mod_to_decode)
+        print("Name from jar: %s" % mod_name, "|", method, "|", mod)
         
-            # icon_url = None
-        log(mod)
+        if match:
+            name_to_find = mod_name
+            icon_url, name = apiv2.get_mod_icon(name_to_find)
+        elif decoded_file_name is not None:
+            name_to_find = decoded_file_name
+            print(name_to_find)
+            icon_url, name = apiv2.get_mod_icon(name_to_find)
+        else:
+            name = mod
+            icon_url = None
         
-        if name is not None:
-            # print("mod_id", icon_url)
-            # print("mod_files", icon_url)
-            
-            label = ctk.CTkLabel(internal_frame, text=name, text_color="cyan", bg_color=default_color, fg_color=default_color,width=100,height=110)
-            
-            if icon_url is not None:
-                print("Loading icon url for ",name)
-                try:
-                    print("Image is ",icon_url)
-                    response = requests.get(icon_url, stream=True)
-                    response.raise_for_status()
-                    image = Image.open(response.raw)
-                    image = image.resize((100, 100))
-                    photo = ImageTk.PhotoImage(image)
-                    
-                    icon_label = ctk.CTkLabel(internal_frame, image=photo,text="")
-                    icon_label.image = photo  # Keep a reference to avoid garbage collection
-                    icon_label.pack(anchor='w', padx=10, pady=2,side="left")
-                except Exception as e:
-                    print(f"Failed to load image from {icon_url}: {e}")
-            else:
-                print("Fallback image")
-                image = Image.open("./assets/images/package.png")
+        internal_frame = ctk.CTkFrame(mod_list_frame, width=400, height=110, border_width=5)
+        internal_frame.pack(pady=4, padx=10, anchor='w')
+
+        if icon_url:
+            print("Loading icon url for ", name)
+            try:
+                print("Image is ", icon_url)
+                response = requests.get(icon_url, stream=True)
+                response.raise_for_status()
+                image = Image.open(response.raw)
                 image = image.resize((100, 100))
                 photo = ImageTk.PhotoImage(image)
-                
-                icon_label = ctk.CTkLabel(internal_frame, image=photo,text="")
-                icon_label.image = photo  # Keep a reference to avoid garbage collection
-                icon_label.pack(anchor='w', padx=10, pady=2,side="left")
-        else:
-            label = ctk.CTkLabel(internal_frame, text=mod, text_color="cyan", bg_color="#333333", fg_color="#333333",width=100,height=200)
-            
-        label.pack_propagate(False)
-        
-        label.pack(anchor='w', padx=10, pady=2,side="right")
-        internal_frame.pack(pady=4)
 
+                icon_label = ctk.CTkLabel(internal_frame, image=photo, text="")
+                icon_label.image = photo  # Keep a reference to avoid garbage collection
+                icon_label.pack(anchor='w', padx=10, pady=2, side="left")
+            except Exception as e:
+                print(f"Failed to load image from {icon_url}: {e}")
+                fallback_image(internal_frame)
+        else:
+            fallback_image(internal_frame)
+
+        label_name = ctk.CTkLabel(internal_frame, text=name, text_color="cyan", bg_color="#333333", fg_color="#333333", width=200, height=110)
+        label_name.pack(anchor='w', padx=10, pady=2, side="left")
+
+        delete_button = ctk.CTkButton(internal_frame, text="Delete", command=lambda m=mod_to_decode: delete_mod_file(m,mod_path,json_path))
+        delete_button.pack(anchor='e', padx=10, pady=2, side="right")
+
+def fallback_image(internal_frame):
+    print("Fallback image")
+    image = Image.open("./assets/images/package.png")
+    image = image.resize((100, 100))
+    photo = ImageTk.PhotoImage(image)
+
+    icon_label = ctk.CTkLabel(internal_frame, image=photo, text="")
+    icon_label.image = photo  # Keep a reference to avoid garbage collection
+    icon_label.pack(anchor='w', padx=10, pady=2, side="left")
 class ModFetcherApp(ctk.CTkToplevel):
     def __init__(self, loader, version, server_info):
         super().__init__()

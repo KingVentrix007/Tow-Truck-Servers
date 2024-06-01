@@ -8,3 +8,5 @@ cache.json
 temp_image.png
 *.log
 logs/
+backup
+build
