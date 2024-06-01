@@ -17,7 +17,7 @@ from tkhtmlview import HTMLLabel
 from mods.files import get_mod_name_from_jar,mod_already_installed
 mod_list_frame_g = None
 file_canvas_g = None
-
+current_offset = 0
 def download_image(url, size=(150, 150)):
     response = requests.get(url)
     response.raise_for_status()  # Check if the request was successful
@@ -116,10 +116,9 @@ def mod_clicked(mod_data, frame):
     for widget in frame.winfo_children():
         widget.destroy()
     
-    body_data = apiv2.get_project_data_id(mod_data["project_id"])
-    # print("Clicked mod " + str(body_data))
-    print(body_data["description"])
-    html_body = None#body_data.get("body", None)
+    # body_data = apiv2.get_project_data_id(mod_data["project_id"])
+    # # print("Clicked mod " + str(body_data))
+
     mod_name = mod_data["title"]
     mod_icon_url = mod_data["icon_url"]
     author = mod_data["author"]
@@ -255,10 +254,12 @@ def download_dependencies(dependencies, config, config_path, mod_folder, progres
     label.config(text="All downloads complete!")
     log("Downloaded all dependencies.")
     root.destroy()
-def get_mod_data(query=None,loaders="forge",version="1.19.2"):
+def get_mod_data(query=None,loaders="forge",version="1.19.2",initial_offset=0):
+    global current_offset
+    
     print("Searching,,,")
     # Simulate retrieving data based on the query
-    mod_data_info,ids = apiv2.search_mods_internal(query=query,modloader=loaders,version=version)
+    mod_data_info,ids = apiv2.search_mods_internal(query=query,modloader=loaders,version=version,initial_offset=initial_offset)
     if(len(mod_data_info) <= 0):
         return None
     return mod_data_info
@@ -287,6 +288,11 @@ def display_mod_files(mod_list_frame, mod_path, json_path):
 
     mod_files = [f for f in os.listdir(mod_path) if f.endswith('.jar') or f.endswith('.disabled')]
     log(mod_files)
+    number_of_mods_frame = ctk.CTkFrame(mod_list_frame, width=400, height=110, border_width=5)
+    number_of_mods_frame.pack(pady=4, padx=10, anchor='w')
+    number_of_mods = len(mod_files)
+    number_of_mods_label = ctk.CTkLabel(number_of_mods_frame,text=f"You have {number_of_mods} mods installed")
+    number_of_mods_label.pack(side=ctk.TOP)
     for mod in mod_files:
         mod_to_decode = os.path.join(mod_path, mod)
         mod_name, method, match, decoded_file_name = get_mod_name_from_jar(mod_to_decode)
@@ -356,7 +362,10 @@ class ModFetcherApp(ctk.CTkToplevel):
         
         self.search_button = ctk.CTkButton(self, text="Search", command=self.on_search_clicked)
         self.search_button.pack()
-        
+        self.next_button = ctk.CTkButton(self,text="Next", command=self.next_mods)
+        self.next_button.pack()
+        self.back_button = ctk.CTkButton(self,text="Back", command=self.back_mods)
+        self.back_button.pack()
         # Create two canvases: search_canvas and file_canvas
         self.search_canvas = ctk.CTkCanvas(self)
         self.file_canvas = ctk.CTkCanvas(self)
@@ -410,24 +419,54 @@ class ModFetcherApp(ctk.CTkToplevel):
         self.search_button.configure(state="disabled")
         self.search_entry.configure(state="disabled")
         self.update_mod_data(query)
+    def next_mods(self):
+        global current_offset
+        current_offset = current_offset+20
+        self.search_button.configure(state="disabled")
+        self.search_entry.configure(state="disabled")
+        self.next_button.configure(state="disabled")
+        query = self.search_var.get()
+        self.offset = current_offset
         
-    def update_mod_data(self, query):
-        thread = Thread(target=self.fetch_mod_data, args=(query,))
+        clear_canvas(self.search_frame)
+        print(f"Current offset self.offset == {self.offset}")
+        self.update_mod_data(query=query,offset=self.offset)
+    def back_mods(self):
+        global current_offset
+        current_offset = current_offset-20
+        self.search_button.configure(state="disabled")
+        self.search_entry.configure(state="disabled")
+        self.next_button.configure(state="disabled")
+        query = self.search_var.get()
+        self.offset = current_offset
+        
+        clear_canvas(self.search_frame)
+        print(f"Current offset self.offset == {self.offset}")
+        self.update_mod_data(query=query,offset=self.offset)
+        
+        # search_for_mods(self.server_data, self.search_var.get(), self.search_frame, self.search_button,offset_to_use=current_offset)
+    def update_mod_data(self, query,offset=0):
+        thread = Thread(target=self.fetch_mod_data, args=(query,offset,))
         thread.start()
         
-    def fetch_mod_data(self, query=None):
+    def fetch_mod_data(self, query=None,offset=0):
+        
         self.status_label = ctk.CTkLabel(self.search_frame, text="")
         self.status_label.pack(side=ctk.TOP)        
         self.status_label.configure(text="Searching for mods...")
-        mod_data = get_mod_data(query, self.mod_loader, self.game_version)
+        mod_data = get_mod_data(query, self.mod_loader, self.game_version,offset)
         self.update_ui(mod_data)
         
     def fetch_image_data(self, mod_data):
-        for mod in mod_data:
-            url = mod['icon_url']
-            response = requests.get(url)
-            image_data = BytesIO(response.content)
-            self.image_data[url] = Image.open(image_data).resize((100, 100))
+        try:
+            for mod in mod_data:
+                url = mod['icon_url']
+                
+                response = requests.get(url)
+                image_data = BytesIO(response.content)
+                self.image_data[url] = Image.open(image_data).resize((100, 100))
+        except Exception as e:
+            return None
         
     def update_ui(self, mod_data):
         if(mod_data != None):
@@ -445,13 +484,23 @@ class ModFetcherApp(ctk.CTkToplevel):
                 mod_name = mod['title']
                 author = mod['author']
                 if make_mods_pretty:
-                    icon_url = mod['icon_url']
-                    image = self.image_data[icon_url]
-                    photo = ImageTk.PhotoImage(image)
-                    image_label = ctk.CTkLabel(mod_frame, text="", image=photo)
-                    image_label.image = photo  # Keep a reference to avoid garbage collection
-                    image_label.pack(side="top")  # Align at the top of the frame
-                
+                    try:
+                        icon_url = mod['icon_url']
+                        image = self.image_data[icon_url]
+                    except KeyError:
+                        image = None
+                    if(image != None):
+                        photo = ImageTk.PhotoImage(image)
+                        image_label = ctk.CTkLabel(mod_frame, text="", image=photo)
+                        image_label.image = photo  # Keep a reference to avoid garbage collection
+                        image_label.pack(side="top")  # Align at the top of the frame
+                    else:
+                        image = Image.open("./assets/images/package.png")
+                        image = image.resize((100, 100))
+                        photo = ImageTk.PhotoImage(image)
+                        image_label = ctk.CTkLabel(mod_frame, text="", image=photo)
+                        image_label.image = photo  # Keep a reference to avoid garbage collection
+                        image_label.pack(side="top")  # Align at the top of the frame
                 mod_name_label = ctk.CTkLabel(mod_frame, text=f"Mod Name: {mod_name}", font=('Arial', 12, 'bold'))
                 mod_name_label.pack(side="top")  # Align at the top of the frame
                 
@@ -471,7 +520,7 @@ class ModFetcherApp(ctk.CTkToplevel):
         self.search_canvas.configure(scrollregion=self.search_canvas.bbox("all"))
         self.search_button.configure(state="normal")
         self.search_entry.configure(state="normal")
-
+        self.next_button.configure(state="normal")
     def on_frame_configure_search(self, event):
         self.search_canvas.configure(scrollregion=self.search_canvas.bbox("all"))
     

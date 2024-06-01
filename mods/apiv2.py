@@ -4,6 +4,7 @@ import os
 import json
 import urllib.request
 from config.debug import log
+import re
 max_recursion = 10
 
 number_of_requests_left = -1
@@ -263,4 +264,24 @@ def get_mod_icon(mod_name):
     
 
 
-        
+def validate_url(url):
+    # Regular expression to validate URL structure
+    regex = re.compile(
+        r'^(https?:\/\/)'  # http:// or https://
+        r'((([A-Za-z]{1,3}\d?|[A-Za-z\d-]{1,30}\.[A-Za-z]{2,30})|localhost)'  # domain or localhost
+        r'(:\d{1,5})?)'  # optional port
+        r'(\/[^\s]*)?$'  # path
+    )
+
+    # Check if the URL matches the regex pattern
+    if not regex.match(url):
+        return False
+
+    # Parse the URL to check its components
+    parsed_url = urlparse(url)
+
+    # Ensure the URL uses HTTPS
+    if parsed_url.scheme != 'https':
+        return False
+
+    return True
