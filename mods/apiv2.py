@@ -52,9 +52,10 @@ def search_mods(query,version,modloader):
     return search_mods_internal(query,version,modloader)[0]
 
 
-def search_mods_internal(query,version,modloader,initial_offset=0,found_mods_start=[]):
+def search_mods_internal(query,version,modloader,initial_offset=0):
+    print("search_mods_internal: Searching mods with offset %d" % initial_offset)
     results = []
-    found_mods = found_mods_start
+    found_mods = []
     offset_int = initial_offset
     count = 0
     hits = initial_offset
@@ -66,6 +67,7 @@ def search_mods_internal(query,version,modloader,initial_offset=0,found_mods_sta
                 # log(data["hits"][0])
                 # log(data['total_hits'],data["offset"])
                 total_hits = data['total_hits']
+                print("Offset",data['offset'])
                 for hit in data["hits"]:
                     hits+=1
                     if(hits >= total_hits):
@@ -179,7 +181,7 @@ def get_dependencies_url(dependency,version,loader):
     return None,None
             # log(dep_file)
         # log("\n================================\n")
-def get_download_urls(project_id,version,modloader,first_mod=False):
+def get_download_urls(project_id,version,modloader):
     urls = []
     data = search_project_by_version_and_modloader(project_id,modloader)
     
@@ -188,8 +190,6 @@ def get_download_urls(project_id,version,modloader,first_mod=False):
     correct_versions = find_correct_versions(data,version)
     for correct_version in correct_versions:
         file_data = correct_version["files"]
-        version_name = correct_version["name"]
-        date = correct_version["date_published"]
         version_type = correct_version["version_type"]
         dependencies = correct_version["dependencies"]
         dep_urls_api_internal = []
@@ -262,8 +262,14 @@ def get_mod_icon(mod_name):
         print("e")
         return None,mod_name
     
-
-
+def get_user_data(user_name):
+    url = f"https://api.modrinth.com/v2/user/{user_name}"
+    response = requests.get(url)
+    if response.status_code == 200:
+        return response.json()
+    else:
+        return None
+    # return user_name
 def validate_url(url):
     # Regular expression to validate URL structure
     regex = re.compile(

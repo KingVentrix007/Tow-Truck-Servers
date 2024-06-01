@@ -144,8 +144,16 @@ def mod_clicked(mod_data, frame):
     mod_name_label.grid(row=1, column=0, columnspan=2, padx=10, pady=5, sticky="w")
     
     # Author
+    author_data = apiv2.get_user_data(author)
+    if(author_data is not None):
+        avatar_url = author_data["avatar_url"]
+        if(avatar_url is not None):
+            avatar_url_image = download_image(avatar_url, size=(50, 50))
+            avatar_url_label = ctk.CTkLabel(frame,image=avatar_url_image,text="")
+            avatar_url_label.image = avatar_url_image
+            avatar_url_label.grid(row=2, column=0,columnspan=2, padx=10, pady=5, sticky="w")
     author_label = ctk.CTkLabel(frame, text=f"Author: {author}", font=("Helvetica", 14))
-    author_label.grid(row=2, column=0, columnspan=2, padx=10, pady=5, sticky="w")
+    author_label.grid(row=2, column=1, columnspan=2, padx=0, pady=5, sticky="w")
     
     # Description
     description_label = ctk.CTkLabel(frame, text=description, font=("Helvetica", 12), wraplength=400, justify="left")
@@ -359,13 +367,15 @@ class ModFetcherApp(ctk.CTkToplevel):
         
         self.search_entry = ctk.CTkEntry(self, textvariable=self.search_var)
         self.search_entry.pack(pady=10)
+        self.search_bar = ctk.CTkFrame(self)
+        self.search_button = ctk.CTkButton(self.search_bar, text="Search", command=self.on_search_clicked)
         
-        self.search_button = ctk.CTkButton(self, text="Search", command=self.on_search_clicked)
-        self.search_button.pack()
-        self.next_button = ctk.CTkButton(self,text="Next", command=self.next_mods)
-        self.next_button.pack()
-        self.back_button = ctk.CTkButton(self,text="Back", command=self.back_mods)
-        self.back_button.pack()
+        self.next_button = ctk.CTkButton(self.search_bar,text="Next", command=self.next_mods)
+        self.next_button.pack(side=ctk.LEFT,padx=2)
+        self.search_button.pack(side=ctk.LEFT,padx=2)
+        self.back_button = ctk.CTkButton(self.search_bar,text="Back", command=self.back_mods)
+        self.back_button.pack(side=ctk.LEFT,padx=2)
+        self.search_bar.pack()
         # Create two canvases: search_canvas and file_canvas
         self.search_canvas = ctk.CTkCanvas(self)
         self.file_canvas = ctk.CTkCanvas(self)
@@ -411,6 +421,7 @@ class ModFetcherApp(ctk.CTkToplevel):
         
         mod_path = os.path.normpath(os.path.join(server_info["path"], "mods"))
         json_path = os.path.join(server_info["path"], "towtruckconfig.json")
+        self.on_search_clicked()
         display_files_thread = Thread(target=display_mod_files, args=(self.file_frame, mod_path, json_path))
         display_files_thread.start()
         
@@ -418,6 +429,9 @@ class ModFetcherApp(ctk.CTkToplevel):
         query = self.search_var.get()
         self.search_button.configure(state="disabled")
         self.search_entry.configure(state="disabled")
+        self.next_button.configure(state="disabled")
+        self.back_button.configure(state="disabled")
+        
         self.update_mod_data(query)
     def next_mods(self):
         global current_offset
@@ -425,6 +439,7 @@ class ModFetcherApp(ctk.CTkToplevel):
         self.search_button.configure(state="disabled")
         self.search_entry.configure(state="disabled")
         self.next_button.configure(state="disabled")
+        self.back_button.configure(state="disabled")
         query = self.search_var.get()
         self.offset = current_offset
         
@@ -437,6 +452,7 @@ class ModFetcherApp(ctk.CTkToplevel):
         self.search_button.configure(state="disabled")
         self.search_entry.configure(state="disabled")
         self.next_button.configure(state="disabled")
+        self.back_button.configure(state="disabled")
         query = self.search_var.get()
         self.offset = current_offset
         
@@ -454,6 +470,7 @@ class ModFetcherApp(ctk.CTkToplevel):
         self.status_label = ctk.CTkLabel(self.search_frame, text="")
         self.status_label.pack(side=ctk.TOP)        
         self.status_label.configure(text="Searching for mods...")
+        print("Searching for mods with offset %d...", offset)
         mod_data = get_mod_data(query, self.mod_loader, self.game_version,offset)
         self.update_ui(mod_data)
         
@@ -478,7 +495,7 @@ class ModFetcherApp(ctk.CTkToplevel):
                 widget.destroy()
             
             for mod in mod_data:
-                mod_frame = ctk.CTkFrame(self.search_frame, border_width=2, border_color="grey")
+                mod_frame = ctk.CTkFrame(self.search_frame, border_width=2, border_color="grey",height=100)
                 mod_frame.pack(padx=10, pady=5, fill=ctk.BOTH, expand=True)  # Expands vertically to fill extra space
                 
                 mod_name = mod['title']
@@ -501,10 +518,10 @@ class ModFetcherApp(ctk.CTkToplevel):
                         image_label = ctk.CTkLabel(mod_frame, text="", image=photo)
                         image_label.image = photo  # Keep a reference to avoid garbage collection
                         image_label.pack(side="top")  # Align at the top of the frame
-                mod_name_label = ctk.CTkLabel(mod_frame, text=f"Mod Name: {mod_name}", font=('Arial', 12, 'bold'))
+                mod_name_label = ctk.CTkLabel(mod_frame, text=f"{mod_name}", font=('Arial', 12, 'bold'))
                 mod_name_label.pack(side="top")  # Align at the top of the frame
                 
-                author_label = ctk.CTkLabel(mod_frame, text=f"Author: {author}", font=('Arial', 10, 'italic'))
+                author_label = ctk.CTkLabel(mod_frame, text=f"By: {author}", font=('Arial', 10, 'italic'))
                 author_label.pack(side="top")  # Align at the top of the frame
                 
                 download_button = ctk.CTkButton(
@@ -521,6 +538,7 @@ class ModFetcherApp(ctk.CTkToplevel):
         self.search_button.configure(state="normal")
         self.search_entry.configure(state="normal")
         self.next_button.configure(state="normal")
+        self.back_button.configure(state="normal")
     def on_frame_configure_search(self, event):
         self.search_canvas.configure(scrollregion=self.search_canvas.bbox("all"))
     
