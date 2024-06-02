@@ -277,17 +277,17 @@ def clear_canvas(canvas):
     for widget in canvas.winfo_children():
         widget.destroy()
 
-def delete_mod_file(mod_file_path,mod_path,json_path):
+def delete_mod_file(mod_file_path,mod_path,json_path,add_content):
     global mod_list_frame_g
     try:
         os.remove(mod_file_path)
         log(f"Deleted {mod_file_path}")
         # Refresh the mod list after deletion
-        display_mod_files(mod_list_frame_g, mod_path, json_path)
+        display_mod_files(mod_list_frame_g, mod_path, json_path,add_content)
     except Exception as e:
         log(f"Failed to delete {mod_file_path}: {e}")
 
-def display_mod_files(mod_list_frame, mod_path, json_path):
+def display_mod_files(mod_list_frame, mod_path, json_path,add_content):
     global mod_list_frame_g
     mod_list_frame_g = mod_list_frame
 
@@ -300,7 +300,9 @@ def display_mod_files(mod_list_frame, mod_path, json_path):
     number_of_mods_frame.pack(pady=4, padx=10, anchor='w')
     number_of_mods = len(mod_files)
     number_of_mods_label = ctk.CTkLabel(number_of_mods_frame,text=f"You have {number_of_mods} mods installed")
-    number_of_mods_label.pack(side=ctk.TOP)
+    number_of_mods_label.pack(side=ctk.LEFT,padx=10)
+    add_content_button = ctk.CTkButton(number_of_mods_frame,text="Add Content",command=add_content)
+    add_content_button.pack(side=ctk.LEFT,padx=10)
     for mod in mod_files:
         mod_to_decode = os.path.join(mod_path, mod)
         mod_name, method, match, decoded_file_name = get_mod_name_from_jar(mod_to_decode)
@@ -342,7 +344,7 @@ def display_mod_files(mod_list_frame, mod_path, json_path):
         label_name = ctk.CTkLabel(internal_frame, text=name, text_color="cyan", bg_color="#333333", fg_color="#333333", width=200, height=110)
         label_name.pack(anchor='w', padx=10, pady=2, side="left")
 
-        delete_button = ctk.CTkButton(internal_frame, text="Delete", command=lambda m=mod_to_decode: delete_mod_file(m,mod_path,json_path))
+        delete_button = ctk.CTkButton(internal_frame, text="Delete", command=lambda m=mod_to_decode: delete_mod_file(m,mod_path,json_path,add_content))
         delete_button.pack(anchor='e', padx=10, pady=2, side="right")
 
 def fallback_image(internal_frame):
@@ -360,72 +362,84 @@ class ModFetcherApp(ctk.CTkToplevel):
         global file_canvas_g
         self.title("Mod Fetcher")
         self.geometry("1088x500")  #
-        self.minsize(width=1088, height=500)#ncreased width to accommodate two frames side by side
+        self.minsize(width=1088, height=500) #Increased width to accommodate two frames side by side
         self.mod_loader = loader
         self.game_version = version
         self.server_data = server_info
         self.search_var = tk.StringVar()
+
         
-        self.search_entry = ctk.CTkEntry(self, textvariable=self.search_var)
-        self.search_entry.pack(pady=10)
-        self.search_bar = ctk.CTkFrame(self)
-        self.search_button = ctk.CTkButton(self.search_bar, text="Search", command=self.on_search_clicked)
-        
-        self.next_button = ctk.CTkButton(self.search_bar,text="Next", command=self.next_mods)
-        self.next_button.pack(side=ctk.LEFT,padx=2)
-        self.search_button.pack(side=ctk.LEFT,padx=2)
-        self.back_button = ctk.CTkButton(self.search_bar,text="Back", command=self.back_mods)
-        self.back_button.pack(side=ctk.LEFT,padx=2)
-        self.search_bar.pack()
-        # Create two canvases: search_canvas and file_canvas
-        self.search_canvas = ctk.CTkCanvas(self)
-        self.file_canvas = ctk.CTkCanvas(self)
-        file_canvas_g = self.file_canvas
+        self.mod_path = os.path.normpath(os.path.join(server_info["path"], "mods"))
+        self.json_path = os.path.join(server_info["path"], "towtruckconfig.json")
+        # self.on_search_clicked()
+        self.setup_display()
+        self.display_page_1()
+
+    def setup_display(self):
+        clear_canvas(self)
+        global file_canvas_g
+        self.main_canvas = ctk.CTkCanvas(self) # Keep
+        file_canvas_g = self.main_canvas
         # self.mod_view_canvas = ctk.CTkCanvas(self)
 
         # Create frames within the canvases
-        self.search_frame = ctk.CTkFrame(self.search_canvas)
-        self.file_frame = ctk.CTkFrame(self.file_canvas)
+        # self.search_frame = ctk.CTkFrame(self.search_canvas)
+        self.main_frame = ctk.CTkFrame(self.main_canvas) # Keep
         # self.mod_view_frame = ctk.CTkFrame(self.mod_view_canvas)
         # Create scrollbars for each canvas
-        self.search_scrollbar = ctk.CTkScrollbar(self, orientation="vertical", command=self.search_canvas.yview)
-        self.file_scrollbar = ctk.CTkScrollbar(self, orientation="vertical", command=self.file_canvas.yview)
+        # self.search_scrollbar = ctk.CTkScrollbar(self, orientation="vertical", command=self.search_canvas.yview)
+        self.main_scrollbar = ctk.CTkScrollbar(self, orientation="vertical", command=self.main_canvas.yview) # Keep
         # self.mod_view_scrollbar = ctk.CTkScrollbar(self, orientation="vertical", command=self.mod_view_canvas.yview)
 
-        self.search_canvas.configure(yscrollcommand=self.search_scrollbar.set, bg=default_color, borderwidth=5)
-        self.file_canvas.configure(yscrollcommand=self.file_scrollbar.set, bg=default_color, borderwidth=5)
+        # self.search_canvas.configure(yscrollcommand=self.search_scrollbar.set, bg=default_color, borderwidth=5)
+        self.main_canvas.configure(yscrollcommand=self.main_scrollbar.set, bg=default_color, borderwidth=5) # Keep
         # self.mod_view_canvas.configure(yscrollcommand=self.mod_view_scrollbar.set,bg=default_color,background=default_color, borderwidth=5)
         # Pack the scrollbars and canvases
-        self.search_scrollbar.pack(side="right", fill="y")
-        self.search_canvas.pack(side="right", fill="both", expand=True)
+        # self.search_scrollbar.pack(side="right", fill="y")
+        # self.search_canvas.pack(side="right", fill="both", expand=True)
         
 
-        self.file_canvas.pack(side="left", fill="both", expand=True)
-        self.file_scrollbar.pack(side="left", fill="y")
+        self.main_canvas.pack(side=ctk.LEFT, fill="both", expand=True) # Keep
+        self.main_scrollbar.pack(side=ctk.RIGHT, fill="y") # Keep
         
         # self.mod_view_scrollbar.pack(side="right", fill="y")
         # self.mod_view_canvas.pack(side="right", fill="both", expand=True)
        
         # Add frames to their respective canvases
-        self.search_canvas.create_window((0, 0), window=self.search_frame, anchor="nw")
-        self.file_canvas.create_window((0, 0), window=self.file_frame, anchor="nw")
+        # self.search_canvas.create_window((0, 0), window=self.search_frame, anchor="nw")
+        self.main_canvas.create_window((0, 0), window=self.main_frame, anchor="nw") # Keep
         # self.mod_view_canvas.create_window((0, 0),window=self.mod_view_frame,anchor="nw")
 
-        self.search_frame.bind("<Configure>", self.on_frame_configure_search)
-        self.file_frame.bind("<Configure>", self.on_frame_configure_file)
+        # self.search_frame.bind("<Configure>", self.on_frame_configure_search)
+        self.main_frame.bind("<Configure>", self.on_frame_configure_file) # Keep
         # self.mod_view_frame.bind("<Configure>", self.on_frame_configure_mod)
         
         # Dictionary to store image data
         self.image_data = {}
-        # self.status_label = ctk.CTkLabel(self.search_frame, text="")
-        # self.status_label.pack(side=ctk.TOP)
-        
-        mod_path = os.path.normpath(os.path.join(server_info["path"], "mods"))
-        json_path = os.path.join(server_info["path"], "towtruckconfig.json")
-        self.on_search_clicked()
-        display_files_thread = Thread(target=display_mod_files, args=(self.file_frame, mod_path, json_path))
+    def display_page_1(self): # Displays the installed mods and some other info
+        # clear_canvas(self.main_canvas)
+        self.setup_display()
+
+        display_files_thread = Thread(target=display_mod_files, args=(self.main_frame, self.mod_path, self.json_path,self.display_page_2))
         display_files_thread.start()
-    
+    def display_page_2(self): # Displays the search mods page
+        # clear_canvas(self.main_canvas)
+        self.setup_display()
+        self.search_bar = ctk.CTkFrame(self)
+        self.search_button = ctk.CTkButton(self.search_bar, text="Search", command=self.on_search_clicked)
+        self.search_entry = ctk.CTkEntry(self, textvariable=self.search_var)
+        self.search_entry.pack(pady=10,fill=ctk.X)
+        self.next_button = ctk.CTkButton(self.search_bar,text="Next", command=self.next_mods)
+        self.next_button.pack(side=ctk.LEFT,padx=2)
+        self.search_button.pack(side=ctk.LEFT,padx=2)
+        self.back_button = ctk.CTkButton(self.search_bar,text="Back", command=self.back_mods)
+        self.back_button.pack(side=ctk.LEFT,padx=2)
+        # self.main_canvas.create_window((0, 0), window=self.main_frame, anchor="nw") # Keep
+
+        self.search_bar.pack(side=ctk.TOP)
+        self.on_search_clicked()
+# 
+        # self.update_ui()
     def on_search_clicked(self):
         query = self.search_var.get()
         self.search_button.configure(state="disabled")
@@ -468,7 +482,7 @@ class ModFetcherApp(ctk.CTkToplevel):
         
     def fetch_mod_data(self, query=None,offset=0):
         
-        self.status_label = ctk.CTkLabel(self.search_frame, text="")
+        self.status_label = ctk.CTkLabel(self.main_frame, text="")
         self.status_label.pack(side=ctk.TOP)        
         self.status_label.configure(text="Searching for mods...")
         print("Searching for mods with offset %d...", offset)
@@ -492,11 +506,11 @@ class ModFetcherApp(ctk.CTkToplevel):
                 self.status_label.configure(text="Prettifying output...")
                 self.fetch_image_data(mod_data)
 
-            for widget in self.search_frame.winfo_children():
+            for widget in self.main_frame.winfo_children():
                 widget.destroy()
 
             for mod in mod_data:
-                mod_frame = ctk.CTkFrame(self.search_frame, border_width=2, border_color="grey", height=200, width=200)
+                mod_frame = ctk.CTkFrame(self.main_frame, border_width=2, border_color="grey", height=200)
                 mod_frame.pack(padx=10, pady=5, fill=ctk.BOTH, expand=True)
 
                 mod_name = mod['title']
@@ -530,10 +544,10 @@ class ModFetcherApp(ctk.CTkToplevel):
                 author_label = ctk.CTkLabel(mod_frame, text=f"By: {author}", font=('Arial', 12, 'italic'))
                 author_label.grid(row=1, column=1, columnspan=2, sticky='w')
 
-                description_label = ctk.CTkLabel(mod_frame, text=f"{description}", font=('Arial', 12),wraplength=300)
+                description_label = ctk.CTkLabel(mod_frame, text=f"{description}", font=('Arial', 12),wraplength=400)
                 description_label.grid(row=2, column=1, columnspan=2, sticky='w')
 
-                categories_label = ctk.CTkLabel(mod_frame, text=f"Categories: {categories}", font=('Arial', 12),wraplength=300)
+                categories_label = ctk.CTkLabel(mod_frame, text=f"Categories: {categories}", font=('Arial', 12),wraplength=400)
                 categories_label.grid(row=3, column=1, columnspan=2, sticky='w')
 
                 info_label = ctk.CTkLabel(mod_frame, text=f"Downloads: {downloads} | Follows: {follows} | Last Modified: {date_modified}", font=('Arial', 12))
@@ -552,7 +566,7 @@ class ModFetcherApp(ctk.CTkToplevel):
         else:
             self.status_label.configure(text="No results found")
 
-        self.search_canvas.configure(scrollregion=self.search_canvas.bbox("all"))
+        # self.search_canvas.configure(scrollregion=self.search_canvas.bbox("all"))
         self.search_button.configure(state="normal")
         self.search_entry.configure(state="normal")
         self.next_button.configure(state="normal")
@@ -563,11 +577,7 @@ class ModFetcherApp(ctk.CTkToplevel):
         self.search_canvas.configure(scrollregion=self.search_canvas.bbox("all"))
     
     def on_frame_configure_file(self, event):
-        self.file_canvas.configure(scrollregion=self.file_canvas.bbox("all"))
-    def on_frame_configure_mod(self, event):
-        self.mod_view_canvas.configure(scrollregion=self.mod_view_canvas.bbox("all"))
-
-
+        self.main_canvas.configure(scrollregion=self.main_canvas.bbox("all")) # Keep
 
 def mod_menu(server_info):
     mod_loader = server_info["modloader"]
