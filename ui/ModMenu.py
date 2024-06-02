@@ -359,7 +359,8 @@ class ModFetcherApp(ctk.CTkToplevel):
         super().__init__()
         global file_canvas_g
         self.title("Mod Fetcher")
-        self.geometry("800x400")  # Increased width to accommodate two frames side by side
+        self.geometry("1088x500")  #
+        self.minsize(width=1088, height=500)#ncreased width to accommodate two frames side by side
         self.mod_loader = loader
         self.game_version = version
         self.server_data = server_info
@@ -380,20 +381,20 @@ class ModFetcherApp(ctk.CTkToplevel):
         self.search_canvas = ctk.CTkCanvas(self)
         self.file_canvas = ctk.CTkCanvas(self)
         file_canvas_g = self.file_canvas
-        self.mod_view_canvas = ctk.CTkCanvas(self)
+        # self.mod_view_canvas = ctk.CTkCanvas(self)
 
         # Create frames within the canvases
         self.search_frame = ctk.CTkFrame(self.search_canvas)
         self.file_frame = ctk.CTkFrame(self.file_canvas)
-        self.mod_view_frame = ctk.CTkFrame(self.mod_view_canvas)
+        # self.mod_view_frame = ctk.CTkFrame(self.mod_view_canvas)
         # Create scrollbars for each canvas
         self.search_scrollbar = ctk.CTkScrollbar(self, orientation="vertical", command=self.search_canvas.yview)
         self.file_scrollbar = ctk.CTkScrollbar(self, orientation="vertical", command=self.file_canvas.yview)
-        self.mod_view_scrollbar = ctk.CTkScrollbar(self, orientation="vertical", command=self.mod_view_canvas.yview)
+        # self.mod_view_scrollbar = ctk.CTkScrollbar(self, orientation="vertical", command=self.mod_view_canvas.yview)
 
         self.search_canvas.configure(yscrollcommand=self.search_scrollbar.set, bg=default_color, borderwidth=5)
         self.file_canvas.configure(yscrollcommand=self.file_scrollbar.set, bg=default_color, borderwidth=5)
-        self.mod_view_canvas.configure(yscrollcommand=self.mod_view_scrollbar.set,bg=default_color,background=default_color, borderwidth=5)
+        # self.mod_view_canvas.configure(yscrollcommand=self.mod_view_scrollbar.set,bg=default_color,background=default_color, borderwidth=5)
         # Pack the scrollbars and canvases
         self.search_scrollbar.pack(side="right", fill="y")
         self.search_canvas.pack(side="right", fill="both", expand=True)
@@ -402,17 +403,17 @@ class ModFetcherApp(ctk.CTkToplevel):
         self.file_canvas.pack(side="left", fill="both", expand=True)
         self.file_scrollbar.pack(side="left", fill="y")
         
-        self.mod_view_scrollbar.pack(side="right", fill="y")
-        self.mod_view_canvas.pack(side="right", fill="both", expand=True)
+        # self.mod_view_scrollbar.pack(side="right", fill="y")
+        # self.mod_view_canvas.pack(side="right", fill="both", expand=True)
        
         # Add frames to their respective canvases
         self.search_canvas.create_window((0, 0), window=self.search_frame, anchor="nw")
         self.file_canvas.create_window((0, 0), window=self.file_frame, anchor="nw")
-        self.mod_view_canvas.create_window((0, 0),window=self.mod_view_frame,anchor="nw")
+        # self.mod_view_canvas.create_window((0, 0),window=self.mod_view_frame,anchor="nw")
 
         self.search_frame.bind("<Configure>", self.on_frame_configure_search)
         self.file_frame.bind("<Configure>", self.on_frame_configure_file)
-        self.mod_view_frame.bind("<Configure>", self.on_frame_configure_mod)
+        # self.mod_view_frame.bind("<Configure>", self.on_frame_configure_mod)
         
         # Dictionary to store image data
         self.image_data = {}
@@ -424,7 +425,7 @@ class ModFetcherApp(ctk.CTkToplevel):
         self.on_search_clicked()
         display_files_thread = Thread(target=display_mod_files, args=(self.file_frame, mod_path, json_path))
         display_files_thread.start()
-        
+    
     def on_search_clicked(self):
         query = self.search_var.get()
         self.search_button.configure(state="disabled")
@@ -486,59 +487,78 @@ class ModFetcherApp(ctk.CTkToplevel):
             return None
         
     def update_ui(self, mod_data):
-        if(mod_data != None):
+        if mod_data is not None:
             if make_mods_pretty:
                 self.status_label.configure(text="Prettifying output...")
                 self.fetch_image_data(mod_data)
-            
+
             for widget in self.search_frame.winfo_children():
                 widget.destroy()
-            
+
             for mod in mod_data:
-                mod_frame = ctk.CTkFrame(self.search_frame, border_width=2, border_color="grey",height=100)
-                mod_frame.pack(padx=10, pady=5, fill=ctk.BOTH, expand=True)  # Expands vertically to fill extra space
-                
+                mod_frame = ctk.CTkFrame(self.search_frame, border_width=2, border_color="grey", height=200, width=200)
+                mod_frame.pack(padx=10, pady=5, fill=ctk.BOTH, expand=True)
+
                 mod_name = mod['title']
                 author = mod['author']
+                description = mod.get('description', 'No description available')
+                categories = ", ".join(mod["display_categories"])
+                downloads = mod["downloads"]
+                follows = mod["follows"]
+                date_modified = mod["date_modified"]
+
                 if make_mods_pretty:
                     try:
                         icon_url = mod['icon_url']
                         image = self.image_data[icon_url]
                     except KeyError:
                         image = None
-                    if(image != None):
+                    if image is not None:
                         photo = ImageTk.PhotoImage(image)
-                        image_label = ctk.CTkLabel(mod_frame, text="", image=photo)
-                        image_label.image = photo  # Keep a reference to avoid garbage collection
-                        image_label.pack(side="top")  # Align at the top of the frame
                     else:
                         image = Image.open("./assets/images/package.png")
                         image = image.resize((100, 100))
                         photo = ImageTk.PhotoImage(image)
-                        image_label = ctk.CTkLabel(mod_frame, text="", image=photo)
-                        image_label.image = photo  # Keep a reference to avoid garbage collection
-                        image_label.pack(side="top")  # Align at the top of the frame
-                mod_name_label = ctk.CTkLabel(mod_frame, text=f"{mod_name}", font=('Arial', 12, 'bold'))
-                mod_name_label.pack(side="top")  # Align at the top of the frame
-                
-                author_label = ctk.CTkLabel(mod_frame, text=f"By: {author}", font=('Arial', 10, 'italic'))
-                author_label.pack(side="top")  # Align at the top of the frame
-                
+
+                    image_label = ctk.CTkLabel(mod_frame, text="", image=photo)
+                    image_label.image = photo  # Keep a reference to avoid garbage collection
+                    image_label.grid(row=0, column=0, rowspan=6, padx=5, pady=5, sticky='n')  # Position at the top left
+
+                mod_name_label = ctk.CTkLabel(mod_frame, text=f"{mod_name}", font=('Arial', 14, 'bold'))
+                mod_name_label.grid(row=0, column=1, columnspan=2, sticky='w')
+
+                author_label = ctk.CTkLabel(mod_frame, text=f"By: {author}", font=('Arial', 12, 'italic'))
+                author_label.grid(row=1, column=1, columnspan=2, sticky='w')
+
+                description_label = ctk.CTkLabel(mod_frame, text=f"{description}", font=('Arial', 12),wraplength=300)
+                description_label.grid(row=2, column=1, columnspan=2, sticky='w')
+
+                categories_label = ctk.CTkLabel(mod_frame, text=f"Categories: {categories}", font=('Arial', 12),wraplength=300)
+                categories_label.grid(row=3, column=1, columnspan=2, sticky='w')
+
+                info_label = ctk.CTkLabel(mod_frame, text=f"Downloads: {downloads} | Follows: {follows} | Last Modified: {date_modified}", font=('Arial', 12))
+                info_label.grid(row=4, column=0, columnspan=2, sticky='w', padx=5, pady=5)
+
                 download_button = ctk.CTkButton(
                     mod_frame,
                     text="Download",
-                    font=('Arial', 10, 'bold'),
+                    font=('Arial', 12, 'bold'),
                     command=lambda m=mod: download_mod(mod_data=m, server_info=self.server_data)
                 )
-                download_button.pack(side="top")  # Align at the top of the frame
-                mod_frame.bind("<Button-1>", lambda event, m=mod: mod_clicked_thread(mod_data=m,frame=self.mod_view_frame))
+                download_button.grid(row=5, column=0, columnspan=2, sticky='w', padx=10)
+
+                mod_frame.grid_columnconfigure(2, weight=1)  # Ensure column 2 takes up extra space
+
         else:
             self.status_label.configure(text="No results found")
+
         self.search_canvas.configure(scrollregion=self.search_canvas.bbox("all"))
         self.search_button.configure(state="normal")
         self.search_entry.configure(state="normal")
         self.next_button.configure(state="normal")
         self.back_button.configure(state="normal")
+
+
     def on_frame_configure_search(self, event):
         self.search_canvas.configure(scrollregion=self.search_canvas.bbox("all"))
     
